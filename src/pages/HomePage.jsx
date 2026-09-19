@@ -1,10 +1,9 @@
 import React from 'react'
 import Hero             from '../components/sections/Hero'
+import HeroSequence     from '../components/sections/HeroSequence'
 import About            from '../components/sections/About'
 import Services         from '../components/sections/Services'
-import TechGlobeSection from '../components/sections/TechGlobeSection'
 import StatsCounter     from '../components/sections/StatsCounter'
-import MarqueeSection   from '../components/sections/MarqueeSection'
 import Team             from '../components/sections/Team'
 import Testimonials     from '../components/sections/Testimonials'
 import FAQ              from '../components/sections/FAQ'
@@ -12,8 +11,8 @@ import CTA              from '../components/sections/CTA'
 
 /**
  * Home page order follows the questions a prospect actually asks, in order:
- * who are you (01–02) → what do you do (03–04) → does it work (05–06) →
- * who would I work with (07) → do others trust you (08) → what about… (09)
+ * who are you (01–02) → what do you do (03) → does it work (04) →
+ * who would I work with (05) → do others trust you (06) → what about… (07)
  * → and then the ask.
  *
  * Team, FAQ and the closing CTA were built but never mounted here; the page
@@ -22,15 +21,15 @@ import CTA              from '../components/sections/CTA'
 export default function HomePage() {
   return (
     <>
-      <Hero />              {/* 01 */}
+      <HeroSequence>
+        <Hero layered />    {/* 01 */}
+      </HeroSequence>
       <About />             {/* 02 */}
       <Services />          {/* 03 */}
-      <TechGlobeSection />  {/* 04 */}
-      <StatsCounter />      {/* 05 */}
-      <MarqueeSection />    {/* 06 */}
-      <Team />              {/* 07 */}
-      <Testimonials />      {/* 08 */}
-      <FAQ />               {/* 09 */}
+      <StatsCounter />      {/* 04 */}
+      <Team />              {/* 05 */}
+      <Testimonials />      {/* 06 */}
+      <FAQ />               {/* 07 */}
       <CTA />
     </>
   )

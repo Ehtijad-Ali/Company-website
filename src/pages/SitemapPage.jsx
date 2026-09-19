@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
-import { ArrowUpRight, Home, Info, Briefcase, FolderOpen, Users, BookOpen, Shield, FileText, Cookie, Map } from 'lucide-react'
+import { ArrowUpRight, Home, Info, Briefcase, FolderOpen, GraduationCap, Users, BookOpen, Shield, FileText, Cookie, Map } from 'lucide-react'
 
 const SITEMAP = [
   {
@@ -17,8 +17,9 @@ const SITEMAP = [
     section: 'Work',
     color: 'var(--accent)',
     pages: [
-      { icon: Briefcase,  label: 'Services',   path: '/services',  desc: 'The full scope of what we offer — from web development to AI/ML to cybersecurity.' },
+      { icon: Briefcase,  label: 'Services',   path: '/services',  desc: 'The full scope of what we offer, from web development to AI/ML to cybersecurity.' },
       { icon: FolderOpen, label: 'Portfolio',  path: '/portfolio', desc: 'Selected case studies, project outcomes, and the impact we have delivered for clients.' },
+      { icon: GraduationCap, label: 'Courses', path: '/services#courses', desc: 'Three-month mentored courses, each with its month-by-month plan published before you pay.' },
     ],
   },
   {
@@ -32,7 +33,7 @@ const SITEMAP = [
     section: 'Legal',
     color: 'var(--accent)',
     pages: [
-      { icon: Shield,     label: 'Privacy Policy', path: '/privacy',  desc: 'How we collect, use, and protect your personal data — written in plain language.' },
+      { icon: Shield,     label: 'Privacy Policy', path: '/privacy',  desc: 'How we collect, use, and protect your personal data, written in plain language.' },
       { icon: FileText,   label: 'Terms of Service', path: '/terms', desc: 'The rules of engagement: deliverables, payments, IP ownership, and liability.' },
       { icon: Cookie,     label: 'Cookie Policy', path: '/cookies',  desc: 'A complete list of every cookie this site may set, with opt-out instructions.' },
       { icon: Map,        label: 'Sitemap',    path: '/sitemap',   desc: 'You are here. A structured overview of every page on the CodeNode website.' },
@@ -191,7 +192,7 @@ export default function SitemapPage() {
               color: 'var(--text-primary)', lineHeight: 1.1, marginBottom: '1rem',
             }}>Every page, <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--brand)' }}>one place</em></h1>
             <p className="section-sub" style={{ maxWidth: '52ch' }}>
-              A structured overview of the CodeNode website. Use this to find exactly what you are looking for — or to get a bird's-eye view of everything we offer.
+              A structured overview of the CodeNode website. Use this to find exactly what you are looking for, or to get a bird's-eye view of everything we offer.
             </p>
           </motion.div>
         </div>

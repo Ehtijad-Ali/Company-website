@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ChevronDown, Mail } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { E } from '../lib/motion'
 
-const E = [0.22, 1, 0.36, 1]
 
 function SectionBlock({ section, i, onInView }) {
   const ref = useRef(null)
@@ -250,7 +250,7 @@ export default function LegalLayout({ badge, title, tagline, updated, number, se
                   <a href="mailto:legal@codenode.io" className="tap" style={{ color: 'var(--brand)', textDecoration: 'underline', textUnderlineOffset: '3px', wordBreak: 'break-word' }}>
                     legal@codenode.io
                   </a>{' '}
-                  — we aim to respond within two business days.
+                  and we aim to respond within two business days.
                 </p>
               </div>
             </div>

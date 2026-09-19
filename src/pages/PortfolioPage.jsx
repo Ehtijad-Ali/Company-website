@@ -59,7 +59,7 @@ export default function PortfolioPage() {
             num="01"
             label="Portfolio"
             title={[{ t: 'Work we can ' }, { t: 'point at', em: true }]}
-            subtitle="Selected engagements across fintech, health, e-commerce and SaaS — each with the outcome it was measured on."
+            subtitle="Selected engagements across fintech, health, e-commerce and SaaS, each with the outcome it was measured on."
             as="h1"
             className="mb-12"
           />
@@ -397,8 +397,8 @@ function ProjectTimeline() {
 /* ── Section 4: Start Your Project CTA ───────────────────────────────── */
 
 const HOW_IT_WORKS = [
-  { icon: MessageSquare, step: '01', title: 'Book a Discovery Call', desc: '30 minutes. No sales pitch — just an honest conversation about your goals and what\'s possible.' },
-  { icon: Layers,        step: '02', title: 'Get a Tailored Proposal', desc: 'Scope, timeline, and investment — specific to your project, not a copy-paste template.' },
+  { icon: MessageSquare, step: '01', title: 'Book a Discovery Call', desc: '30 minutes. No sales pitch, just an honest conversation about your goals and what\'s possible.' },
+  { icon: Layers,        step: '02', title: 'Get a Tailored Proposal', desc: 'Scope, timeline, and investment, specific to your project, not a copy-paste template.' },
   { icon: Rocket,        step: '03', title: 'We Build & You Ship', desc: 'Kick off within a week. Weekly demos, full transparency, and a product you\'re proud of at the end.' },
 ]
 

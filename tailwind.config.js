@@ -7,11 +7,11 @@ export default {
       fontFamily: {
         /* Editorial serif for display, quiet grotesque for text.
            `syne` / `nasalization` are legacy aliases still used in markup. */
-        display:      ['"Playfair Display"', 'Georgia', 'serif'],
+        display:      ['Chronicle Display', 'Newsreader', 'Georgia', 'serif'],
         body:         ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
-        brand:        ['Nasalization', '"Playfair Display"', 'serif'],
-        syne:         ['"Playfair Display"', 'Georgia', 'serif'],
-        nasalization: ['Nasalization', '"Playfair Display"', 'serif'],
+        brand:        ['Nasalization', 'Newsreader', 'serif'],
+        syne:         ['Chronicle Display', 'Newsreader', 'Georgia', 'serif'],
+        nasalization: ['Nasalization', 'Newsreader', 'serif'],
         inter:        ['Inter', '-apple-system', 'sans-serif'],
         mono:         ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },

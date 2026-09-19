@@ -1,50 +1,77 @@
-import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useId, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowUp, Send, Linkedin, Twitter, Github, Instagram, Dribbble } from 'lucide-react'
-import { useContact } from '../../context/ContactContext'
+import { ArrowUp, ChevronDown, Send, Linkedin, Twitter, Github, Instagram, Dribbble } from 'lucide-react'
 import CodeNodeLogo from '../CodeNodeLogo'
 
 const NAV = {
-  Company:  [['About',     '/about'],['Team','/team'],['Portfolio','/portfolio'],['Careers','#'],['Blog','/blog']],
-  Services: [['Web Dev',   '/services'],['Mobile Apps','/services'],['UI/UX','/services'],['AI & ML','/services'],['Marketing','/services']],
+  Company:  [['About',     '/about'],['Team','/team'],['Portfolio','/portfolio'],['Careers','/contact'],['Blog','/blog']],
+  Services: [['Web Dev',   '/services'],['Mobile Apps','/services'],['UI/UX','/services'],['AI & ML','/services'],['Marketing','/services'],['Courses','/services#courses']],
   Legal:    [['Privacy',   '/privacy'],['Terms','/terms'],['Cookies','/cookies'],['Sitemap','/sitemap']],
 }
 const SOCIALS = [[Linkedin,'LinkedIn'],[Twitter,'Twitter'],[Github,'GitHub'],[Instagram,'Instagram'],[Dribbble,'Dribbble']]
 
+/**
+ * One footer link group.
+ *
+ * Below `lg` the three groups stacked into twenty-odd links of dead scroll
+ * between the newsletter and the copyright, so on small screens each group
+ * collapses behind its own heading and the whole footer fits a thumb's
+ * reach. From `lg` the button stops responding (`pointer-events-none`) and
+ * the list is forced open, so the desktop column layout is unchanged and
+ * never depends on component state.
+ */
+function NavGroup({ title, links, open, onToggle }) {
+  const listId = `footer-nav-${useId().replace(/:/g, '')}`
+  return (
+    <div className="border-b lg:border-b-0" style={{ borderColor: 'var(--border)' }}>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={open}
+        aria-controls={listId}
+        className="tap w-full flex items-center justify-between gap-4 py-4 lg:py-0 text-left lg:pointer-events-none lg:cursor-default"
+      >
+        {/* The heading carries the row on mobile, so it takes the ink there
+            and drops back to a quiet label once it is a column head. */}
+        <span className="font-mono text-[11px] lg:text-[10px] uppercase tracking-wider text-[color:var(--text-primary)] lg:text-[color:var(--text-secondary)]">
+          {title}
+        </span>
+        <ChevronDown
+          className="w-4 h-4 shrink-0 lg:hidden"
+          style={{
+            color: 'var(--text-muted)',
+            transform: open ? 'rotate(180deg)' : 'none',
+            transition: 'transform 0.25s ease',
+          }}
+        />
+      </button>
+      <ul
+        id={listId}
+        className={`${open ? 'block' : 'hidden'} lg:block space-y-2.5 lg:space-y-3 pb-5 lg:pb-0 lg:mt-5`}
+      >
+        {links.map(([label, to]) => (
+          <li key={label}>
+            <Link to={to} className="tap text-sm transition-colors hover:text-accent"
+              style={{ color:'var(--text-secondary)' }}>{label}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 export default function Footer() {
   const [email, setEmail]         = useState('')
   const [subscribed, setSubscribed] = useState(false)
-  const { openContact } = useContact()
-  const { pathname } = useLocation()
-
-  /* Routes that already end with a dedicated CTA section — showing the footer
-     banner too would ask twice in a row. */
-  const hasOwnCTA = pathname === '/'
-
+  /* One panel at a time, all shut on arrival — the footer should read as a
+     short list of headings before it reads as links. */
+  const [openGroup, setOpenGroup] = useState(null)
   return (
     <footer className="relative pt-20 footer-fab-clear" style={{ background:'var(--bg)', borderTop:'1px solid var(--border)' }}>
       <div className="container relative z-10">
-        {/* CTA banner — suppressed on routes that close with their own CTA */}
-        {!hasOwnCTA && <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
-          className="rounded-3xl p-10 md:p-14 mb-20 text-center overflow-hidden relative"
-          style={{ background:'var(--bg-card)', border:'1px solid var(--border)' }}>
-          <div className="pointer-events-none absolute inset-0 rounded-3xl overflow-hidden">
-            <div className="anim-glow absolute w-[500px] h-[200px] rounded-full -top-20 left-1/2 -translate-x-1/2"
-              style={{ background:'radial-gradient(circle, var(--accent-glow) 0%, transparent 60%)' }} />
-          </div>
-          <h2 className="font-syne font-extrabold text-3xl md:text-4xl mb-3 relative z-10" style={{ color:'var(--text-primary)' }}>
-            Ready to ship something <span className="text-accent">great?</span>
-          </h2>
-          <p className="section-sub mx-auto mb-8 relative z-10">Turn your ideas into reality. No lengthy proposals — just results.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-            <button onClick={openContact} className="btn btn-primary">Start a Project</button>
-            <Link to="/portfolio" className="btn btn-secondary">See Our Work</Link>
-          </div>
-        </motion.div>}
-
         {/* Footer grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 mb-14">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link to="/" className="tap flex items-center mb-5 group" style={{ textDecoration: 'none' }}>
@@ -69,20 +96,19 @@ export default function Footer() {
               )}
           </div>
 
-          {/* Links */}
-          {Object.entries(NAV).map(([title, links]) => (
-            <div key={title}>
-              <p className="font-mono text-[10px] uppercase tracking-wider mb-5" style={{ color:'var(--text-secondary)' }}>{title}</p>
-              <ul className="space-y-1 lg:space-y-3">
-                {links.map(([label, to]) => (
-                  <li key={label}>
-                    <Link to={to} className="tap text-sm transition-colors hover:text-accent"
-                      style={{ color:'var(--text-secondary)' }}>{label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* Links — accordion rows on small screens, three columns from lg */}
+          <div className="lg:col-span-3 grid lg:grid-cols-3 lg:gap-10 border-t lg:border-t-0"
+            style={{ borderColor:'var(--border)' }}>
+            {Object.entries(NAV).map(([title, links]) => (
+              <NavGroup
+                key={title}
+                title={title}
+                links={links}
+                open={openGroup === title}
+                onToggle={() => setOpenGroup(cur => (cur === title ? null : title))}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Bottom bar */}
@@ -108,22 +134,36 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Brand watermark */}
-      <div className="overflow-hidden mt-10 select-none pointer-events-none"
-        style={{ paddingLeft: 'max(1.5rem, calc((100% - 1200px) / 2 + 1.5rem))', marginBottom: '-0.25rem' }}>
-        <span style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(2.25rem, 16vw, 230px)',
-          fontWeight: 500,
-          letterSpacing: '-0.045em',
-          lineHeight: 0.88,
-          color: 'var(--text-primary)',
-          opacity: 0.05,
-          display: 'block',
-          whiteSpace: 'nowrap',
-        }}>
-          CODENODE
-        </span>
+      {/* Brand watermark.
+          Drawn as SVG text rather than a CSS-sized <span>: `textLength` makes
+          the browser fit the word to the box exactly, so it spans the
+          container edge to edge at every width instead of being guessed at
+          with vw units and then clipped on narrow screens. `lengthAdjust
+          ="spacing"` absorbs the difference in tracking only — the letter
+          shapes are never stretched. The viewBox is cropped to the cap
+          height so the word sits flush on the bottom of the page. */}
+      <div className="container mt-12 select-none pointer-events-none">
+        <svg
+          viewBox="0 0 1000 132"
+          preserveAspectRatio="xMidYMax meet"
+          aria-hidden="true"
+          style={{ display: 'block', width: '100%', height: 'auto', overflow: 'visible' }}
+        >
+          <text
+            x="500" y="128"
+            textAnchor="middle"
+            textLength="1000"
+            lengthAdjust="spacing"
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '178px',
+              fontWeight: 500,
+              fill: 'var(--text-primary)',
+            }}
+          >
+            CODENODE
+          </text>
+        </svg>
       </div>
     </footer>
   )

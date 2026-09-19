@@ -4,13 +4,66 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23C96A4A'/><path d='M38 32 24 50l14 18M62 32l14 18-14 18' stroke='%23FFFCF8' stroke-width='7' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="CodeNode — Premium Digital Agency. We craft stunning digital experiences, AI solutions, and next-gen web applications." />
     <meta name="theme-color" content="#FAF4EC" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#14100E" media="(prefers-color-scheme: dark)" />
-    <title>CodeNode — Premium Digital Agency</title>
+
+    <!--
+      Defaults only. Every route overwrites the title, description,
+      canonical and social tags at runtime through src/components/Seo.jsx —
+      what is here is what a scraper that does not run JavaScript will see,
+      so it describes the studio rather than any one page.
+    -->
+    <title>CodeNode | Digital Product Studio</title>
+    <meta name="description" content="CodeNode is a Pakistan-based digital product studio. We design and build AI-driven platforms, enterprise web applications and mobile products, and we mentor the next set of engineers." />
+    <link rel="canonical" href="https://codenode.io/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CodeNode" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="CodeNode | Digital Product Studio" />
+    <meta property="og:description" content="We design and build AI-driven platforms, enterprise web applications and mobile products. Small team, senior hands, no handoffs." />
+    <meta property="og:url" content="https://codenode.io/" />
+    <meta property="og:image" content="https://codenode.io/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CodeNode | Digital Product Studio" />
+    <meta name="twitter:description" content="We design and build AI-driven platforms, enterprise web applications and mobile products. Small team, senior hands, no handoffs." />
+    <meta name="twitter:image" content="https://codenode.io/og-image.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://codenode.io/#organization",
+        "name": "CodeNode",
+        "url": "https://codenode.io",
+        "email": "hello@codenode.io",
+        "foundingDate": "2025",
+        "description": "Pakistan-based digital product studio building AI-driven platforms, web applications and mobile products.",
+        "address": { "@type": "PostalAddress", "addressCountry": "PK" }
+      }
+    </script>
+
+    <script>
+      /*
+        Puts back the URL that public/404.html stashed in a query string
+        when a visitor opened a deep link directly on static hosting. Runs
+        before the app boots so React Router only ever sees the real path.
+      */
+      (function () {
+        var params = new URLSearchParams(window.location.search)
+        var redirect = params.get('redirect')
+        if (!redirect) return
+        params.delete('redirect')
+        var rest = params.toString()
+        var base = window.location.pathname.replace(/index\.html$/, '')
+        var path = (base + redirect).replace(/\/{2,}/g, '/')
+        window.history.replaceState(null, '', path + (rest ? '?' + rest : ''))
+      })()
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..800;1,400..700&family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>

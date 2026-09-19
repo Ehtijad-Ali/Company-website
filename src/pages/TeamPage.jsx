@@ -4,6 +4,7 @@ import { ArrowRight, ArrowUpRight, Globe2, Clock, Zap, Heart, MapPin, SlidersHor
 import { Link } from 'react-router-dom'
 import { TEAM, DEPTS, formatRate } from '../data/team'
 import { AvailabilityBadge, Rating } from '../components/team/MemberBits'
+import { avatarFallback } from '../lib/avatar'
 
 const SORTS = [
   { id: 'featured',  label: 'Featured' },
@@ -29,13 +30,13 @@ const MemberCard = React.forwardRef(function MemberCard({ m, i }, ref) {
       viewport={{ once: true, margin: '-40px' }}
       transition={{ delay: (i % 4) * 0.07, duration: 0.5 }}
     >
-      <Link to={`/team/${m.slug}`} className="card card-hover flex flex-col h-full" style={{ padding: '1.125rem' }}>
+      <Link to={`/team/${m.slug}`} className="card flex flex-col h-full" style={{ padding: '1.125rem' }}>
         <div className="relative mb-4">
           <img
             src={m.img} alt={m.name}
-            className="w-full object-cover"
+            className="w-full object-cover member-photo"
             style={{ aspectRatio: '4/3', objectPosition: 'top', borderRadius: 'var(--r-md)' }}
-            onError={e => { e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(m.name)}&bg=C96A4A&color=FFFCF8&bold=true&size=400` }}
+            onError={avatarFallback(m.name, 400)}
           />
           <span className="absolute chip" style={{ top: 10, left: 10, background: 'var(--bg-card)' }}>{m.dept}</span>
         </div>
@@ -110,7 +111,7 @@ export default function TeamPage() {
               {' '}not just the agency
             </h1>
             <p className="section-sub">
-              Every person here can be engaged directly — by the hour, for a sprint, or embedded in your team.
+              Every person here can be engaged directly, by the hour, for a sprint, or embedded in your team.
               {' '}{openNow} available now, from {formatRate(lowestRate)}/hr.
             </p>
           </motion.div>
@@ -192,7 +193,7 @@ function JoinUsSection() {
           transition={{ duration: 0.6 }}
           className="mb-14"
         >
-          <p className="font-mono text-[10px] tracking-[0.3em] uppercase mb-3" style={{ color: 'var(--text-muted)' }}>/ 02 — Careers</p>
+          <p className="font-mono text-[10px] tracking-[0.3em] uppercase mb-3" style={{ color: 'var(--text-muted)' }}>/ 02 · Careers</p>
           <div className="flex items-end gap-6">
             <h2 className="section-title shrink-0">Join the Team</h2>
             <div className="flex-1 h-px mb-2.5" style={{ background: 'var(--border)' }} />
@@ -260,7 +261,7 @@ function JoinUsSection() {
             </div>
 
             <div className="mt-5 card p-5 flex flex-col gap-3" style={{ borderRadius: 14, borderColor: 'var(--accent)', borderWidth: 1 }}>
-              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Don't see your role? We hire for attitude and aptitude — send us your work.</p>
+              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Don't see your role? We hire for attitude and aptitude, so send us your work.</p>
               <Link to="/contact" className="btn btn-primary w-full justify-center text-sm py-2.5">
                 Send a Speculative Application <ArrowRight className="w-4 h-4" />
               </Link>

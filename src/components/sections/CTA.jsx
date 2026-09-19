@@ -4,8 +4,10 @@ import { motion, useInView } from 'framer-motion'
 import { ArrowRight, MessageSquare, CalendarCheck } from 'lucide-react'
 import { useContact } from '../../context/ContactContext'
 import { TEAM, formatRate } from '../../data/team'
+import { ImagePlate } from '../ui/EditorialImage'
+import { img, TEXTURE } from '../../data/imagery'
+import { E } from '../../lib/motion'
 
-const E = [0.22, 1, 0.36, 1]
 
 /**
  * The closing ask.
@@ -24,8 +26,11 @@ export default function CTA() {
   const lowestRate = Math.min(...TEAM.map(m => m.rate))
 
   return (
-    <section ref={ref} className="section" style={{ background: 'var(--bg-surface)', borderTop: '1px solid var(--border)' }}>
-      <div className="container">
+    <section ref={ref} className="section relative" style={{ background: 'var(--bg-surface)', borderTop: '1px solid var(--border)', overflow: 'hidden' }}>
+      {/* Clay texture behind the closing ask. Knocked back hard enough
+          that it registers as warmth rather than as a photograph. */}
+      <ImagePlate src={img(TEXTURE.stucco, 1600, 900)} />
+      <div className="container relative" style={{ zIndex: 1 }}>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -53,7 +58,7 @@ export default function CTA() {
                 color: 'var(--text-primary)', textWrap: 'balance',
               }}>
                 Tell us what you're building
-                {' '}<em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--brand)' }}>— we'll tell you what it takes</em>
+                {' '}<em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--brand)' }}>and we'll tell you what it takes</em>
               </h2>
               <p className="section-sub mt-5" style={{ maxWidth: '44ch' }}>
                 A short discovery call, an honest scope, and a milestone plan before
@@ -87,7 +92,7 @@ export default function CTA() {
               </div>
 
               <p style={{ fontSize: '0.9375rem', lineHeight: 1.65, color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>
-                Every specialist here can be engaged directly — by the hour, for a
+                Every specialist here can be engaged directly, by the hour, for a
                 sprint, or embedded in your team.
               </p>
 

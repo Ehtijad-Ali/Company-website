@@ -4,16 +4,17 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Code2, Palette, Brain, Smartphone, BarChart3, Cloud, Shield, Zap, ArrowUpRight } from 'lucide-react'
 import { useContact } from '../../context/ContactContext'
 import SectionHeader from '../ui/SectionHeader'
+import { img, SERVICE_IMG } from '../../data/imagery'
 
 const SERVICES = [
   {
     icon: Code2,    num: '01', cat: 'Engineering',    title: 'Web Development',
-    desc: 'We architect blazing-fast, scalable web applications with React, Next.js, Node.js, and modern cloud infrastructure — from MVPs to enterprise platforms handling millions of users.',
+    desc: 'We architect blazing-fast, scalable web applications with React, Next.js, Node.js, and modern cloud infrastructure, from MVPs to enterprise platforms handling millions of users.',
     chips: ['React', 'Next.js', 'Node.js', 'PostgreSQL'],
   },
   {
     icon: Brain,    num: '02', cat: 'Intelligence',   title: 'AI & Machine Learning',
-    desc: 'Intelligent automation, NLP, computer vision, and predictive analytics that turn raw data into decisive competitive advantage — built to scale in production.',
+    desc: 'Intelligent automation, NLP, computer vision, and predictive analytics that turn raw data into decisive competitive advantage, built to scale in production.',
     chips: ['TensorFlow', 'PyTorch', 'LangChain'],
   },
   {
@@ -23,7 +24,7 @@ const SERVICES = [
   },
   {
     icon: Smartphone, num: '04', cat: 'Mobile',       title: 'Mobile Applications',
-    desc: 'Native iOS, Android, and cross-platform React Native apps — beautiful, performant experiences users love and return to, shipped on schedule.',
+    desc: 'Native iOS, Android, and cross-platform React Native apps. Beautiful, performant experiences users love and return to, shipped on schedule.',
     chips: ['React Native', 'Swift', 'Kotlin'],
   },
   {
@@ -33,7 +34,7 @@ const SERVICES = [
   },
   {
     icon: BarChart3, num: '06', cat: 'Growth',        title: 'Digital Marketing',
-    desc: 'Data-driven growth strategies across SEO, paid media, and high-conversion content — compounding returns built on rigorous measurement.',
+    desc: 'Data-driven growth strategies across SEO, paid media, and high-conversion content, compounding returns built on rigorous measurement.',
     chips: ['SEO / SEM', 'PPC', 'Analytics'],
   },
   {
@@ -142,17 +143,42 @@ function ServiceRow({ s, i }) {
             transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
             style={{ overflow: 'hidden' }}
           >
-            <div style={{ paddingBottom: '1.875rem', paddingLeft: '7.7rem' }}>
-              <p style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.9375rem', lineHeight: 1.75,
-                color: 'var(--text-secondary)', maxWidth: '40rem', marginBottom: '1rem',
-              }}>{s.desc}</p>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                {s.chips.map(c => (
-                  <span key={c} className="chip" style={{ fontSize: '0.65rem' }}>{c}</span>
-                ))}
+            <div className="svc-body">
+              <div>
+                <p style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.9375rem', lineHeight: 1.75,
+                  color: 'var(--text-secondary)', maxWidth: '40rem', marginBottom: '1rem',
+                }}>{s.desc}</p>
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                  {s.chips.map(c => (
+                    <span key={c} className="chip" style={{ fontSize: '0.65rem' }}>{c}</span>
+                  ))}
+                </div>
               </div>
+
+              {/* The row earns an image only once it is open, so the
+                  closed list stays a clean index rather than a gallery. */}
+              {SERVICE_IMG[s.title] && (
+                <motion.div
+                  initial={{ opacity: 0, x: 18 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="svc-shot"
+                >
+                  <div className="ed-img-wrap" style={{ aspectRatio: '16 / 10' }}>
+                    <img
+                      src={img(SERVICE_IMG[s.title], 640, 400)}
+                      alt=""
+                      className="ed-img"
+                      loading="lazy"
+                      decoding="async"
+                      onError={e => e.currentTarget.parentNode.classList.add('ed-failed')}
+                    />
+                    <span className="ed-grain" aria-hidden="true" />
+                  </div>
+                </motion.div>
+              )}
             </div>
           </motion.div>
         )}
@@ -175,7 +201,7 @@ export default function Services() {
           num="03"
           label="Services"
           title={[{ t: 'Eight disciplines, ' }, { t: 'one team', em: true }]}
-          subtitle="Most engagements combine two or three — a platform build with the design and infrastructure that go around it."
+          subtitle="Most engagements combine two or three: a platform build with the design and infrastructure that go around it."
           action={{ to: '/services', label: 'All services' }}
           inView={inView}
           className="mb-12"

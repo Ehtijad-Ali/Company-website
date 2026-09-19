@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Globe2, FlaskConical, Zap, Heart } from 'lucide-react'
 import Process from '../components/sections/Process'
 import SectionHeader from '../components/ui/SectionHeader'
+import EditorialImage, { ImagePlate } from '../components/ui/EditorialImage'
+import { img, STUDIO, TEXTURE } from '../data/imagery'
 import { METRICS, format, FOUNDED, TEAM_SIZE } from '../data/metrics'
 import { TEAM } from '../data/team'
+import { E } from '../lib/motion'
 
-const E = [0.22, 1, 0.36, 1]
 
 /* The founder's note is signed by whoever actually holds the role in the
    roster — it previously credited an "Alex Chen" who appears nowhere else. */
@@ -35,7 +37,7 @@ const MILESTONES = [
 
 const PRINCIPLES = [
   { n: '01', title: 'Craft over speed',
-    desc: "We do not ship things we are not prepared to put our names on. When a deadline and the quality bar collide, we renegotiate the deadline — and we tell you early enough that it is still a choice." },
+    desc: "We do not ship things we are not prepared to put our names on. When a deadline and the quality bar collide, we renegotiate the deadline, and we tell you early enough that it is still a choice." },
   { n: '02', title: 'Radical transparency',
     desc: 'You see the same board we do. Blockers surface the day they appear, not in a status call two weeks later. If we are behind, you will hear it from us first.' },
   { n: '03', title: 'Outcomes, not outputs',
@@ -115,7 +117,7 @@ function Opening() {
           style={{ marginTop: '2rem', fontSize: '1.125rem', maxWidth: '52ch' }}
         >
           Most studios grow until the people who won the work are no longer the
-          people doing it. We decided not to — which is why there are still
+          people doing it. We decided not to, which is why there are still
           {' '}{TEAM_SIZE} of us, and why you will meet everyone who touches your project.
         </motion.p>
 
@@ -156,6 +158,18 @@ function Story() {
           className="mb-12"
         />
 
+        {/* A wide plate under the story header. Parallax here rather
+            than on the smaller frames: it has the width to carry it. */}
+        <EditorialImage
+          src={img(STUDIO.homeStudio, 1600, 700)}
+          alt="A working studio, mid-project"
+          ratio="21 / 9"
+          parallax={7}
+          eyebrow="Founded 2025"
+          caption="Small enough that everyone knows what everyone else shipped this week."
+          className="mb-14"
+        />
+
         <div className="grid lg:grid-cols-[1.35fr_1fr] gap-12 xl:gap-20 items-start">
           <motion.div
             initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -170,7 +184,7 @@ function Story() {
             </p>
             <p>
               They had spent their careers at companies where design and engineering
-              sat in different buildings and shipped through a translation layer —
+              sat in different buildings and shipped through a translation layer,
               and had watched what that costs in revisions, misunderstandings and
               quietly abandoned detail. So the studio was built with one team from
               the start. The person who draws it is the person who builds it.
@@ -302,8 +316,9 @@ function Culture() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="section" style={{ background: 'var(--bg-surface)', borderTop: '1px solid var(--border)' }}>
-      <div className="container">
+    <section ref={ref} className="section relative" style={{ background: 'var(--bg-surface)', borderTop: '1px solid var(--border)', overflow: 'hidden' }}>
+      <ImagePlate src={img(TEXTURE.lattice, 1600, 1000)} />
+      <div className="container relative" style={{ zIndex: 1 }}>
         <SectionHeader
           num="05"
           label="Culture"
@@ -313,29 +328,28 @@ function Culture() {
           className="mb-12"
         />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-14">
+        {/* No boxes — the same borderless, hairline-divided treatment the
+            impact stats use on the home page, so the two read as one idea
+            rather than two ways of showing four numbers. */}
+        <div className="stat-row mb-14">
           {CULTURE.map(({ icon: Icon, value, label, desc }, i) => (
             <motion.div
               key={label}
               initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.09, duration: 0.6, ease: E }}
-              className="card" style={{ padding: '1.5rem' }}
+              className="stat-cell"
             >
-              <div className="flex items-center justify-center mb-5" style={{
-                width: 36, height: 36, borderRadius: 'var(--r-sm)',
-                background: 'var(--bg-surface)', border: '1px solid var(--border)',
-              }}>
-                <Icon className="w-4 h-4" style={{ color: 'var(--brand)' }} />
-              </div>
+              <span className="stat-badge">
+                <Icon aria-hidden="true" />
+              </span>
 
-              <p className="tnum" style={{
+              <p className="stat-value tnum" style={{
                 fontFamily: 'var(--font-display)', fontWeight: 500,
                 fontSize: 'clamp(1.75rem, 3vw, 2.25rem)', lineHeight: 1,
-                letterSpacing: '-0.025em', color: 'var(--text-primary)', marginBottom: '0.4rem',
+                letterSpacing: '-0.025em', color: 'var(--text-primary)',
               }}>{value}</p>
-              <p className="eyebrow" style={{ marginBottom: '0.875rem' }}>{label}</p>
-              <hr className="rule" style={{ marginBottom: '0.875rem' }} />
-              <p style={{ fontSize: '0.8125rem', lineHeight: 1.7, color: 'var(--text-secondary)' }}>{desc}</p>
+              <p className="stat-label eyebrow">{label}</p>
+              <p className="stat-desc" style={{ fontSize: '0.8125rem', lineHeight: 1.7, color: 'var(--text-secondary)' }}>{desc}</p>
             </motion.div>
           ))}
         </div>
@@ -352,7 +366,7 @@ function Culture() {
               <p className="eyebrow mb-6">Founder's note</p>
               <blockquote className="pull-quote" style={{ marginBottom: '2rem' }}>
                 We didn't set out to build the biggest studio. We set out to build the
-                one we would have hired — obsessive about craft, honest about
+                one we would have hired: obsessive about craft, honest about
                 timelines, allergic to mediocrity.
               </blockquote>
             </div>

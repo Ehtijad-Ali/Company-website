@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
+import Seo from '../components/Seo'
+import { SITE, absUrl } from '../data/site'
 import { motion } from 'framer-motion'
 import { ArrowLeft, MapPin, Clock, Briefcase, CalendarCheck, ArrowUpRight, Award, Languages } from 'lucide-react'
 import { getMember, getRelated, formatRate } from '../data/team'
 import { AvailabilityBadge, Rating, SkillLevel, SocialLinks } from '../components/team/MemberBits'
 import InterviewModal from '../components/InterviewModal'
-
-const E = [0.22, 1, 0.36, 1]
+import { E } from '../lib/motion'
+import { avatarFallback } from '../lib/avatar'
 
 function SectionHeading({ children, num }) {
   return (
@@ -47,6 +49,24 @@ export default function MemberProfilePage() {
 
   return (
     <>
+      {/* A named person, described as one: the route table only knows
+          this is "a team member". */}
+      <Seo
+        title={`${member.name} — ${member.role}`}
+        description={member.bio.slice(0, 155)}
+        path={`/team/${member.slug}`}
+        image={member.img}
+        type="profile"
+        jsonLd={{
+          '@type': 'Person',
+          name: member.name,
+          jobTitle: member.role,
+          description: member.bio,
+          image: member.img,
+          url: absUrl(`/team/${member.slug}`),
+          worksFor: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+        }}
+      />
       <section className="section pt-36" style={{ background: 'var(--bg-surface)', paddingBottom: '3rem' }}>
         <div className="container">
           <Link to="/team" className="inline-flex items-center gap-2 mb-8 eyebrow"
@@ -61,13 +81,13 @@ export default function MemberProfilePage() {
           >
             <img
               src={member.img} alt={member.name}
-              className="w-full"
+              className="w-full member-photo"
               style={{
                 aspectRatio: '1', objectFit: 'cover', objectPosition: 'top',
                 borderRadius: 'var(--r-lg)', border: '1px solid var(--border)',
                 maxWidth: 200, boxShadow: 'var(--e-2)',
               }}
-              onError={e => { e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&bg=C96A4A&color=FFFCF8&bold=true&size=400` }}
+              onError={avatarFallback(member.name, 400)}
             />
 
             <div>
@@ -212,7 +232,7 @@ export default function MemberProfilePage() {
               <div className="flex items-center justify-between gap-3">
                 <span style={{ color: 'var(--text-muted)' }}>Capacity</span>
                 <span className="tnum" style={{ color: 'var(--text-primary)' }}>
-                  {member.hoursPerWeek > 0 ? `${member.hoursPerWeek} hrs / week` : '—'}
+                  {member.hoursPerWeek > 0 ? `${member.hoursPerWeek} hrs / week` : 'None'}
                 </span>
               </div>
               <div className="flex items-center justify-between gap-3">
@@ -241,7 +261,7 @@ export default function MemberProfilePage() {
             <p style={{ fontSize: '0.75rem', lineHeight: 1.55, color: 'var(--text-muted)', marginTop: '0.75rem', textAlign: 'center' }}>
               {bookable
                 ? "We'll confirm availability before anything is booked."
-                : `${member.name.split(' ')[0]} is fully booked — we'll tell you when capacity opens.`}
+                : `${member.name.split(' ')[0]} is fully booked. We'll tell you when capacity opens.`}
             </p>
           </motion.aside>
         </div>
@@ -254,9 +274,9 @@ export default function MemberProfilePage() {
             <SectionHeading num="04">Others you might work with</SectionHeading>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {related.map(r => (
-                <Link key={r.slug} to={`/team/${r.slug}`} className="card card-hover flex items-center gap-4"
+                <Link key={r.slug} to={`/team/${r.slug}`} className="card flex items-center gap-4"
                   style={{ padding: '1rem' }}>
-                  <img src={r.img} alt="" style={{
+                  <img src={r.img} alt="" className="member-photo" style={{
                     width: 52, height: 52, borderRadius: 'var(--r-sm)',
                     objectFit: 'cover', objectPosition: 'top', flexShrink: 0,
                   }} />

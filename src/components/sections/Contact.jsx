@@ -3,11 +3,17 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Mail, Phone, MapPin, Send, CheckCircle, ArrowRight, Linkedin, Twitter, Github, Instagram, Plus, Minus } from 'lucide-react'
 import { apiClient } from '../../services/apiClient'
 import { useContact } from '../../context/ContactContext'
+import SectionHeader from '../ui/SectionHeader'
+import { ImagePlate } from '../ui/EditorialImage'
+import { img, TEXTURE } from '../../data/imagery'
+import { SITE } from '../../data/site'
 
+/* Values come from data/site.js — the contact page lists the same three
+   and they had already been typed out twice. */
 const INFO = [
-  { icon:Mail,    label:'Email',  value:'hello@codenode.io' },
-  { icon:Phone,   label:'Phone',  value:'+92 355 4680662' },
-  { icon:MapPin,  label:'Office', value:'Gilgit Baltistan, Pakistan' },
+  { icon:Mail,    label:'Email',  value:SITE.email },
+  { icon:Phone,   label:'Phone',  value:SITE.phone },
+  { icon:MapPin,  label:'Office', value:SITE.office },
 ]
 const SOCIALS = [
   { icon:Linkedin,  href:'#', label:'LinkedIn'  },
@@ -24,13 +30,13 @@ const TERMINAL = [
 ]
 const FAQS = [
   { q:'How long does a typical project take?',
-    a:'It depends on scope. A focused landing page takes 2–3 weeks. A full SaaS platform typically runs 3–6 months. We always define clear milestones upfront so you know exactly what to expect.' },
+    a:'It depends on scope. A focused landing page takes 2 to 3 weeks. A full SaaS platform typically runs 3 to 6 months. We always define clear milestones upfront so you know exactly what to expect.' },
   { q:'Do you work with early-stage startups or only enterprises?',
-    a:'Both. We have flexible engagement models — from lean MVP sprints for startups to long-term retainers for enterprise teams. Budget range starts at $5,000 for targeted projects.' },
+    a:'Both. We have flexible engagement models, from lean MVP sprints for startups to long-term retainers for enterprise teams. Budget range starts at $5,000 for targeted projects.' },
   { q:'What makes CodeNode different from other agencies?',
     a:'We\'re engineers who design and designers who understand code. No handoff chaos, no "waterfall" gaps. Every team member contributes to both vision and execution, which means faster delivery and fewer revisions.' },
   { q:'Can you take over an existing codebase?',
-    a:'Yes — we\'ve rescued many projects. We start with a thorough audit, honest assessment, and a clear remediation plan before touching a single line of code.' },
+    a:'Yes, we\'ve rescued many projects. We start with a thorough audit, honest assessment, and a clear remediation plan before touching a single line of code.' },
   { q:'How do you handle post-launch support?',
     a:'Every project includes a 30-day warranty window. After that, we offer flexible monthly retainer plans for ongoing maintenance, feature development, and performance monitoring.' },
   { q:'How do you price projects?',
@@ -137,24 +143,26 @@ export default function Contact({ forceVisible = false }) {
     return form.name.trim().length >= 2 && isEmail(form.email) && form.service && form.message.trim().length >= 10
   }
 
+  /* The top divider is a real border rather than an absolutely positioned
+     1px div, so it cannot stack with the one `.section + .section` draws
+     when this sits after another section. */
   return (
-    <section id="contact" ref={ref} className="section" style={{ background:'var(--bg-surface)' }}>
-      <div className="absolute top-0 inset-x-0 h-[1px]" style={{ background:'var(--border)' }} />
-      <div className="container">
+    <section id="contact" ref={ref} className="section relative" style={{ background:'var(--bg-surface)', overflow:'hidden', borderTop:'1px solid var(--border)' }}>
+      {/* Sandstone strata behind the contact block, at the same weight
+          as the closing CTA so the two read as a pair. */}
+      <ImagePlate src={img(TEXTURE.sandstone, 1600, 1000)} />
+      <div className="container relative" style={{ zIndex: 1 }}>
 
-        {/* Header */}
-        <motion.div initial={{ opacity:0, y:20 }} animate={inView?{opacity:1,y:0}:{}} transition={{ duration:.6 }}
-          className="mb-14 flex items-end justify-between">
-          <div>
-            <p className="font-mono text-[10px] tracking-[0.3em] uppercase mb-3" style={{ color:'var(--text-muted)' }}>/ Contact</p>
-            <h2 className="section-title">Let's Talk</h2>
-          </div>
-          <span
-            className="font-syne font-extrabold hidden lg:block"
-            style={{ fontSize:'clamp(4rem,7vw,7rem)', lineHeight:1, color:'transparent',
-                     WebkitTextStroke:'1px var(--ghost-stroke)', letterSpacing:'-0.04em', userSelect:'none' }}
-          >06</span>
-        </motion.div>
+        {/* Header. The outline-stroke number that used to sit on the right
+            was the last survivor of a pattern removed everywhere else on the
+            site: it reads as a template, and badly in a high-contrast serif. */}
+        <SectionHeader
+          label="Contact"
+          title={[{ t: 'Tell us what ' }, { t: "you're building", em: true }]}
+          subtitle="One form, one reply, from a person. No sales sequence and no chasing."
+          inView={inView}
+          className="mb-12"
+        />
 
         {/* Contact grid */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 mb-20">

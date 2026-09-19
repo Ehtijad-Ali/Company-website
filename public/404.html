@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CodeNode</title>
+    <meta name="robots" content="noindex" />
+    <script>
+      /*
+        Static hosting has one file per path; this app has one file for
+        every path. Opening /about directly, or refreshing it, asks the host
+        for a file that was never built, and it serves this page instead.
+
+        So: rewrite the requested path into a query string, bounce to the
+        app's index, and let the snippet in index.html put the real URL back
+        before React Router reads it. The visitor sees one redirect and
+        lands where they meant to.
+
+        GitHub project pages live under /<repo>/, which is part of the app's
+        base and must survive the rewrite; a custom domain or user page
+        serves from the root and must not keep a segment.
+      */
+      (function () {
+        var l = window.location
+        var keep = l.hostname.endsWith('github.io') ? 1 : 0
+        var segments = l.pathname.split('/').filter(Boolean)
+        var base = '/' + segments.slice(0, keep).join('/') + (keep ? '/' : '')
+        var route = '/' + segments.slice(keep).join('/')
+
+        l.replace(
+          l.origin + base + '?redirect=' + encodeURIComponent(route + l.search + l.hash)
+        )
+      })()
+    </script>
+  </head>
+  <body></body>
+</html>
