@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import { ArrowRight, Cloud } from 'lucide-react'
 import { TypingText, ParallaxSection } from '../ui/AnimationKit'
 import { METRICS, format } from '../../data/metrics'
+import { TECH_ICONS } from '../../data/techIcons'
+import { E } from '../../lib/motion'
 
 /* Pulled from the shared source so the hero can't drift from the stats
    section again — it previously claimed 500+ projects against its 60+. */
@@ -12,9 +14,11 @@ const STATS = ['projects', 'satisfaction', 'avgExperience', 'countries'].map(k =
   label: METRICS[k].label,
 }))
 
-const TECH = ['React', 'Next.js', 'Node.js', 'Python', 'AWS', 'TypeScript', 'TensorFlow', 'Docker', 'GraphQL', 'Figma', 'Three.js', 'Kubernetes']
-
-const E = [0.22, 1, 0.36, 1]
+/* Marks and colours live in the catalogue so the real brand paths are not
+   pasted into a layout file. `color: null` means the mark is monochrome in
+   its own branding (Next.js, Three.js) and takes the page's ink instead of
+   an invented hue. */
+const TECH = TECH_ICONS
 
 /* Headline set as roman + italic, the way a masthead is set —
    the italic carries the emphasis so nothing has to shout. */
@@ -166,10 +170,26 @@ function CodeTerminal() {
   )
 }
 
-export default function Hero() {
+/* `layered`: HeroSequence paints the ground behind the hero, so the hero
+   drops its own opaque background and plate. */
+export default function Hero({ layered = false }) {
+  const ref    = useRef(null)
+  const reduce = useReducedMotion()
+
+  /* Scrolling out of the hero separates it into planes: the copy hangs
+     back a little, the terminal pulls ahead, the texture behind them both
+     drifts slower still. Nothing moves far — the effect is depth, not
+     travel, and it is what stops the fold reading as a flat poster. */
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, 90])
+  const termY = useTransform(scrollYProgress, [0, 1], [0, -50])
+  const fade  = useTransform(scrollYProgress, [0, 0.85], [1, 0.25])
+
   return (
-    <section id="home" className="relative min-h-screen flex flex-col overflow-hidden"
-      style={{ background: 'var(--bg)' }}>
+    <section id="home" ref={ref} className="relative min-h-screen flex flex-col overflow-hidden"
+      style={{ background: layered ? 'transparent' : 'var(--bg)' }}>
+
+      
 
       <div className="pointer-events-none absolute inset-0"
         style={{ background: 'radial-gradient(ellipse 70% 40% at 50% -5%, var(--glow), transparent)' }} />
@@ -197,7 +217,8 @@ export default function Hero() {
       <div className="container relative z-10 flex-1 grid lg:grid-cols-[1fr_1fr] gap-12 xl:gap-20 items-stretch py-14">
 
         {/* ── Left: content ── */}
-        <div className="flex flex-col justify-center">
+        <motion.div className="flex flex-col justify-center"
+          style={reduce ? undefined : { y: copyY, opacity: fade }}>
           <motion.p
             initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6, ease: E }}
@@ -272,10 +293,12 @@ export default function Hero() {
               See our work
             </Link>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* ── Right: code terminal ── */}
-        <CodeTerminal />
+        <motion.div style={reduce ? undefined : { y: termY, opacity: fade }}>
+          <CodeTerminal />
+        </motion.div>
 
       </div>
 
@@ -301,14 +324,23 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }} animate={{ opacity: 1 }}
         transition={{ delay: 1.1, duration: 0.5 }}
-        className="relative z-10 overflow-hidden py-3"
+        className="relative z-10 overflow-hidden py-4"
         style={{ borderTop: '1px solid var(--border)', background: 'var(--bg-surface)' }}
       >
         <div className="flex anim-marquee" style={{ width: 'max-content' }}>
           {[...TECH, ...TECH].map((t, i) => (
-            <div key={i} className="flex items-center gap-2.5 shrink-0 mx-8">
-              <span className="w-1 h-1 rounded-full" style={{ background: 'var(--text-muted)' }} />
-              <span className="font-mono text-[10px]" style={{ color: 'var(--text-secondary)' }}>{t}</span>
+            <div key={i} className="tech-tick"
+              style={t.color ? { '--tech': t.color } : undefined}>
+              {t.path
+                ? (
+                  <svg className="tech-mark" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d={t.path} />
+                  </svg>
+                )
+                /* AWS has no mark in the icon set, so it gets a generic
+                   cloud rather than a logo we are not entitled to draw. */
+                : <Cloud className="tech-mark" strokeWidth={1.75} aria-hidden="true" />}
+              <span className="tech-name">{t.name}</span>
             </div>
           ))}
         </div>

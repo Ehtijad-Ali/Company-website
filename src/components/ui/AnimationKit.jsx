@@ -205,7 +205,7 @@ export function PageTransition({ children, className = '' }) {
    ───────────────────────────────────────────────────────────── */
 export function HoverCard({ children, className = '', style }) {
   return (
-    <div className={`card card-hover hover-lift ${className}`} style={style}>
+    <div className={`card hover-lift ${className}`} style={style}>
       {children}
     </div>
   )

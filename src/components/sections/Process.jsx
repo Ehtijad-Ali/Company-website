@@ -1,16 +1,17 @@
 import React, { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import SectionHeader from '../ui/SectionHeader'
 import { MessageSquare, Lightbulb, Layers, Rocket, BarChart2 } from 'lucide-react'
-
-const E = [0.22, 1, 0.36, 1]
+import { img, PHASE_IMG } from '../../data/imagery'
+import { E } from '../../lib/motion'
 
 const STEPS = [
   {
     icon: MessageSquare,
     num: '01',
     title: 'Discovery',
-    phase: 'Week 1 – 2',
+    phase: 'Week 1 to 2',
     desc: 'Deep-dive sessions to understand your goals, audience, and competitive landscape. We ask the hard questions others skip.',
     deliverables: ['Requirements doc', 'Competitor audit', 'Project brief'],
   },
@@ -18,15 +19,15 @@ const STEPS = [
     icon: Lightbulb,
     num: '02',
     title: 'Strategy',
-    phase: 'Week 2 – 3',
-    desc: 'A tailored roadmap covering architecture, tech stack, design direction, and success metrics — before a single pixel is drawn.',
+    phase: 'Week 2 to 3',
+    desc: 'A tailored roadmap covering architecture, tech stack, design direction, and success metrics, before a single pixel is drawn.',
     deliverables: ['Tech spec', 'Design direction', 'Milestones'],
   },
   {
     icon: Layers,
     num: '03',
     title: 'Design & Build',
-    phase: 'Week 3 – 10',
+    phase: 'Week 3 to 10',
     desc: 'Iterative design sprints followed by agile engineering. You see progress every week, not just at the end.',
     deliverables: ['UI/UX designs', 'Working builds', 'Weekly reviews'],
   },
@@ -34,7 +35,7 @@ const STEPS = [
     icon: Rocket,
     num: '04',
     title: 'Launch',
-    phase: 'Week 10 – 11',
+    phase: 'Week 10 to 11',
     desc: 'Production-grade deployment with full CI/CD, monitoring, and zero-downtime releases. We never just "push and pray".',
     deliverables: ['Live product', 'CI/CD pipeline', 'Monitoring setup'],
   },
@@ -48,48 +49,98 @@ const STEPS = [
   },
 ]
 
-function StepCard({ icon: Icon, num, title, phase, desc, deliverables }) {
+/** Height of the connector's track, in px — shared by the CSS and the
+ *  distance the spark travels, so the two cannot drift apart. */
+const LINK_H = 56
+
+/**
+ * The live wire between two phases.
+ *
+ * Each link waits until it is actually on screen, then a spark runs from
+ * the card above to the card below and leaves the line lit behind it. Read
+ * at scrolling speed the current arrives at one phase, that phase lands,
+ * and the next link picks it up — the sequence powers up a step at a time
+ * rather than being drawn all at once on section entry.
+ */
+function PhaseLink() {
+  const ref    = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-15% 0px -20% 0px' })
+
   return (
-    <div
-      className="card p-6 group transition-all duration-300 hover:translate-y-[-2px]"
-      style={{ '--hover-border': 'var(--border-hover)' }}
-      onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--border-hover)'}
-      onMouseLeave={e => e.currentTarget.style.borderColor = ''}
-    >
-      <div className="flex items-start justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-            style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)' }}
-          >
-            <Icon className="w-5 h-5" style={{ color: 'var(--accent)' }} />
-          </div>
-          <div>
-            <h3 className="font-syne font-bold text-[0.95rem]" style={{ color: 'var(--text-primary)' }}>{title}</h3>
-            <span
-              className="font-mono text-[10px] uppercase tracking-widest"
-              style={{ color: 'var(--accent)', opacity: 0.7 }}
-            >{phase}</span>
-          </div>
-        </div>
-        <span
-          className="tnum text-4xl leading-none shrink-0 select-none"
-          style={{ fontFamily: 'var(--font-display)', fontWeight: 500, color: 'var(--brand)', opacity: 0.4 }}
-        >{num}</span>
+    <div className="phase-link" ref={ref} aria-hidden="true">
+      <div className="phase-link-track" style={{ height: LINK_H }}>
+        <motion.span
+          className="phase-link-fill"
+          initial={{ scaleY: 0 }}
+          animate={inView ? { scaleY: 1 } : {}}
+          transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+        />
+        <motion.span
+          className="phase-link-spark"
+          initial={{ y: 0, opacity: 0 }}
+          animate={inView ? { y: LINK_H, opacity: [0, 1, 1, 0] } : {}}
+          transition={{ duration: 0.75, ease: [0.4, 0, 0.2, 1], times: [0, 0.12, 0.72, 1] }}
+        />
       </div>
-
-      <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--text-secondary)' }}>{desc}</p>
-
-      <div className="flex flex-wrap gap-1.5">
-        {deliverables.map(d => (
-          <span
-            key={d}
-            className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full"
-            style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)', color: 'var(--text-muted)' }}
-          >{d}</span>
-        ))}
-      </div>
+      <motion.span
+        className="phase-link-node"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={inView ? { scale: 1, opacity: 1 } : {}}
+        transition={{ delay: 0.6, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      />
     </div>
+  )
+}
+
+/**
+ * One phase, one card.
+ *
+ * The timeline this replaced alternated cards left and right and used the
+ * empty slot opposite each card for that phase's photograph — which meant
+ * the picture only existed on desktop, and only ever beside the card. Here
+ * every phase carries its own image inside its own full-width card, so all
+ * five read the same way at every width — and `flip` alternates which side
+ * that image sits on, keeping the left-right rhythm the timeline had.
+ */
+function PhaseCard({ icon: Icon, num, title, phase, desc, deliverables, src, flip }) {
+  return (
+    <article className={`card phase-card${flip ? ' phase-card--flip' : ''}`}>
+      <div className="phase-body">
+        <div className="phase-head">
+          <span className="stat-badge">
+            <Icon aria-hidden="true" />
+          </span>
+          <div className="min-w-0">
+            <h3 className="font-syne font-bold text-[0.95rem]" style={{ color: 'var(--text-primary)' }}>{title}</h3>
+            <span className="font-mono text-[10px] uppercase tracking-widest"
+              style={{ color: 'var(--accent)', opacity: 0.7 }}>{phase}</span>
+          </div>
+          <span className="phase-num" aria-hidden="true">
+            <span className="phase-num-rule" />{num}
+          </span>
+        </div>
+
+        <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--text-secondary)' }}>{desc}</p>
+
+        <div className="flex flex-wrap gap-1.5">
+          {deliverables.map(d => (
+            <span
+              key={d}
+              className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full"
+              style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)', color: 'var(--text-muted)' }}
+            >{d}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* The photograph bleeds out of the card's own edge behind a fade back
+          to the card surface, rather than sitting in a framed box. */}
+      <div className="phase-shot">
+        <img src={src} alt="" className="ed-img" loading="lazy" decoding="async"
+          onError={e => { e.currentTarget.style.display = 'none' }} />
+        <span className="ed-grain" aria-hidden="true" />
+      </div>
+    </article>
   )
 }
 
@@ -116,89 +167,26 @@ export default function Process({ num = '03' }) {
           <span className="eyebrow" style={{ fontSize: '0.625rem' }}>5 phases · ~12 weeks</span>
         </div>
 
-        {/* Timeline */}
-        <div className="relative">
+        {/* Phases, chained — the link between two cards is what makes the
+            five read as one sequence rather than five separate offers. */}
+        <div className="phase-stack">
+          {STEPS.map((step, i) => (
+            <React.Fragment key={step.title}>
+              {/* Each card waits for its own scroll position rather than a
+                  stagger off the section, so it lands just as the spark in
+                  the link above it arrives. */}
+              <motion.div
+                initial={{ opacity: 0, y: 26 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-12% 0px -12% 0px' }}
+                transition={{ duration: 0.6, ease: E }}
+              >
+                <PhaseCard {...step} src={img(PHASE_IMG[i], 720, 540)} flip={i % 2 === 1} />
+              </motion.div>
 
-          {/* Vertical line — desktop */}
-          <div
-            className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
-            style={{ background: 'var(--border)' }}
-          />
-          <motion.div
-            className="hidden lg:block absolute left-1/2 top-0 w-px -translate-x-1/2 origin-top"
-            initial={{ scaleY: 0 }} animate={inView ? { scaleY: 1 } : {}}
-            transition={{ delay: .4, duration: 1.8, ease: 'easeOut' }}
-            style={{ background: 'var(--accent)', height: '100%', opacity: .5 }}
-          />
-
-          {/* Vertical line — mobile */}
-          <div
-            className="lg:hidden absolute left-4 top-0 bottom-0 w-px"
-            style={{ background: 'var(--border)' }}
-          />
-          <motion.div
-            className="lg:hidden absolute left-4 top-0 w-px origin-top"
-            initial={{ scaleY: 0 }} animate={inView ? { scaleY: 1 } : {}}
-            transition={{ delay: .4, duration: 1.8, ease: 'easeOut' }}
-            style={{ background: 'var(--accent)', height: '100%', opacity: .5 }}
-          />
-
-          <div className="space-y-10 lg:space-y-12">
-            {STEPS.map(({ icon: Icon, num, title, phase, desc, deliverables }, i) => {
-              const isLeft = i % 2 === 0
-              return (
-                <motion.div
-                  key={title}
-                  initial={{ opacity: 0, x: isLeft ? -30 : 30 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: .25 + i * .15, duration: .65, ease: E }}
-                  className="relative pl-12 lg:pl-0 lg:grid lg:grid-cols-[1fr_88px_1fr] lg:items-start"
-                >
-                  {/* Desktop left slot */}
-                  <div className="hidden lg:block">
-                    {isLeft && <StepCard icon={Icon} num={num} title={title} phase={phase} desc={desc} deliverables={deliverables} />}
-                  </div>
-
-                  {/* Centre node */}
-                  <div className="hidden lg:flex flex-col items-center pt-5">
-                    <motion.div
-                      initial={{ scale: 0 }} animate={inView ? { scale: 1 } : {}}
-                      transition={{ delay: .35 + i * .15, type: 'spring', bounce: .55 }}
-                      className="w-11 h-11 rounded-full flex items-center justify-center z-10 relative"
-                      style={{
-                        background: 'var(--bg)',
-                        border: '2px solid var(--accent)',
-                        boxShadow: '0 0 0 5px var(--bg)',
-                      }}
-                    >
-                      <Icon className="w-4 h-4" style={{ color: 'var(--accent)' }} />
-                    </motion.div>
-                    <span className="font-mono text-[10px] mt-2 tracking-widest" style={{ color: 'var(--text-muted)' }}>{num}</span>
-                  </div>
-
-                  {/* Desktop right slot */}
-                  <div className="hidden lg:block">
-                    {!isLeft && <StepCard icon={Icon} num={num} title={title} phase={phase} desc={desc} deliverables={deliverables} />}
-                  </div>
-
-                  {/* Mobile node */}
-                  <motion.div
-                    initial={{ scale: 0 }} animate={inView ? { scale: 1 } : {}}
-                    transition={{ delay: .35 + i * .15, type: 'spring', bounce: .55 }}
-                    className="lg:hidden absolute left-0 top-1 w-8 h-8 rounded-full flex items-center justify-center z-10"
-                    style={{ background: 'var(--bg)', border: '2px solid var(--accent)' }}
-                  >
-                    <Icon className="w-3.5 h-3.5" style={{ color: 'var(--accent)' }} />
-                  </motion.div>
-
-                  {/* Mobile card */}
-                  <div className="lg:hidden">
-                    <StepCard icon={Icon} num={num} title={title} phase={phase} desc={desc} deliverables={deliverables} />
-                  </div>
-                </motion.div>
-              )
-            })}
-          </div>
+              {i < STEPS.length - 1 && <PhaseLink />}
+            </React.Fragment>
+          ))}
         </div>
 
         {/* Bottom CTA strip */}
@@ -213,15 +201,12 @@ export default function Process({ num = '03' }) {
               Ready to start your project?
             </p>
             <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-              Book a free 30-min discovery call — no strings attached.
+              Book a free 30-min discovery call, no strings attached.
             </p>
           </div>
-          <a
-            href="#contact"
-            className="btn btn-primary shrink-0"
-          >
+          <Link to="/contact" className="btn btn-primary shrink-0">
             Start Discovery
-          </a>
+          </Link>
         </motion.div>
 
       </div>

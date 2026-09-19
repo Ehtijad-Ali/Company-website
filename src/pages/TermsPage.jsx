@@ -6,7 +6,7 @@ const SECTIONS = [
     id: 'acceptance',
     title: 'Acceptance of Terms',
     content: [
-      { type: 'p', text: 'By engaging CodeNode for any service — whether through our website, a signed proposal, or a verbal agreement — you agree to be bound by these Terms of Service. If you are entering into this agreement on behalf of a company or other legal entity, you represent that you have the authority to bind that entity.' },
+      { type: 'p', text: 'By engaging CodeNode for any service, whether through our website, a signed proposal, or a verbal agreement, you agree to be bound by these Terms of Service. If you are entering into this agreement on behalf of a company or other legal entity, you represent that you have the authority to bind that entity.' },
       { type: 'highlight', text: 'These terms form part of every client engagement. Where a separate project agreement or Statement of Work (SoW) exists, that document takes precedence over any conflicting provision here.' },
     ],
   },
@@ -74,7 +74,7 @@ const SECTIONS = [
     id: 'confidentiality',
     title: 'Confidentiality',
     content: [
-      { type: 'p', text: 'Both parties agree to keep confidential all non-public information disclosed during the engagement — including business strategies, technical architectures, financial data, and customer information.' },
+      { type: 'p', text: 'Both parties agree to keep confidential all non-public information disclosed during the engagement, including business strategies, technical architectures, financial data, and customer information.' },
       { type: 'list', items: [
         'Confidentiality obligations survive termination of the engagement for a period of 3 years.',
         'We will not disclose confidential information except to team members and sub-contractors bound by equivalent obligations.',
@@ -89,7 +89,7 @@ const SECTIONS = [
       { type: 'p', text: 'To the maximum extent permitted by applicable law:' },
       { type: 'list', items: [
         'Our total aggregate liability to you for any claim arising from or related to these terms or an engagement shall not exceed the total fees paid by you for the relevant project in the 12 months preceding the claim.',
-        'We are not liable for indirect, consequential, incidental, or punitive damages — including lost profits, data loss, or business interruption — even if advised of the possibility of such damages.',
+        'We are not liable for indirect, consequential, incidental, or punitive damages, including lost profits, data loss, or business interruption, even if advised of the possibility of such damages.',
         'Nothing in these terms limits liability for fraud, wilful misconduct, or death/personal injury caused by negligence.',
       ]},
     ],

@@ -1,0 +1,9 @@
+{
+  "count": 240,
+  "digits": 4,
+  "extension": "webp",
+  "tiers": {
+    "lg": { "dir": "frames/lg", "width": 1600, "height": 900 },
+    "sm": { "dir": "frames/sm", "width": 960, "height": 540 }
+  }
+}

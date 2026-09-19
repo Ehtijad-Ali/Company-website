@@ -8,17 +8,18 @@
  * placeholders for a first year, not audited numbers — they are still YOURS
  * to set. Edit them here once and every section follows.
  *
- * Note on `avgExperience`: the studio is new, so "years in practice" would
- * read as 1 and undersell the team. What is actually true — and worth saying
- * — is that the people are not junior. That figure is the roster average.
+ * Note on `avgExperience`: the studio is new, so "years in practice" reads
+ * as 1 and says nothing about who does the work. This figure is the roster
+ * average of each person's own career, and must be recomputed from
+ * `TEAM[].years` whenever the roster changes.
  */
 export const METRICS = {
   projects:      { value: 24,  suffix: '+',  label: 'Projects delivered',
-                   desc: 'Since opening in 2025 — MVPs, platform builds and rescues.' },
+                   desc: 'Since opening in 2025: MVPs, platform builds and rescues.' },
   satisfaction:  { value: 98,  suffix: '%',  label: 'Client satisfaction',
                    desc: "Measured post-delivery across every engagement we've shipped." },
-  avgExperience: { value: 8,   suffix: '+',  label: 'Avg. years per specialist',
-                   desc: 'The studio is new. The people in it are not.' },
+  avgExperience: { value: 3,   suffix: '+',  label: 'Avg. years per specialist',
+                   desc: 'Nine specialists, two to five years each in their own field.' },
   rating:        { value: 4.9, suffix: '★', decimals: 1, label: 'Average rating',
                    desc: 'Collected directly from clients after each engagement.' },
   countries:     { value: 9,   suffix: '+',  label: 'Countries served' },
@@ -31,7 +32,7 @@ export const METRICS = {
  * timeline, the facts strip, the story copy — derives from these.
  */
 export const FOUNDED = 2025
-export const TEAM_SIZE = 12
+export const TEAM_SIZE = 9
 
 /** "24+", "$50", "4.9★" — one formatter so every surface renders alike. */
 export const format = key => {

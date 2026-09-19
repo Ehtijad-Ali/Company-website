@@ -4,8 +4,8 @@ import { MessageSquare, X, ArrowUp, Sparkles } from 'lucide-react'
 import { useContact } from '../context/ContactContext'
 import { OPENING_MESSAGE, CONTACT } from '../services/chatKnowledge'
 import { probeAI, sendMessage } from '../services/chatClient'
+import { E } from '../lib/motion'
 
-const E = [0.22, 1, 0.36, 1]
 
 /* Chips that do something other than ask a question. */
 const ACTIONS = {

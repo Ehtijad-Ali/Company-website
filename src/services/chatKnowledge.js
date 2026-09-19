@@ -26,7 +26,7 @@ const INTENTS = [
     id: 'greeting',
     weight: 0,
     keywords: ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening', 'salam', 'assalam'],
-    answer: "Hello — I'm the CodeNode assistant. I can answer questions about our services, timelines, pricing and process. What are you working on?",
+    answer: "Hello, I'm the CodeNode assistant. I can answer questions about our services, timelines, pricing and process. What are you working on?",
     chips: ['What do you build?', 'How much does it cost?', 'How long does it take?'],
   },
   {
@@ -34,7 +34,7 @@ const INTENTS = [
     weight: 1,
     keywords: ['service', 'services', 'what do you do', 'what do you build', 'offer', 'capabilities', 'help with', 'specialise', 'specialize'],
     answer:
-      'We work across eight areas: web development, AI & machine learning, UI/UX design, mobile apps, cloud & DevOps, digital marketing, cybersecurity, and performance engineering.\n\nMost engagements combine two or three of those — a platform build with the design and infrastructure that go around it.',
+      'We work across eight areas: web development, AI & machine learning, UI/UX design, mobile apps, cloud & DevOps, digital marketing, cybersecurity, and performance engineering.\n\nMost engagements combine two or three of those: a platform build with the design and infrastructure that go around it.',
     chips: ['Tell me about AI work', 'What tech stack?', 'Start a project'],
   },
   {
@@ -42,7 +42,7 @@ const INTENTS = [
     weight: 2,
     keywords: ['ai', 'ml', 'machine learning', 'llm', 'gpt', 'claude', 'chatbot', 'nlp', 'computer vision', 'predictive', 'automation'],
     answer:
-      "AI integration is one of our fastest-growing service lines — LLM-powered features through to full ML pipelines, shipped to production for clients in fintech, health and e-commerce.\n\nIn practice that's usually NLP, computer vision, predictive analytics, or intelligent automation wired into a product you already run.",
+      "AI integration is one of our fastest-growing service lines: LLM-powered features through to full ML pipelines, shipped to production for clients in fintech, health and e-commerce.\n\nIn practice that's usually NLP, computer vision, predictive analytics, or intelligent automation wired into a product you already run.",
     chips: ['How long would that take?', 'Start a project'],
   },
   {
@@ -50,7 +50,7 @@ const INTENTS = [
     weight: 2,
     keywords: ['price', 'pricing', 'cost', 'budget', 'quote', 'how much', 'rate', 'expensive', 'afford', 'charge'],
     answer:
-      "Budgets start at $2,000 for targeted projects, and scale from there with scope.\n\nWe use fixed-price for well-scoped work and time & materials for exploratory or evolving work — we'll recommend whichever protects both sides after a discovery call.",
+      "Budgets start at $2,000 for targeted projects, and scale from there with scope.\n\nWe use fixed-price for well-scoped work and time & materials for exploratory or evolving work, and we'll recommend whichever protects both sides after a discovery call.",
     chips: ['Book a discovery call', 'How long does it take?'],
   },
   {
@@ -58,7 +58,7 @@ const INTENTS = [
     weight: 2,
     keywords: ['how long', 'timeline', 'time', 'duration', 'deadline', 'fast', 'quick', 'when', 'weeks', 'months', 'delivery'],
     answer:
-      'It depends on scope. A focused landing page runs 2–3 weeks; a full SaaS platform typically takes 3–6 months.\n\nWe define clear milestones upfront, so you know what lands when rather than waiting for a big reveal.',
+      'It depends on scope. A focused landing page runs 2 to 3 weeks; a full SaaS platform typically takes 3 to 6 months.\n\nWe define clear milestones upfront, so you know what lands when rather than waiting for a big reveal.',
     chips: ['How much does it cost?', 'What is your process?'],
   },
   {
@@ -66,7 +66,7 @@ const INTENTS = [
     weight: 1,
     keywords: ['process', 'how do you work', 'workflow', 'methodology', 'approach', 'steps', 'sprint', 'discovery'],
     answer:
-      "We're engineers who design and designers who understand code, so there's no handoff gap between the two.\n\nEvery project starts with discovery and a milestone plan, then runs in sprints with working software you can look at throughout — not a reveal at the end.",
+      "We're engineers who design and designers who understand code, so there's no handoff gap between the two.\n\nEvery project starts with discovery and a milestone plan, then runs in sprints with working software you can look at throughout, not a reveal at the end.",
     chips: ['Who is on the team?', 'Start a project'],
   },
   {
@@ -82,7 +82,7 @@ const INTENTS = [
     weight: 3,
     keywords: ['existing', 'legacy', 'take over', 'inherit', 'rescue', 'our codebase', 'current site', 'current app', 'migrate', 'rewrite'],
     answer:
-      "Yes — we've taken over plenty of projects mid-flight.\n\nWe start with a thorough audit and an honest assessment, then agree a remediation plan before touching a line of code. Sometimes that plan is 'fix this'; sometimes it's 'this needs replacing', and we'll say so.",
+      "Yes, we've taken over plenty of projects mid-flight.\n\nWe start with a thorough audit and an honest assessment, then agree a remediation plan before touching a line of code. Sometimes that plan is 'fix this'; sometimes it's 'this needs replacing', and we'll say so.",
     chips: ['Book a discovery call', 'How much does it cost?'],
   },
   {
@@ -90,7 +90,7 @@ const INTENTS = [
     weight: 2,
     keywords: ['support', 'maintenance', 'after launch', 'post launch', 'warranty', 'retainer', 'ongoing', 'bug', 'sla'],
     answer:
-      'Every project includes a 30-day warranty window after launch.\n\nBeyond that we offer monthly retainers covering maintenance, feature work and performance monitoring — most clients keep one running.',
+      'Every project includes a 30-day warranty window after launch.\n\nBeyond that we offer monthly retainers covering maintenance, feature work and performance monitoring, and most clients keep one running.',
     chips: ['How much does it cost?', 'Start a project'],
   },
   {
@@ -106,7 +106,7 @@ const INTENTS = [
     weight: 2,
     keywords: ['team', 'who are you', 'people', 'employees', 'staff', 'company', 'about', 'founded', 'where are you'],
     answer:
-      "We're a small senior team — every person contributes to both vision and execution, which is why there are fewer revisions and no handoff chaos.\n\nEach person also has their own profile with rates, skills and past work, and can be engaged individually.",
+      "We're a small senior team, and every person contributes to both vision and execution, which is why there are fewer revisions and no handoff chaos.\n\nEach person also has their own profile with rates, skills and past work, and can be engaged individually.",
     chips: ['Can I hire one person?', 'Browse the team', 'What is your process?'],
   },
   {
@@ -114,7 +114,7 @@ const INTENTS = [
     weight: 3,
     keywords: ['hire', 'hourly', 'per hour', 'individual', 'one person', 'freelance', 'freelancer', 'contractor', 'interview', 'book someone', 'specific person', 'rate', 'rates', 'developer for', 'designer for', 'augment'],
     answer:
-      "Yes — every specialist on the team can be engaged directly, by the hour, for a sprint, or embedded in your team.\n\nRates run from $20/hr for research through to $50/hr for strategy work. Each profile shows the rate, current availability, skills and selected work, and has a 'Request an interview' button that reaches us directly.",
+      "Yes, every specialist on the team can be engaged directly, by the hour, for a sprint, or embedded in your team.\n\nRates run from $20/hr for research through to $50/hr for strategy work. Each profile shows the rate, current availability, skills and selected work, and has a 'Request an interview' button that reaches us directly.",
     chips: ['Browse the team', 'How much does it cost?'],
   },
   {
@@ -122,7 +122,7 @@ const INTENTS = [
     weight: 3,
     keywords: ['contact', 'talk', 'call', 'email', 'reach', 'get in touch', 'book', 'meeting', 'consultation', 'start a project', 'hire you', 'whatsapp', 'phone'],
     answer:
-      "Happiest to talk properly. The contact form is the quickest route — tell us what you're building and we'll come back within one business day.\n\nOr message us on WhatsApp at " + CONTACT.whatsappLabel + ' if that suits you better.',
+      "Happiest to talk properly. The contact form is the quickest route. Tell us what you're building and we'll come back within one business day.\n\nOr message us on WhatsApp at " + CONTACT.whatsappLabel + ' if that suits you better.',
     chips: ['Open the contact form', 'Message on WhatsApp'],
   },
   {
@@ -145,14 +145,14 @@ const INTENTS = [
 const FALLBACK = {
   id: 'fallback',
   answer:
-    "I don't have a scripted answer for that one — I cover services, pricing, timelines, process, tech stack and support.\n\nFor anything more specific, the contact form reaches a human who can answer properly, usually within a business day.",
+    "I don't have a scripted answer for that one. I cover services, pricing, timelines, process, tech stack and support.\n\nFor anything more specific, the contact form reaches a human who can answer properly, usually within a business day.",
   chips: ['What do you build?', 'How much does it cost?', 'Open the contact form'],
 }
 
 export const OPENING_MESSAGE = {
   role: 'assistant',
   content:
-    "Hi — I'm the CodeNode assistant. Ask me about our services, timelines, pricing or how we work.",
+    "Hi, I'm the CodeNode assistant. Ask me about our services, timelines, pricing or how we work.",
   chips: ['What do you build?', 'How much does it cost?', 'How long does it take?'],
 }
 

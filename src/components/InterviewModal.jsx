@@ -6,7 +6,7 @@ import { apiClient } from '../services/apiClient'
 import { formatRate } from '../data/team'
 
 const ENGAGEMENTS = ['One-off consultation', 'Short project (< 1 month)', 'Ongoing project', 'Retainer / embedded']
-const BUDGETS = ['Under $5k', '$5k – $15k', '$15k – $50k', '$50k+', 'Not sure yet']
+const BUDGETS = ['Under $5k', '$5k to $15k', '$15k to $50k', '$50k+', 'Not sure yet']
 
 const FIELD_LABEL = {
   fontFamily: 'var(--font-mono)',
@@ -91,7 +91,7 @@ export default function InterviewModal({ member, open, onClose }) {
   if (!open) return null
 
   const mailto = `mailto:hello@codenode.dev?subject=${encodeURIComponent(
-    `Interview request — ${member.name}`
+    `Interview request for ${member.name}`
   )}&body=${encodeURIComponent(form.message)}`
 
   return createPortal(
@@ -121,7 +121,7 @@ export default function InterviewModal({ member, open, onClose }) {
           <div className="flex items-center gap-3 shrink-0"
             style={{ padding: '1rem 1.25rem', borderBottom: '1px solid var(--border)', background: 'var(--bg-surface)' }}>
             <img
-              src={member.img} alt=""
+              src={member.img} alt="" className="member-photo"
               style={{ width: 40, height: 40, borderRadius: 'var(--r-sm)', objectFit: 'cover', objectPosition: 'top' }}
             />
             <div className="flex-1 min-w-0">
@@ -219,7 +219,7 @@ export default function InterviewModal({ member, open, onClose }) {
                     : 'Send request'}
                 </button>
                 <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-                  No obligation — we'll confirm availability first.
+                  No obligation. We'll confirm availability first.
                 </p>
               </div>
             </form>

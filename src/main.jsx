@@ -17,7 +17,7 @@ class ErrorBoundary extends React.Component {
           padding: 32, gap: 14
         }}>
           <h2 style={{
-            fontFamily: "'Playfair Display', Georgia, serif",
+            fontFamily: "'Newsreader', Georgia, serif",
             fontWeight: 500, fontSize: 28, letterSpacing: '-0.02em', margin: 0,
           }}>
             Something went <em style={{ fontStyle: 'italic', color: '#D68667' }}>wrong</em>

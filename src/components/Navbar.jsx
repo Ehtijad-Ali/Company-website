@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
-import { useContact } from '../context/ContactContext'
 import { useAuth } from '../context/AuthContext'
 import { Sun, Moon, Menu, X, LogOut, Shield } from 'lucide-react'
 import CodeNodeLogo from './CodeNodeLogo'
@@ -12,13 +11,17 @@ const LINKS = [
   { to: '/about',       label: 'About'        },
   { to: '/services',    label: 'Services'     },
   { to: '/portfolio',   label: 'Portfolio'    },
+  /* The courses live inside the services page rather than on a route of
+     their own — a second listing would be the same nine cards competing
+     with the first for the same search. The anchor is how they are found. */
+  { to: '/services#courses', label: 'Courses' },
   { to: '/team',        label: 'Team'         },
   { to: '/blog',        label: 'Blog'         },
+  { to: '/contact',     label: 'Contact'      },
 ]
 
 export default function Navbar() {
   const { isDark, toggle } = useTheme()
-  const { openContact } = useContact()
   const { user, logout } = useAuth()
   const { pathname } = useLocation()
   const [scrolled, setScrolled] = useState(false)
@@ -127,9 +130,12 @@ export default function Navbar() {
             </>
           )}
 
-          <button onClick={openContact} className="hidden md:flex btn btn-primary btn-hover-micro micro-click text-sm">
+          {/* Goes to the contact page rather than opening the overlay: the
+              overlay renders that same page full-screen, so the modal was
+              the contact page wearing a close button. */}
+          <Link to="/contact" className="hidden md:flex btn btn-primary btn-hover-micro micro-click text-sm">
             Let's Talk
-          </button>
+          </Link>
 
           <button onClick={() => setOpen(v => !v)} className="md:hidden w-9 h-9 flex items-center justify-center"
             style={{ borderRadius: 'var(--r-md)', background: 'var(--bg-card)', border: '1px solid var(--border)' }}>
@@ -183,7 +189,7 @@ export default function Navbar() {
                   <Link to="/register" onClick={() => setOpen(false)} className="btn btn-primary w-full justify-center">Register</Link>
                 </>
               )}
-              <button onClick={() => { openContact(); setOpen(false) }} className="btn btn-primary w-full justify-center">Let's Talk</button>
+              <Link to="/contact" onClick={() => setOpen(false)} className="btn btn-primary w-full justify-center">Let's Talk</Link>
             </div>
           </motion.div>
         )}

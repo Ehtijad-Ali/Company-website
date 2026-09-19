@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import SectionHeader from '../ui/SectionHeader'
+import { ClipBackground } from '../ui/EditorialImage'
+import studioClip from '../../logo/video.mp4'
 import { format } from '../../data/metrics'
-
-const E = [0.22, 1, 0.36, 1]
+import { E } from '../../lib/motion'
 
 /**
  * Commitments, not adjectives. Each line names something a client could hold
@@ -44,19 +45,28 @@ function ManifestoPanel({ inView }) {
         border: '1px solid var(--border)',
         borderRadius: 'var(--r-lg)',
         overflow: 'hidden',
-        padding: '2.5rem 2.25rem 2rem',
-        minHeight: 420,
+        padding: 0,
+        /* `height: 100%` lets the grid row decide the height, so this card
+           and the pillars column beside it always finish level. */
+        height: '100%',
+        minHeight: 460,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
         boxShadow: 'var(--e-1)',
       }}
     >
-      {/* Warm brand wash — was a purple that belonged to no palette here */}
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none',
-        background: 'radial-gradient(ellipse 80% 60% at 15% 110%, var(--accent-glow), transparent 70%)',
-      }} />
+      {/* The clip fills the card and the copy sits on top of it. */}
+      <ClipBackground src={studioClip} label="The studio team working together" />
+
+      <div className="mf-body" style={{
+        position: 'relative',
+        zIndex: 2,
+        padding: '2.25rem',
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1,
+        justifyContent: 'space-between',
+      }}>
 
       <div className="flex items-center justify-between" style={{ marginBottom: '2rem', position: 'relative' }}>
         <span className="eyebrow">Manifesto</span>
@@ -110,6 +120,7 @@ function ManifestoPanel({ inView }) {
         <span className="eyebrow">Remote-first</span>
         <span className="eyebrow">{format('countries')} countries served</span>
       </motion.div>
+      </div>
     </motion.div>
   )
 }
@@ -181,6 +192,7 @@ export default function About() {
             </motion.div>
           </motion.div>
         </div>
+
       </div>
     </section>
   )

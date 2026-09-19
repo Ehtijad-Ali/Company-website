@@ -4,6 +4,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { TEAM, DEPTS, formatRate } from '../../data/team'
 import { AvailabilityBadge } from '../team/MemberBits'
+import { avatarFallback } from '../../lib/avatar'
 
 /* The home section shows a curated subset; /team has the full roster. */
 const FEATURED = TEAM.slice(0, 8)
@@ -34,8 +35,9 @@ function Card({ m, i }) {
           src={m.img} alt={m.name}
           animate={{ scale: hovered ? 1.06 : 1, filter: hovered ? 'grayscale(0%)' : 'grayscale(55%)' }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="member-photo"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
-          onError={e => { e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(m.name)}&bg=C96A4A&color=FFFCF8&bold=true&size=600` }}
+          onError={avatarFallback(m.name, 600)}
         />
 
         {/* Warm scrim, tinted to the palette rather than neutral black */}
@@ -131,7 +133,7 @@ export default function Team() {
         >
           <div>
             <p className="eyebrow mb-3">
-              <span style={{ color: 'var(--brand)' }}>07</span>
+              <span style={{ color: 'var(--brand)' }}>05</span>
               <span style={{ margin: '0 0.6rem', opacity: 0.4 }}>/</span>Team
             </p>
             <h2 className="section-title">
@@ -139,7 +141,7 @@ export default function Team() {
               {' '}bookable by the hour
             </h2>
             <p className="section-sub mt-4">
-              Engage any specialist directly — rates and availability on every profile.
+              Engage any specialist directly, with rates and availability on every profile.
             </p>
           </div>
           <Link to="/team"

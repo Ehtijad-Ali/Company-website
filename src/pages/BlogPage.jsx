@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight, Clock } from 'lucide-react'
 import SectionHeader from '../components/ui/SectionHeader'
 import { TEAM } from '../data/team'
-
-const E = [0.22, 1, 0.36, 1]
+import { E } from '../lib/motion'
 
 /**
  * Posts carry an author *slug*, not a loose name string, so every byline
@@ -13,28 +12,28 @@ const E = [0.22, 1, 0.36, 1]
  */
 const POSTS = [
   { slug: 'saas-architecture', title: 'The architecture behind our busiest build yet',
-    cat: 'Engineering', date: 'Jun 2026', read: 8, author: 'usman-tariq', featured: true,
-    excerpt: 'The infrastructure decisions behind a platform that went from zero to real traffic in one release cycle — including the two we would make differently now.',
+    cat: 'Engineering', date: 'Jun 2026', read: 8, author: 'ehtijad-ali', featured: true,
+    excerpt: 'The infrastructure decisions behind a platform that went from zero to real traffic in one release cycle, including the two we would make differently now.',
     img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=700&fit=crop' },
   { slug: 'llm-fine-tuning', title: 'Why LLM fine-tuning is overrated',
-    cat: 'AI/ML', date: 'Jun 2026', read: 6, author: 'ayesha-siddiqui',
+    cat: 'AI/ML', date: 'Jun 2026', read: 6, author: 'faiza-rehmat',
     excerpt: "When prompting, RAG and a large context window solve 80% of use cases, fine-tuning is an expensive answer to a question nobody asked.",
     img: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&h=500&fit=crop' },
   { slug: 'design-systems-cost', title: 'The real cost of design systems',
-    cat: 'Design', date: 'May 2026', read: 5, author: 'sana-javed',
+    cat: 'Design', date: 'May 2026', read: 5, author: 'almeen-zahra',
     excerpt: "A design system is a bet on the future. Here's how to work out whether the bet is worth making before you spend a quarter on it.",
     img: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=500&fit=crop' },
   { slug: 'core-web-vitals', title: 'Core Web Vitals: from 45 to 98 in three weeks',
-    cat: 'Performance', date: 'May 2026', read: 7, author: 'usman-tariq',
+    cat: 'Performance', date: 'May 2026', read: 7, author: 'faila-abbas',
     excerpt: 'A step-by-step account of diagnosing and removing every performance bottleneck in a legacy Next.js application.',
     img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop' },
   { slug: 'mobile-retention', title: 'Mobile retention: the metrics that actually matter',
-    cat: 'Growth', date: 'Apr 2026', read: 4, author: 'hira-nadeem',
+    cat: 'Growth', date: 'Apr 2026', read: 4, author: 'kiran',
     excerpt: "D1, D7 and D30 are table stakes. These are the leading indicators that predict churn before it shows up in them.",
     img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=500&fit=crop' },
   { slug: '3d-on-the-web', title: "3D on the web: what's worth using",
-    cat: 'Engineering', date: 'Apr 2026', read: 9, author: 'bilal-ahmed',
-    excerpt: 'Three.js, WebGPU, React Three Fiber, Babylon — an opinionated guide to which are worth your time and which are hype.',
+    cat: 'Engineering', date: 'Apr 2026', read: 9, author: 'faila-abbas',
+    excerpt: 'Three.js, WebGPU, React Three Fiber, Babylon: an opinionated guide to which are worth your time and which are hype.',
     img: 'https://images.unsplash.com/photo-1614854262318-831574f15f1f?w=800&h=500&fit=crop' },
 ]
 
@@ -119,7 +118,7 @@ const PostCard = React.forwardRef(function PostCard({ post, i }, ref) {
       initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.97 }}
       transition={{ delay: (i % 3) * 0.07, duration: 0.55, ease: E }}
     >
-      <Link to="/blog" className="card card-hover group flex flex-col h-full overflow-hidden" style={{ padding: 0 }}>
+      <Link to="/blog" className="card group flex flex-col h-full overflow-hidden" style={{ padding: 0 }}>
         <div className="img-zoom-wrap relative" style={{ aspectRatio: '16/10' }}>
           <img src={post.img} alt="" className="w-full h-full object-cover" />
           <span className="absolute chip" style={{ top: 12, left: 12, background: 'var(--bg-card)' }}>{post.cat}</span>
@@ -175,7 +174,7 @@ export default function BlogPage() {
               What we learned <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--brand)' }}>building it</em>
             </h1>
             <p className="section-sub mt-4">
-              Field notes from live engagements — the decisions, the trade-offs, and
+              Field notes from live engagements: the decisions, the trade-offs, and
               the things we would do differently. Written by the people who did the work.
             </p>
           </motion.div>

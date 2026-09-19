@@ -18,6 +18,33 @@
   animation: theme-reveal 1.4s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
+/* ─── Chronicle Display (licensed — files not in this repo) ───────
+   Chronicle Display is a commercial face from Hoefler&Co. It cannot be
+   served from Google Fonts and its files are not redistributable, so
+   nothing here ships it.
+
+   To switch the whole site over: buy the webfont licence, drop the
+   .woff2 files into /fonts, and delete the comment markers around the
+   block below. `--font-display` already lists Chronicle Display first,
+   so no other file needs touching.
+
+@font-face {
+  font-family: 'Chronicle Display';
+  src: url('/fonts/ChronicleDisplay-Roman.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Chronicle Display';
+  src: url('/fonts/ChronicleDisplay-Semibold.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Chronicle Display';
+  src: url('/fonts/ChronicleDisplay-Italic.woff2') format('woff2');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+*/
+
 /* ─── Brand wordmark face (logo only) ──────────────────── */
 @font-face {
   font-family: 'Nasalization';
@@ -85,6 +112,7 @@
   /* Surfaces — four steps, each one clearly separable */
   --bg:          #FAF4EC;
   --bg-surface:  var(--sand-100);
+  --plate-rgb:   248, 241, 231;
   --bg-card:     #FFFCF7;
   --bg-card-rgb: 255, 252, 247;
   --bg-darker:   var(--sand-200);
@@ -150,6 +178,7 @@ html.dark {
 
   --bg:          #14100E;
   --bg-surface:  #1D1714;
+  --plate-rgb:   29, 23, 20;
   --bg-card:     #241D19;
   --bg-card-rgb: 36, 29, 25;
   --bg-darker:   #0F0C0B;
@@ -196,7 +225,16 @@ html.dark {
    ═══════════════════════════════════════════════════════════ */
 :root {
   /* Families — an editorial serif over a quiet grotesque */
-  --font-display: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+  /* Chronicle Display is named first so that the moment licensed webfont
+     files land in /fonts and the @font-face block above is uncommented,
+     every heading on the site switches over with no other edit. Until
+     then Newsreader carries it, being the closest free equivalent.
+
+     ⚠️  Naming it here also picks up a copy installed on the designer's
+     own machine. That makes the site look correct locally while every
+     visitor still gets the fallback, so never judge the live result from
+     a machine that has Chronicle installed. */
+  --font-display: 'Chronicle Display', 'Newsreader', 'Georgia', 'Times New Roman', serif;
   --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
   --font-brand:   'Nasalization', var(--font-display);
@@ -324,6 +362,10 @@ html.dark {
    6 · COMPONENTS
    ═══════════════════════════════════════════════════════════ */
 @layer components {
+  /* Figures carry a UA margin; drop it, but stay inside this layer so a
+     caller's `mb-*` utility can still set the gap below the frame. */
+  .ed-fig { margin: 0; }
+
 
   .glass {
     background: var(--bg-card);
@@ -434,14 +476,38 @@ html.dark {
   /* ── Layout rhythm ── */
   .section {
     position: relative;
-    padding: clamp(4.5rem, 9vw, 8rem) 0;
+    /* Was clamp(4.5rem, 9vw, 8rem), which put 128px above AND below every
+       section — 256px of dead ground at each boundary on a desktop. The
+       rule below is still generous but stops the page reading as a series
+       of islands separated by nothing. */
+    padding: clamp(2.75rem, 4.8vw, 4.5rem) 0;
     overflow: hidden;
+  }
+  /* Exactly one hairline between adjacent sections. Matched on the
+     element rather than on `.section`, so the hero — which sets its own
+     full-height padding and carries no `.section` class — is still
+     divided from what follows. Sections that drew their own divider had
+     it removed rather than doubled, so a boundary is never 2px thick. */
+  section + section {
+    border-top: 1px solid var(--border);
   }
   .container {
     max-width: 1440px;
     margin: 0 auto;
     padding-inline: clamp(1.25rem, 4vw, 3rem);
   }
+
+  /* One word of a section heading, and the mask it rises out of. The
+     padding/margin pair gives descenders room inside the mask — without
+     it `overflow: hidden` slices the tail off every g, y and p. */
+  .sh-word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding-bottom: 0.14em;
+    margin-bottom: -0.14em;
+  }
+  .sh-word > span { display: inline-block; }
 
   /* ── Section headings ── */
   .section-title {
@@ -836,18 +902,6 @@ html.dark .glass-strong {
 }
 .shadow-elevate:hover { box-shadow: var(--e-3); transform: translateY(-2px); }
 
-.card-hover {
-  transition: border-color var(--dur) var(--ease),
-              box-shadow var(--dur) var(--ease),
-              transform var(--dur) var(--ease),
-              background var(--dur) var(--ease);
-}
-.card-hover:hover {
-  border-color: var(--border-hover);
-  box-shadow: var(--e-3);
-  transform: translateY(-3px);
-}
-
 /* Kept for markup compatibility — the veil overlay is gone,
    .btn now handles its own hover states with real colour. */
 .btn-hover-micro { position: relative; }
@@ -983,6 +1037,847 @@ html.dark .glass-strong {
   .anim-marquee, .anim-marqueeR { animation-duration: 120s; }
   .gradient-bg-anim, .anim-float, .anim-glow { animation: none; }
   .hover-lift:hover, .hover-scale:hover, .shadow-elevate:hover,
-  .card:hover, .card-hover:hover { transform: none; }
+  .card:hover { transform: none; }
   ::view-transition-new(root) { animation: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Editorial image treatment
+   ──────────────────────────────────────────────────────────────
+   Stock photography arrives in a dozen colour temperatures. Left
+   raw it reads as a mood board rather than a brand, so every
+   image on the site goes through the same warm grade, grain and
+   scrim. A cold server rack and a terracotta wall then sit next
+   to each other without arguing.
+   ══════════════════════════════════════════════════════════════ */
+
+.ed-img-wrap {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: var(--ed-ratio, 4 / 3);
+  border-radius: var(--r-lg);
+  background: linear-gradient(135deg, var(--ink-800) 0%, var(--ink-700) 60%, var(--terracotta-900) 100%);
+  box-shadow: var(--e-1);
+  isolation: isolate;
+}
+.ed-img-wrap.ed-flush { border-radius: 0; box-shadow: none; }
+
+.ed-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Graded down at rest so the page reads as type first, image second. */
+  filter: saturate(0.62) contrast(1.06) brightness(0.9) sepia(0.14);
+  transition: filter 900ms var(--ease), transform 1400ms var(--ease);
+  will-change: transform, filter;
+}
+
+/* Warm wash + bottom scrim. The scrim is what makes overlaid
+   captions legible without a box behind them. */
+.ed-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(210deg, rgba(201, 106, 74, 0.24) 0%, rgba(201, 106, 74, 0) 58%),
+    linear-gradient(to top, rgba(27, 20, 18, 0.66) 0%, rgba(27, 20, 18, 0.04) 58%);
+}
+
+/* Colour returns on hover — the image "wakes up" under the cursor. */
+.ed-img-wrap:hover .ed-img {
+  filter: saturate(1) contrast(1.02) brightness(1) sepia(0);
+  transform: scale(1.045);
+}
+.ed-img-wrap.ed-parallax:hover .ed-img { transform: none; }
+
+/* Film grain. Ties the disparate sources together more than any
+   single colour move does. */
+.ed-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* If the CDN drops an image the frame keeps its shape and its
+   gradient rather than showing a broken-image glyph. */
+.ed-failed .ed-img { display: none; }
+
+.ed-cap {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.1rem 1.25rem;
+  color: #FBF3EF;
+}
+.ed-cap .eyebrow { color: var(--terracotta-200); }
+.ed-cap-text {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+/* ── Section background plates ────────────────────────────────
+   A texture sat behind a whole section, knocked back far enough
+   that it is felt rather than seen. */
+.ed-plate {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* Light ground: the texture is lifted so it reads as warm paper.
+   Darkening it here, as the dark theme does, just looks like dirt
+   under a pale scrim. */
+.ed-plate img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.42) contrast(0.98) brightness(1.22) sepia(0.3);
+}
+html.dark .ed-plate img {
+  filter: saturate(0.5) contrast(1.02) brightness(0.72) sepia(0.22);
+}
+
+.ed-plate::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(var(--plate-rgb, 27, 20, 18), 0.88) 0%,
+    rgba(var(--plate-rgb, 27, 20, 18), 0.79) 45%,
+    rgba(var(--plate-rgb, 27, 20, 18), 0.91) 100%);
+}
+html.dark .ed-plate::after {
+  background: linear-gradient(to bottom,
+    rgba(var(--plate-rgb, 27, 20, 18), 0.93) 0%,
+    rgba(var(--plate-rgb, 27, 20, 18), 0.86) 45%,
+    rgba(var(--plate-rgb, 27, 20, 18), 0.95) 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ed-img,
+  .ed-img-wrap:hover .ed-img { transition: none; transform: none; }
+}
+
+/* Service row body: copy left, image right once the row opens.
+   Below lg the image would crowd the text, so it is dropped
+   entirely rather than stacked — the copy is the point. */
+.svc-body {
+  padding-bottom: 1.875rem;
+  padding-left: 7.7rem;
+}
+.svc-shot { display: none; }
+@media (min-width: 1024px) {
+  .svc-body {
+    display: grid;
+    grid-template-columns: 1fr 17rem;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .svc-shot { display: block; }
+}
+@media (max-width: 640px) {
+  .svc-body { padding-left: 0; }
+}
+
+/* A clip in an editorial frame. It inherits `.ed-img`, so the grade,
+   the grain and the hover colour-lift all apply exactly as they do to
+   a still — which is the point. */
+video.ed-img {
+  object-fit: cover;
+  background: var(--ink-900);
+}
+
+/* ── Clip as a container background ───────────────────────────
+   Used where copy sits on top of footage rather than beside it. */
+.ed-fill {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.ed-fill-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: var(--ink-900);
+  /* Graded harder than a standalone clip: this one has to sit behind
+     type, so it gives up contrast to keep the words readable. */
+  filter: saturate(0.62) contrast(1.02) brightness(0.9) sepia(0.14);
+}
+/* Weighted to the left, where the copy actually sits, so the right of
+   the frame keeps enough light for the footage to still read as
+   footage rather than as a dark rectangle. */
+.ed-fill-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(100deg,
+      rgba(20, 16, 14, calc(var(--scrim, 0.58) + 0.14)) 0%,
+      rgba(20, 16, 14, var(--scrim, 0.58)) 45%,
+      rgba(20, 16, 14, calc(var(--scrim, 0.58) - 0.24)) 100%),
+    linear-gradient(to top, rgba(20, 16, 14, 0.42) 0%, rgba(20, 16, 14, 0.12) 40%);
+}
+
+/* The manifesto copy now sits over video in both themes, so it cannot
+   take its colours from the light/dark tokens. Redefining the tokens on
+   this subtree flips every nested `var(--text-primary)` and friends to
+   the on-image palette without touching a single inline style. */
+.mf-body {
+  --text-primary:   #FBF3EF;
+  --text-secondary: rgba(251, 243, 239, 0.82);
+  --text-muted:     rgba(251, 243, 239, 0.62);
+  --text-label:     rgba(251, 243, 239, 0.74);
+  --text-faint:     rgba(251, 243, 239, 0.55);
+  --brand:          var(--terracotta-300);
+  --border:         rgba(251, 243, 239, 0.22);
+  --divider:        rgba(251, 243, 239, 0.18);
+  color: var(--text-primary);
+  text-shadow: 0 1px 24px rgba(20, 16, 14, 0.4);
+}
+
+/* ── Hero tech ticker ─────────────────────────────────────────
+   Each item carries its own brand colour on `--tech`. */
+.tech-tick {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+  margin: 0 1.75rem;
+}
+/* The real brand mark, filled with its own colour. Monochrome marks
+   (Next.js, Three.js) set no `--tech` and fall back to the page ink so
+   they stay visible in both themes. */
+.tech-mark {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  fill: var(--tech, var(--text-primary));
+  /* Lucide's fallback glyph is stroked, not filled. */
+  stroke: var(--tech, var(--text-primary));
+}
+svg.tech-mark:not([stroke-width]) { stroke: none; }
+/* The label takes the brand hue but is mixed toward the page's own text
+   colour, so a pale mark like Next.js stays readable on the light ground
+   and a dark one like Kubernetes stays readable on the dark. A raw brand
+   hex here would be illegible in one theme or the other. */
+.tech-name {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  /* Light ground needs more of the ink mixed in: pale marks such as
+     React cyan wash out against sand at the ratio the dark theme uses. */
+  color: color-mix(in oklab, var(--tech) 40%, var(--text-primary));
+}
+html.dark .tech-name {
+  color: color-mix(in oklab, var(--tech) 62%, var(--text-primary));
+}
+@supports not (color: color-mix(in oklab, red, blue)) {
+  .tech-name { color: var(--text-secondary); }
+  .tech-dot  { box-shadow: none; }
+}
+
+/* ── Impact stats ─────────────────────────────────────────────
+   No boxes: the numbers sit straight on the section ground and a single
+   hairline does the dividing four cards used to — horizontal between the
+   rows on a phone, vertical between the columns once they are side by
+   side. 1 up on a phone, 2 up from 640, 4 up from 1024. */
+.stat-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+/* The icon hangs to the left of a single text column on a phone, so the
+   figure, its label and its sentence all start on the same edge; from 640
+   there is room for it to sit beside the number instead. */
+.stat-cell {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 0.9rem;
+  row-gap: 0.5rem;
+  align-items: start;
+  padding: 1.35rem 0;
+  border-top: 1px solid var(--divider);
+}
+.stat-cell:first-child { border-top: 0; }
+/* Grid placement only — the badge's own look is defined further down. It
+   is declared here, above the media queries, because the 640 override has
+   the same specificity and would otherwise lose to a later rule. */
+.stat-badge { grid-row: 1 / span 3; }
+.stat-value,
+.stat-label,
+.stat-desc  { grid-column: 2; }
+.stat-value { align-self: center; }
+
+@media (min-width: 640px) {
+  .stat-row { grid-template-columns: 1fr 1fr; }
+  .stat-cell {
+    padding: 1.5rem 1.75rem;
+    border-top: 0;
+    row-gap: 0.75rem;
+    align-items: center;
+  }
+  .stat-badge { grid-row: 1; }
+  .stat-label,
+  .stat-desc  { grid-column: 1 / -1; }
+  /* Verticals between the columns, a horizontal only above the second row. */
+  .stat-cell:nth-child(odd)  { padding-left: 0; }
+  .stat-cell:nth-child(even) { border-left: 1px solid var(--divider); }
+  .stat-cell:nth-child(n+3)  { border-top: 1px solid var(--divider); }
+}
+@media (min-width: 1024px) {
+  .stat-row { grid-template-columns: repeat(4, 1fr); }
+  .stat-cell { border-left: 1px solid var(--divider); padding: 0.25rem 2rem; }
+  /* Written at the same specificity as the 2-up rule above, otherwise
+     `:nth-child(n+3)` (0,2,0) outranks a plain `.stat-cell` (0,1,0) and
+     columns three and four keep a stray rule across their tops. */
+  .stat-cell:nth-child(n+1) { border-top: 0; padding-left: 2rem; }
+  .stat-cell:first-child { padding-left: 0; border-left: 0; }
+}
+
+.stat-badge {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand);
+  background: var(--accent-glow);
+  border: 1px solid color-mix(in oklab, var(--brand) 26%, transparent);
+  transition: background 400ms var(--ease), transform 400ms var(--ease);
+}
+.stat-badge svg { width: 1.05rem; height: 1.05rem; }
+.stat-cell:hover .stat-badge {
+  background: color-mix(in oklab, var(--brand) 16%, transparent);
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .stat-cell:hover .stat-badge { transform: none; }
+}
+
+/* ── Process phases ───────────────────────────────────────────
+   One full-width card per phase: the copy on one side, that phase's
+   photograph on the other, bleeding out of the card's own edge behind a
+   fade back to the card surface so it reads as part of the card rather
+   than a framed picture parked beside it. The image band sits on top on a
+   phone and to the right from 768. */
+.phase-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+}
+
+/* The live wire between phases. It carries the whole gap between two
+   cards — there is no separate stack spacing — so the current visibly runs
+   out of one card and into the next instead of a decoration floating in a
+   margin. The track is dark until its spark passes; what the spark leaves
+   behind is the lit fill. */
+.phase-stack {
+  display: flex;
+  flex-direction: column;
+}
+.phase-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+.phase-link-track {
+  position: relative;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--border);
+  /* The spark's glow spills outside the 2px track. */
+  overflow: visible;
+}
+.phase-link-fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: top;
+  border-radius: inherit;
+  background: linear-gradient(to bottom,
+    color-mix(in oklab, var(--brand) 28%, transparent),
+    var(--brand));
+}
+.phase-link-spark {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow:
+    0 0 6px 1px color-mix(in oklab, var(--brand) 70%, transparent),
+    0 0 18px 5px color-mix(in oklab, var(--brand) 32%, transparent);
+}
+/* Where the current lands, a lit point sitting on the next card's edge. */
+.phase-link-node {
+  width: 7px;
+  height: 7px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow:
+    0 0 0 4px color-mix(in oklab, var(--brand) 12%, transparent),
+    0 0 14px 2px color-mix(in oklab, var(--brand) 40%, transparent);
+}
+/* Without color-mix the glows simply do not render; the line still reads. */
+@supports not (color: color-mix(in oklab, red, blue)) {
+  .phase-link-fill  { background: var(--brand); }
+  .phase-link-spark { box-shadow: none; }
+  .phase-link-node  { box-shadow: none; }
+}
+/* No travelling light for anyone who asked for less motion — the line is
+   simply lit when it arrives. */
+@media (prefers-reduced-motion: reduce) {
+  .phase-link-spark { display: none; }
+}
+.phase-body {
+  position: relative;
+  z-index: 2;
+  padding: clamp(1.25rem, 3.2vw, 1.85rem);
+}
+.phase-shot {
+  position: relative;
+  order: -1;
+  min-height: 9rem;
+}
+.phase-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+}
+/* The number closes the header line, so it takes the free space. */
+.phase-num {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--brand);
+  opacity: 0.55;
+  user-select: none;
+}
+.phase-num-rule {
+  display: block;
+  width: 1.4rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+.phase-shot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(to top,
+    rgb(var(--bg-card-rgb)) 0%,
+    rgba(var(--bg-card-rgb), 0.55) 38%,
+    rgba(var(--bg-card-rgb), 0) 84%);
+}
+/* The image is deliberately inert on hover. `.ed-img` normally wakes up
+   under the cursor, but here it is bled into the card rather than framed:
+   scaling it slid the fade across the photograph and lighting it up put a
+   hard bright seam where the fade ends. The card's own border and lift are
+   hover feedback enough. */
+.phase-card .ed-img {
+  transform: none;
+  transition: none;
+  will-change: auto;
+}
+
+@media (min-width: 768px) {
+  .phase-card { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+  .phase-shot { order: 0; min-height: 100%; }
+  .phase-shot::after {
+    background: linear-gradient(to right,
+      rgb(var(--bg-card-rgb)) 0%,
+      rgba(var(--bg-card-rgb), 0.55) 26%,
+      rgba(var(--bg-card-rgb), 0) 68%);
+  }
+
+  /* Alternate sides down the stack: odd phases keep the image right, even
+     phases mirror it left, so the eye zig-zags the way the old timeline
+     did. The fade always starts on whichever edge meets the copy. */
+  .phase-card--flip { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+  .phase-card--flip .phase-shot { order: 0; }
+  .phase-card--flip .phase-body { order: 1; }
+  .phase-card--flip .phase-shot::after {
+    background: linear-gradient(to left,
+      rgb(var(--bg-card-rgb)) 0%,
+      rgba(var(--bg-card-rgb), 0.55) 26%,
+      rgba(var(--bg-card-rgb), 0) 68%);
+  }
+}
+
+/* ── Team photographs ─────────────────────────────────────────
+   The set is mixed: full-frame photos alongside cut-outs with the
+   background removed. A plate behind every one means a cut-out
+   reads as a deliberate portrait rather than a hole in the card,
+   and every tile looks like it belongs to the same set. Full-bleed
+   photos cover it completely, so it costs them nothing. */
+.member-photo {
+  background-color: var(--sand-200);
+  background-image: linear-gradient(165deg,
+    color-mix(in oklab, var(--brand) 12%, var(--sand-200)) 0%,
+    var(--sand-300) 100%);
+}
+html.dark .member-photo {
+  background-color: var(--ink-700);
+  background-image: linear-gradient(165deg,
+    color-mix(in oklab, var(--brand) 16%, var(--ink-700)) 0%,
+    var(--ink-800) 100%);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Course pages
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Facts strip under the course title ─────────────────────── */
+.fact-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--divider);
+  border: 1px solid var(--divider);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.fact-strip > div,
+.fact-strip > a {
+  background: var(--bg-surface);
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.fact-strip > a { text-decoration: none; transition: background 300ms var(--ease); }
+.fact-strip > a:hover { background: var(--bg-card); }
+.fact-strip > a:hover strong { color: var(--brand); }
+.fact-strip svg {
+  width: 15px;
+  height: 15px;
+  color: var(--brand);
+  margin-bottom: 0.15rem;
+}
+.fact-strip strong {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+/* ── Mentor ─────────────────────────────────────────────────── */
+.mentor-card {
+  display: block;
+  padding: 1.6rem;
+  position: relative;
+  overflow: hidden;
+}
+.mentor-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 70% 60% at 100% 0%, var(--accent-glow), transparent 70%);
+}
+.mentor-avatar {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid var(--border);
+}
+.mentor-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--divider);
+}
+.mentor-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+.mentor-meta svg { width: 12px; height: 12px; color: var(--brand); }
+.mentor-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1.1rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--brand);
+  transition: gap 300ms var(--ease);
+}
+.mentor-go svg { width: 14px; height: 14px; }
+.mentor-card:hover .mentor-go { gap: 0.75rem; }
+
+/* ── The three month plan ───────────────────────────────────── */
+.month-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 900px) {
+  .month-grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+}
+.month-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 350ms var(--ease), transform 350ms var(--ease);
+}
+/* A brand rule along the top edge, drawn in on hover. It gives the
+   three blocks a sense of sequence without adding an arrow graphic. */
+.month-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent-gradient);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 500ms var(--ease);
+}
+.month-block:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+}
+.month-block:hover::before { transform: scaleX(1); }
+
+.month-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  margin-bottom: 1rem;
+}
+.month-num {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--brand);
+  opacity: 0.85;
+}
+.month-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  margin-top: 0.15rem;
+}
+.month-focus {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin-bottom: 1.35rem;
+}
+.month-topics {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1;
+}
+.month-topics li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+.month-topics svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  margin-top: 0.28rem;
+  color: var(--brand);
+}
+.month-foot {
+  margin-top: auto;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--divider);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.month-foot p {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin: 0;
+}
+.month-foot .eyebrow {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--text-muted);
+}
+
+/* ── Closing ask under the plan ─────────────────────────────── */
+.course-cta {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+/* ── Mentor line on a course card ───────────────────────────── */
+.course-mentor {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+.course-mentor img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+.course-mentor span {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+/* ── Hero scroll sequence (HeroSequence.jsx) ─────────────────
+   The hero's ground is a canvas scrubbed by scroll position, not a video
+   playing itself: every scroll position maps to exactly one frame, so it
+   is reversible. It wears the same grade and veil as the texture plates,
+   which is what keeps the headline readable over it. */
+.hero-seq {
+  --hero-seq-pin: 150svh;              /* scroll spent with the hero held */
+  position: relative;
+  isolation: isolate;
+  background: var(--bg);               /* fallback until the frames paint */
+}
+@media (max-width: 1023px) {
+  .hero-seq { --hero-seq-pin: 100svh; }
+}
+
+.hero-seq__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-seq__bg .seq__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--bg);
+}
+/* Graded exactly as `.ed-plate img` is, so the hero reads as the same
+   room as the CTA that closes the page. */
+.hero-seq__bg .seq__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  filter: saturate(0.42) contrast(0.98) brightness(1.22) sepia(0.3);
+  transition: opacity 0.9s ease;
+}
+html.dark .hero-seq__bg .seq__canvas {
+  filter: saturate(0.5) contrast(1.02) brightness(0.72) sepia(0.22);
+}
+.hero-seq__bg .seq__canvas[data-painted='true'] { opacity: 1; }
+
+.hero-seq__bg .seq__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* `.ed-plate::after`, frame for frame. */
+.hero-seq__veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(var(--plate-rgb), 0.88) 0%,
+    rgba(var(--plate-rgb), 0.79) 45%,
+    rgba(var(--plate-rgb), 0.91) 100%);
+}
+html.dark .hero-seq__veil {
+  background: linear-gradient(to bottom,
+    rgba(var(--plate-rgb), 0.93) 0%,
+    rgba(var(--plate-rgb), 0.86) 45%,
+    rgba(var(--plate-rgb), 0.95) 100%);
+}
+
+/* The hero holds until its bottom edge is on screen (phones), then stays
+   put while the spacer below it scrolls past. */
+.hero-seq__content {
+  position: sticky;
+  top: min(0px, calc(100svh - var(--hero-h, 0px)));
+  z-index: 1;
+}
+.hero-seq__pin {
+  height: var(--hero-seq-pin);
 }

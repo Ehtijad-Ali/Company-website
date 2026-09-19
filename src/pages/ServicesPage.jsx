@@ -1,13 +1,16 @@
 import React from 'react'
 import { motion, useInView } from 'framer-motion'
 import SectionHeader from '../components/ui/SectionHeader'
-import { Link } from 'react-router-dom'
 import {
   Code2, Palette, Brain, Smartphone, BarChart3, Cloud, Shield, Zap,
   ArrowRight, CheckCircle2, Clock, GitBranch, HeartHandshake,
-  Rocket, Lock, Headphones, Trophy, Star,
+  Rocket, Lock, Headphones, Trophy,
 } from 'lucide-react'
 import { useContact } from '../context/ContactContext'
+import { ImagePlate } from '../components/ui/EditorialImage'
+import { img, TEXTURE } from '../data/imagery'
+import { COURSES, FIELDS } from '../data/courses'
+import CourseCard from '../components/ui/CourseCard'
 
 const ALL_SERVICES = [
   { icon:Code2,     title:'Web Development',    price:'From $8,000',
@@ -21,7 +24,7 @@ const ALL_SERVICES = [
     desc:'Intelligent systems that automate the complex and turn your data into a strategic advantage.' },
   { icon:Smartphone,title:'Mobile Development',  price:'From $10,000',
     features:['React Native cross-platform','Native iOS (Swift)','Native Android (Kotlin)','App Store & Play Store submission','Push notifications & deep linking','Offline-first architecture'],
-    desc:'Beautiful, performant mobile apps that users actually want to open — every single day.' },
+    desc:'Beautiful, performant mobile apps that users actually want to open, every single day.' },
   { icon:BarChart3, title:'Digital Marketing',   price:'From $3,000/mo',
     features:['SEO strategy & technical audit','Google / Meta paid campaigns','Content strategy & creation','Conversion rate optimisation','Monthly reporting dashboards','A/B testing programmes'],
     desc:'Data-driven growth strategies that compound over time and deliver measurable ROI.' },
@@ -41,8 +44,11 @@ export default function ServicesPage() {
   return (
     <>
       {/* Services grid */}
-      <section className="section pt-36" style={{ background:'var(--bg-surface)' }}>
-        <div className="container">
+      <section className="section pt-36 relative" style={{ background:'var(--bg-surface)', overflow:'hidden' }}>
+        {/* Clay behind the page opener, so the eight-discipline list
+            below lands on warmth rather than a flat panel. */}
+        <ImagePlate src={img(TEXTURE.clay, 1600, 900)} />
+        <div className="container relative" style={{ zIndex: 1 }}>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} className="mb-12">
             <p className="eyebrow mb-3">
@@ -56,7 +62,7 @@ export default function ServicesPage() {
               Eight disciplines you can <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--brand)' }}>buy separately</em>
             </h1>
             <p className="section-sub mt-4">
-              Each one is a standalone engagement. Most projects combine two or three —
+              Each one is a standalone engagement. Most projects combine two or three, and
               we'll tell you which after a discovery call, including when the answer is "fewer".
             </p>
           </motion.div>
@@ -104,15 +110,15 @@ export default function ServicesPage() {
 
       <WhyUsSection />
       <GuaranteeSection />
-      <TechStackSection />
+      <CoursesSection />
     </>
   )
 }
 
 /* ─── WHY CHOOSE US ────────────────────────────────────────────── */
 const WHY_US = [
-  { icon: Rocket,       stat: '3×',   color: 'var(--brand)', title: 'Faster Time-to-Market',   desc: 'Our battle-tested sprint framework cuts typical agency timelines by two-thirds — without skipping a single quality gate.' },
-  { icon: Lock,         stat: '100%', color: 'var(--brand)', title: 'IP Fully Owned by You',    desc: 'Every line of code and asset belongs to you from day one. We sign an IP assignment clause in every contract — no exceptions.' },
+  { icon: Rocket,       stat: '3×',   color: 'var(--brand)', title: 'Faster Time-to-Market',   desc: 'Our battle-tested sprint framework cuts typical agency timelines by two-thirds, without skipping a single quality gate.' },
+  { icon: Lock,         stat: '100%', color: 'var(--brand)', title: 'IP Fully Owned by You',    desc: 'Every line of code and asset belongs to you from day one. We sign an IP assignment clause in every contract, with no exceptions.' },
   { icon: Headphones,   stat: '24/7', color: 'var(--brand)', title: 'Always-On Support',        desc: 'Real humans, fast responses, zero ticket limbo. Your dedicated team is one Slack message away, around the clock.' },
   { icon: Trophy,       stat: '98%',  color: 'var(--brand)', title: 'Client Satisfaction',      desc: 'Measured after every engagement, not cherry-picked. Most clients come back for a second project.' },
 ]
@@ -167,21 +173,22 @@ function WhyUsSection() {
   )
 }
 
-/* ─── GUARANTEE SECTION (unchanged) ───────────────────────────── */
+/* ─── GUARANTEE SECTION ────────────────────────────────────────── */
 const GUARANTEES = [
-  { icon: Clock,          stat: '97%',  statSub: 'on-time delivery rate',         title: 'Deadline or Discount',    desc: 'We set realistic timelines upfront and protect them ruthlessly. Miss a milestone? You get a credit on the next sprint — no excuses, no exceptions.' },
-  { icon: Zap,            stat: '<1s',  statSub: 'load time on all web builds',   title: 'Speed as a Feature',      desc: 'Every web product ships only after passing our Core Web Vitals audit. Lighthouse scores are baked into our definition of done — not an afterthought.' },
-  { icon: GitBranch,      stat: '100%', statSub: 'IP ownership from day one',     title: 'Your Code, Always',       desc: 'Full source ownership, documented CI/CD pipelines, and a recorded architecture walkthrough. Zero vendor lock-in — ever.' },
-  { icon: HeartHandshake, stat: '3 mo', statSub: 'post-launch support included',  title: 'We Stay After Launch',    desc: "Three months of bug fixes, uptime monitoring, and direct Slack access to the engineers who built it — because shipping is the beginning, not the end." },
+  { icon: Clock,          stat: '97%',  statSub: 'on-time delivery rate',         title: 'Deadline or Discount',    desc: 'We set realistic timelines upfront and protect them ruthlessly. Miss a milestone? You get a credit on the next sprint. No excuses, no exceptions.' },
+  { icon: Zap,            stat: '<1s',  statSub: 'load time on all web builds',   title: 'Speed as a Feature',      desc: 'Every web product ships only after passing our Core Web Vitals audit. Lighthouse scores are baked into our definition of done, not an afterthought.' },
+  { icon: GitBranch,      stat: '100%', statSub: 'IP ownership from day one',     title: 'Your Code, Always',       desc: 'Full source ownership, documented CI/CD pipelines, and a recorded architecture walkthrough. Zero vendor lock-in, ever.' },
+  { icon: HeartHandshake, stat: '3 mo', statSub: 'post-launch support included',  title: 'We Stay After Launch',    desc: "Three months of bug fixes, uptime monitoring, and direct Slack access to the engineers who built it, because shipping is the beginning, not the end." },
 ]
 
 function GuaranteeSection() {
   const ref = React.useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   return (
-    <section ref={ref} className="section" style={{ background: 'var(--bg-surface)' }}>
-      <div className="absolute top-0 inset-x-0 h-[1px]" style={{ background: 'var(--border)' }} />
-      <div className="container">
+    <section ref={ref} className="section relative" style={{ background: 'var(--bg-surface)', overflow: 'hidden' }}>
+      <ImagePlate src={img(TEXTURE.sandstone, 1600, 1000)} />
+      <div className="absolute top-0 inset-x-0 h-[1px] z-[1]" style={{ background: 'var(--border)' }} />
+      <div className="container relative" style={{ zIndex: 1 }}>
           <SectionHeader
             num="03"
             label="Promise"
@@ -234,70 +241,53 @@ function GuaranteeSection() {
   )
 }
 
-/* ─── TECH STACK SECTION ───────────────────────────────────────── */
-const TECH = [
-  { name: 'React',       abbr: 'Re',  color: '#61DAFB', cat: 'Frontend'  },
-  { name: 'Next.js',     abbr: 'N▲',  color: '#E0C8AC', cat: 'Frontend'  },
-  { name: 'TypeScript',  abbr: 'TS',  color: '#3178C6', cat: 'Language'  },
-  { name: 'Node.js',     abbr: 'No',  color: '#539E43', cat: 'Backend'   },
-  { name: 'Python',      abbr: 'Py',  color: '#3776AB', cat: 'Backend'   },
-  { name: 'PostgreSQL',  abbr: 'PG',  color: '#336791', cat: 'Database'  },
-  { name: 'MongoDB',     abbr: 'Mg',  color: '#47A248', cat: 'Database'  },
-  { name: 'AWS',         abbr: 'AWS', color: '#FF9900', cat: 'Cloud'     },
-  { name: 'Docker',      abbr: 'Do',  color: '#2496ED', cat: 'DevOps'    },
-  { name: 'Kubernetes',  abbr: 'K8s', color: '#326CE5', cat: 'DevOps'    },
-  { name: 'TensorFlow',  abbr: 'TF',  color: '#FF6F00', cat: 'AI / ML'   },
-  { name: 'OpenAI',      abbr: 'AI',  color: '#10A37F', cat: 'AI / ML'   },
-]
-
-function TechStackSection() {
+/* ─── COURSES SECTION ──────────────────────────────────────────────
+   Replaces the old tech-stack grid. A logo wall said nothing a client
+   could act on; this offers something they can actually sign up for. */
+function CoursesSection() {
   const ref = React.useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
+  const [field, setField] = React.useState('All')
+
+  const shown = field === 'All' ? COURSES : COURSES.filter(c => c.field === field)
 
   return (
-    <section ref={ref} className="section" style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)' }}>
+    <section id="courses" ref={ref} className="section" style={{ background: 'var(--bg)' }}>
       <div className="container">
-          <SectionHeader
-            num="04"
-            label="Stack"
-            title={[{ t: 'The tools behind ' }, { t: 'the work', em: true }]}
-            subtitle="We pick per problem rather than per résumé. These are the ones we reach for most."
-            inView={inView}
-            className="mb-12"
-          />
+        <SectionHeader
+          num="04"
+          label="Courses"
+          title={[{ t: 'We also ' }, { t: 'teach this work', em: true }]}
+          subtitle={`${COURSES.length} courses, three months each, with the full month by month plan published before you pay. Written so a complete beginner can follow it.`}
+          inView={inView}
+          className="mb-10"
+        />
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          {TECH.map((t, i) => (
-            <motion.div key={t.name}
-              initial={{ opacity: 0, scale: 0.85 }} animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: i * 0.05, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative card p-5 overflow-hidden flex flex-col items-center text-center gap-3"
-              style={{ borderRadius: 16, cursor: 'default' }}
-            >
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-[16px] pointer-events-none"
-                style={{ background: `radial-gradient(circle at 50% 50%, ${t.color}18 0%, transparent 65%)` }} />
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center font-syne font-extrabold text-sm transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 relative z-10"
-                style={{ background: `${t.color}15`, border: `1px solid ${t.color}35`, color: t.color, letterSpacing: '-0.02em' }}>
-                {t.abbr}
-              </div>
-              <div className="relative z-10">
-                <p className="font-syne font-bold text-sm" style={{ color: 'var(--text-primary)' }}>{t.name}</p>
-                <p className="font-mono text-[10px] tracking-widest uppercase mt-0.5" style={{ color: 'var(--text-muted)' }}>{t.cat}</p>
-              </div>
-            </motion.div>
+        {/* The whole catalogue lives here rather than on a page of its own,
+            so the filter has to carry the browsing that a separate index
+            page used to. */}
+        <div className="flex flex-wrap gap-x-6 gap-y-2 mb-10 pb-4"
+          style={{ borderBottom: '1px solid var(--divider)' }}>
+          {FIELDS.map(f => (
+            <button key={f} onClick={() => setField(f)} className="eyebrow tap"
+              style={{
+                color: field === f ? 'var(--text-primary)' : 'var(--text-muted)',
+                borderBottom: field === f ? '1px solid var(--brand)' : '1px solid transparent',
+                paddingBottom: '0.3rem',
+              }}>
+              {f}
+            </button>
           ))}
         </div>
 
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.65, duration: 0.5 }} className="mt-14 text-center"
-        >
-          <p className="text-sm mb-5" style={{ color: 'var(--text-secondary)' }}>
-            Not sure what stack is right for your project? Let's talk — we'll guide you to the best choice.
-          </p>
-          <Link to="/contact" className="btn btn-primary">
-            Start a Conversation <ArrowRight className="w-4 h-4" />
-          </Link>
-        </motion.div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {shown.map((c, i) => <CourseCard key={c.slug} c={c} i={i} />)}
+        </div>
+
+        <p className="mt-10 text-sm" style={{ color: 'var(--text-muted)', maxWidth: '58ch' }}>
+          Not sure which one fits? Tell us what you want to be doing in a year and we will
+          say which course gets you there, including when the answer is none of them.
+        </p>
       </div>
     </section>
   )
