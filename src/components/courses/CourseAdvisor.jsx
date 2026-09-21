@@ -265,7 +265,7 @@ export default function CourseAdvisor({ onTalk }) {
               <p className="advisor__sub">{advisor.subtitle}</p>
 
               <div className="advisor__intro-foot">
-                <button type="button" className="btn btn-primary micro-click advisor__begin"
+                <button type="button" className="btn btn-primary advisor__begin"
                   onClick={() => setPhase('asking')}>
                   {advisor.startLabel ?? 'Begin'} <ArrowRight className="w-4 h-4" />
                 </button>
@@ -335,7 +335,7 @@ export default function CourseAdvisor({ onTalk }) {
                   </span>
 
                   {isMulti && (
-                    <button type="button" className="btn btn-primary micro-click advisor__next"
+                    <button type="button" className="btn btn-primary advisor__next"
                       disabled={!hasAnswer} onClick={() => go(index + 1)}>
                       {index === questions.length - 1 ? 'See my three' : 'Next'}
                       <ArrowRight className="w-4 h-4" />
@@ -402,7 +402,7 @@ export default function CourseAdvisor({ onTalk }) {
               <div className="advisor__done-foot">
                 <p className="advisor__note">{advisor.resultNote}</p>
                 {onTalk && (
-                  <button type="button" className="btn btn-secondary micro-click" onClick={onTalk}>
+                  <button type="button" className="btn btn-secondary" onClick={onTalk}>
                     {advisor.contactLabel ?? 'Talk it through with us'} <ArrowRight className="w-4 h-4" />
                   </button>
                 )}

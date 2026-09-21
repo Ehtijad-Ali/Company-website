@@ -14,8 +14,6 @@
  * No dashes, and nothing that sounds like a brochure.
  */
 
-export const LEVELS = ['All levels', 'Beginner', 'Some experience', 'Advanced']
-
 export const COURSES = [
   {
     slug: 'web-development',

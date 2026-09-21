@@ -6,7 +6,8 @@ import { format } from '../data/metrics'
 import { useProjects, useProjectCats } from '../hooks/useSiteContent'
 import { projectsByYear } from '../data/portfolio'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, Github, ExternalLink, ArrowRight, MessageSquare, Layers, Rocket } from 'lucide-react'
+import { ArrowUpRight, ArrowRight, MessageSquare, Layers, Rocket } from 'lucide-react'
+import { E, DUR, RISE } from '../lib/motion'
 
 
 export default function PortfolioPage() {
@@ -50,7 +51,7 @@ export default function PortfolioPage() {
                 <motion.div key={p.title} layout
                   initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, scale:.9 }}
                   transition={{ delay:i*.06 }}
-                  className="port-item card overflow-hidden group cursor-pointer"
+                  className="port-item card overflow-hidden group"
                 >
                   <div className="relative overflow-hidden" style={{ aspectRatio:'16/10' }}>
                     <img src={p.img} alt={p.title} className="w-full h-full object-cover" />
@@ -66,29 +67,22 @@ export default function PortfolioPage() {
                           ))}
                         </div>
                       </div>
-                      <button className="absolute top-4 right-4 w-9 h-9 rounded-xl flex items-center justify-center"
+                      <span aria-hidden="true" className="absolute top-4 right-4 w-9 h-9 rounded-xl flex items-center justify-center"
                         style={{ background:'rgba(255,255,255,0.15)' }}>
                         <ArrowUpRight className="w-4 h-4 text-white" />
-                      </button>
+                      </span>
                     </div>
                     <div className="absolute top-4 left-4 flex gap-2">
                       <span className="chip text-[10px]">{p.cat}</span>
                       {p.featured && <span className="chip text-[10px]">Featured</span>}
                     </div>
                   </div>
-                  <div className="px-5 py-4 flex items-center justify-between" style={{ borderTop:'1px solid var(--border)' }}>
-                    <div>
-                      <p className="font-syne font-semibold text-sm" style={{ color:'var(--text-primary)' }}>{p.title}</p>
-                      <p className="font-mono text-[10px] mt-0.5" style={{ color:'var(--text-secondary)' }}>{p.year} · {p.client}</p>
-                    </div>
-                    <div className="flex gap-1.5">
-                      {[Github, ExternalLink].map((Icon, ii) => (
-                        <button key={ii} className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
-                          style={{ background:'var(--bg)', border:'1px solid var(--border)' }}>
-                          <Icon className="w-3.5 h-3.5" style={{ color:'var(--text-secondary)' }} />
-                        </button>
-                      ))}
-                    </div>
+                  {/* The repo and live-site buttons had no target — these
+                      are client builds with no public URL — so they are gone
+                      rather than left as buttons that do nothing. */}
+                  <div className="px-5 py-4" style={{ borderTop:'1px solid var(--border)' }}>
+                    <p className="font-syne font-semibold text-sm" style={{ color:'var(--text-primary)' }}>{p.title}</p>
+                    <p className="font-mono text-[10px] mt-0.5" style={{ color:'var(--text-secondary)' }}>{p.year} · {p.client}</p>
                   </div>
                 </motion.div>
               ))}
@@ -196,9 +190,9 @@ function TimelineCard({ project, i, fromRight }) {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: fromRight ? 40 : -40 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      initial={{opacity: 0, y: RISE }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{delay: i * 0.1, duration: DUR.reveal, ease: E }}
       className="group card overflow-hidden"
       style={{ borderRadius: 16, cursor: 'default' }}
     >
@@ -261,7 +255,7 @@ function YearBlock({ group, yi, total }) {
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={dotInView ? { scale: 1, opacity: 1 } : {}}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.45, ease: E }}
           style={{
             width: '1rem', height: '1rem', borderRadius: '50%',
             background: 'var(--accent)',
@@ -275,7 +269,7 @@ function YearBlock({ group, yi, total }) {
           <motion.div
             initial={{ scaleY: 0, originY: 0 }}
             animate={dotInView ? { scaleY: 1 } : {}}
-            transition={{ delay: 0.2, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.2, duration: 0.9, ease: E }}
             style={{
               width: '1px', flex: 1, minHeight: '3rem', marginTop: '0.5rem',
               background: 'linear-gradient(to bottom, var(--accent), var(--border))',
@@ -288,9 +282,9 @@ function YearBlock({ group, yi, total }) {
       {/* Right: year label + cards */}
       <div style={{ flex: 1, paddingBottom: yi < total - 1 ? '3.5rem' : 0 }}>
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={dotInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ delay: 0.1, duration: 0.5 }}
+          initial={{opacity: 0, y: RISE }}
+          animate={dotInView ? { opacity: 1, y: 0 } : {}}
+          transition={{delay: 0.1, duration: DUR.reveal, ease: E }}
           style={{ marginBottom: '1.5rem' }}
         >
           <span style={{
@@ -373,8 +367,8 @@ function StartProjectSection() {
           {HOW_IT_WORKS.map(({ icon: Icon, step, title, desc }, i) => (
             <motion.div
               key={step}
-              initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.1 + i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{delay: 0.1 + i * 0.1, duration: DUR.reveal, ease: E }}
               className="card p-7 relative overflow-hidden group"
               style={{ borderRadius: 18 }}
             >
@@ -399,8 +393,8 @@ function StartProjectSection() {
 
         {/* Big CTA banner */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.4, duration: 0.6 }}
+          initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{delay: 0.4, duration: DUR.reveal, ease: E }}
           className="rounded-2xl p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8"
           style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}
         >

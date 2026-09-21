@@ -53,19 +53,21 @@ export default function Navbar() {
         }}
       >
         {/* Logo */}
-        <Link to="/" className="flex items-center group">
+        <Link to="/" className="flex items-center group" aria-label="CodeNode home">
           <CodeNodeLogo height={32} />
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-1">
+        {/* Desktop nav. From lg, not md: eight links and three buttons need
+            ~1100px, so between 768 and 1023 the buttons ran off the right
+            edge on every page. Tablets get the menu instead. */}
+        <nav className="hidden lg:flex items-center gap-1">
           {LINKS.map(({ to, label }) => {
             const active = pathname === to
             return (
               <Link
                 key={to}
                 to={to}
-                className="relative px-3.5 py-2 text-sm transition-colors"
+                className="relative px-2.5 xl:px-3.5 py-2 text-sm transition-colors"
                 style={{
                   color: active ? 'var(--text-primary)' : 'var(--text-secondary)',
                   fontWeight: active ? 500 : 400,
@@ -75,7 +77,7 @@ export default function Navbar() {
                 {active && (
                   <motion.span
                     layoutId="nav-underline"
-                    className="absolute left-3.5 right-3.5 -bottom-0.5"
+                    className="absolute left-2.5 right-2.5 xl:left-3.5 xl:right-3.5 -bottom-0.5"
                     style={{ height: 1.5, background: 'var(--brand)', borderRadius: 2 }}
                     transition={{ type: 'spring', bounce: 0.18, duration: 0.5 }}
                   />
@@ -90,6 +92,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2.5">
           <button
             onClick={toggle}
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             className="w-9 h-9 flex items-center justify-center hover-scale micro-click"
             style={{ borderRadius: 'var(--r-md)', background: 'var(--bg-card)', border: '1px solid var(--border)', transition: 'transform 0.25s ease, box-shadow 0.25s ease' }}
           >
@@ -104,14 +107,14 @@ export default function Navbar() {
           {user ? (
             <>
               {user.is_admin && (
-                <Link to="/admin" className="hidden md:flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium btn btn-secondary hover-scale micro-click">
+                <Link to="/admin" className="hidden lg:flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium btn btn-secondary hover-scale">
                   <Shield className="w-4 h-4" />
                   Admin
                 </Link>
               )}
               <button
                 onClick={() => { logout(); setOpen(false) }}
-                className="hidden md:flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:opacity-70"
+                className="hidden lg:flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:opacity-70"
                 style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
                 title={`Logout ${user.username}`}
               >
@@ -121,10 +124,12 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link to="/login" className="hidden md:flex btn btn-secondary btn-hover-micro micro-click text-sm">
+              <Link to="/login" className="hidden lg:flex btn btn-secondary text-sm">
                 Login
               </Link>
-              <Link to="/register" className="hidden md:flex btn btn-primary btn-hover-micro micro-click text-sm">
+              {/* From xl only: at 1024–1279 there is not room for three
+                  buttons beside eight links. Login stays, and links on. */}
+              <Link to="/register" className="hidden xl:flex btn btn-primary text-sm">
                 Register
               </Link>
             </>
@@ -133,11 +138,12 @@ export default function Navbar() {
           {/* Goes to the contact page rather than opening the overlay: the
               overlay renders that same page full-screen, so the modal was
               the contact page wearing a close button. */}
-          <Link to="/contact" className="hidden md:flex btn btn-primary btn-hover-micro micro-click text-sm">
+          <Link to="/contact" className="hidden lg:flex btn btn-primary text-sm">
             Let's Talk
           </Link>
 
-          <button onClick={() => setOpen(v => !v)} className="md:hidden w-9 h-9 flex items-center justify-center"
+          <button onClick={() => setOpen(v => !v)} className="lg:hidden w-9 h-9 flex items-center justify-center"
+            aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open}
             style={{ borderRadius: 'var(--r-md)', background: 'var(--bg-card)', border: '1px solid var(--border)' }}>
             {open ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
@@ -152,7 +158,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.97 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden max-w-[1500px] mx-auto mt-2 rounded-2xl overflow-hidden shadow-2xl"
+            className="lg:hidden max-w-[1500px] mx-auto mt-2 rounded-2xl overflow-hidden shadow-2xl"
             style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}
           >
             {LINKS.map(({ to, label }, i) => (

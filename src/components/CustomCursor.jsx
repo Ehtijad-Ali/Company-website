@@ -24,24 +24,29 @@ export default function CustomCursor() {
       raf.current = requestAnimationFrame(tick)
     }
 
-    const enter = () => r.classList.add('hov')
-    const leave = () => r.classList.remove('hov')
+    /* One listener on the document, not one per element. The old version
+       bound mouseenter to whatever links existed three seconds after the
+       site first loaded, so every link on a page reached later — another
+       route, a filtered grid, the chat — never grew the ring. Delegating
+       means a link rendered at any time is covered. */
+    const TARGETS = 'a, button, [data-cursor], [role="button"], label, select, summary'
+    const over = (e) => {
+      r.classList.toggle('hov', !!e.target.closest?.(TARGETS))
+    }
+    /* Leaving the window drops the hover, or the ring stays swollen at the
+       edge until the pointer comes back. */
+    const out = (e) => { if (!e.relatedTarget) r.classList.remove('hov') }
 
     window.addEventListener('mousemove', move, { passive: true })
+    document.addEventListener('pointerover', over, { passive: true })
+    document.addEventListener('pointerout', out, { passive: true })
     raf.current = requestAnimationFrame(tick)
-
-    const cleanup = () => {
-      document.querySelectorAll('a, button, [data-cursor]').forEach(el => {
-        el.addEventListener('mouseenter', enter)
-        el.addEventListener('mouseleave', leave)
-      })
-    }
-    const t = setTimeout(cleanup, 3000)
 
     return () => {
       window.removeEventListener('mousemove', move)
+      document.removeEventListener('pointerover', over)
+      document.removeEventListener('pointerout', out)
       cancelAnimationFrame(raf.current)
-      clearTimeout(t)
     }
   }, [])
 

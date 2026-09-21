@@ -2,14 +2,13 @@ import React from 'react'
 import { motion } from 'framer-motion'
 
 import Contact from '../components/sections/Contact'
-import FAQ from '../components/sections/FAQ'
 import { ImagePlate } from '../components/ui/EditorialImage'
 import { img, TEXTURE } from '../data/imagery'
 import { SITE } from '../data/site'
 import { mergeContact } from '../data/contact'
 import { useContactContent } from '../hooks/useSiteContent'
 import { iconFor } from '../lib/icons'
-import { E } from '../lib/motion'
+import { E, DUR, RISE } from '../lib/motion'
 
 export default function ContactPage() {
   /* The same details the contact section lists further down, surfaced at
@@ -29,9 +28,9 @@ export default function ContactPage() {
 
         <div className="container relative" style={{ zIndex: 1 }}>
           <motion.div
-            initial={{ opacity: 0, y: 22 }}
+            initial={{opacity: 0, y: RISE }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: E }}
+            transition={{duration: DUR.reveal, ease: E }}
             className="pb-16"
           >
             <p className="eyebrow mb-4">
@@ -72,7 +71,6 @@ export default function ContactPage() {
       </section>
 
       <Contact />
-      <FAQ />
     </>
   )
 }

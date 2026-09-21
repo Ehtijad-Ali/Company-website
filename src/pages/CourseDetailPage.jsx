@@ -12,7 +12,7 @@ import { useAllContent } from '../context/ContentContext'
 import { useContact } from '../context/ContactContext'
 import EditorialImage, { ImagePlate } from '../components/ui/EditorialImage'
 import { img, TEXTURE, courseImage } from '../data/imagery'
-import { E } from '../lib/motion'
+import { E, DUR, RISE } from '../lib/motion'
 import { avatarFallback } from '../lib/avatar'
 
 /**
@@ -76,10 +76,10 @@ function MentorCard({ mentor }) {
 function MonthBlock({ m, i }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{opacity: 0, y: RISE }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ delay: i * 0.1, duration: 0.6, ease: E }}
+      transition={{delay: i * 0.1, duration: DUR.reveal, ease: E }}
       className="month-block"
     >
       <div className="month-head">
@@ -162,8 +162,8 @@ export default function CourseDetailPage() {
             <ArrowLeft style={{ width: 13, height: 13 }} /> All courses
           </Link>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: E }}
+          <motion.div initial={{opacity: 0, y: RISE }} animate={{ opacity: 1, y: 0 }}
+            transition={{duration: DUR.reveal, ease: E }}
             className="grid lg:grid-cols-[1.45fr_1fr] gap-10 xl:gap-16 items-start pb-16">
 
             <div>

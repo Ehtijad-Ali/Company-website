@@ -57,12 +57,6 @@ export function useContent(key) {
   return (ctx ? ctx.content[key] : FALLBACK[key]) ?? FALLBACK[key]
 }
 
-/** Where the current copy of a section came from — 'api' or 'fallback'. */
-export function useContentSource(key) {
-  const ctx = useContext(ContentContext)
-  return ctx ? ctx.sources[key] : 'fallback'
-}
-
 /** Everything at once, for the admin and for anything that needs several. */
 export function useAllContent() {
   const ctx = useContext(ContentContext)

@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import { ArrowUpRight, Home, Info, Briefcase, FolderOpen, GraduationCap, Users, BookOpen, Shield, FileText, Cookie, Map } from 'lucide-react'
+import { E, DUR, RISE, STAGGER } from '../lib/motion'
 
 const SITEMAP = [
   {
@@ -48,9 +49,9 @@ function SectionGroup({ group, gi }) {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{opacity: 0, y: RISE }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: gi * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      transition={{delay: gi * 0.1, duration: DUR.reveal, ease: E }}
     >
       {/* Section label */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
@@ -69,9 +70,9 @@ function SectionGroup({ group, gi }) {
           return (
             <motion.div
               key={page.path}
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: gi * 0.1 + pi * 0.07, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, y: RISE }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: gi * 0.1 + pi * STAGGER, duration: DUR.reveal, ease: E }}
             >
               <Link
                 to={page.path}
@@ -176,8 +177,8 @@ export default function SitemapPage() {
 
         <div className="container relative z-10" ref={heroRef}>
           <motion.div
-            initial={{ opacity: 0, y: 20 }} animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            initial={{opacity: 0, y: RISE }} animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{duration: DUR.reveal, ease: E }}
           >
             <p className="font-mono text-[10px] tracking-[0.3em] uppercase mb-4" style={{ color: 'var(--text-muted)' }}>/ Navigation</p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
@@ -203,10 +204,10 @@ export default function SitemapPage() {
 
         {/* Stats strip */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{opacity: 0, y: RISE }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{duration: DUR.reveal, ease: E }}
           style={{
             display: 'flex', flexWrap: 'wrap', gap: '0',
             borderRadius: '16px', overflow: 'hidden',

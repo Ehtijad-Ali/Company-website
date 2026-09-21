@@ -4,6 +4,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import SectionHeader from '../ui/SectionHeader'
 import { Plus, Minus } from 'lucide-react'
 import { FAQS } from '../../data/faqs'
+import { E, DUR, RISE } from '../../lib/motion'
 
 /**
  * One question.
@@ -19,8 +20,8 @@ function Item({ q, a, i }) {
 
   return (
     <motion.div ref={ref}
-      initial={{ opacity:0, y:20 }} animate={inView?{opacity:1,y:0}:{}}
-      transition={{ delay:i*.06, duration:.5 }}
+      initial={{opacity:0, y: RISE }} animate={inView?{opacity:1,y:0}:{}}
+      transition={{delay:i*.06, duration: DUR.reveal, ease: E }}
       className="overflow-hidden"
       style={{ borderTop: i === 0 ? 'none' : '1px solid var(--divider)' }}
     >
@@ -43,7 +44,7 @@ function Item({ q, a, i }) {
             initial={{ height:0, opacity:0 }}
             animate={{ height:'auto', opacity:1 }}
             exit={{ height:0, opacity:0 }}
-            transition={{ duration:.3, ease:[.22,1,.36,1] }}
+            transition={{ duration:.3, ease: E }}
             className="overflow-hidden"
           >
             <p className="pb-5 text-sm leading-relaxed" style={{ color:'var(--text-secondary)', maxWidth: '68ch' }}>{a}</p>

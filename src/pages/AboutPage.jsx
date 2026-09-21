@@ -9,7 +9,7 @@ import { img, STUDIO, TEXTURE } from '../data/imagery'
 import { METRICS, format, FOUNDED, TEAM_SIZE } from '../data/metrics'
 import { useAbout, useTeam } from '../hooks/useSiteContent'
 import { iconFor } from '../lib/icons'
-import { E } from '../lib/motion'
+import { E, DUR, RISE } from '../lib/motion'
 
 
 /* ── 01 · Opening statement ─────────────────────────────────────────── */
@@ -32,8 +32,8 @@ function Opening() {
       <ImagePlate src={img(TEXTURE.stucco, 1600, 900)} />
       <div className="container relative" style={{ zIndex: 1 }}>
         <motion.p
-          initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: E }}
+          initial={{opacity: 0, y: RISE }} animate={{ opacity: 1, y: 0 }}
+          transition={{duration: DUR.reveal, ease: E }}
           className="eyebrow mb-8"
         >
           <span style={{ color: 'var(--brand)' }}>01</span>
@@ -43,30 +43,28 @@ function Opening() {
         {/* The statement carries the page — no competing headline above it.
             No width cap here: the reveal wrapper's overflow:hidden clips on
             both axes, so a narrow container silently truncates the glyphs. */}
-        <div>
+        <h1 style={{
+          fontFamily: 'var(--font-display)', fontSize: 'var(--step-6)',
+          fontWeight: 500, lineHeight: 1.05, letterSpacing: '-0.03em',
+          color: 'var(--text-primary)',
+        }}>
           {(about.opening?.headline ?? []).map((line, i) => (
-            <div key={i} style={{ overflow: 'hidden' }}>
-              <motion.h1
+            <span key={i} className="line-mask" style={{ whiteSpace: 'nowrap' }}>
+              <motion.span
                 initial={{ y: '104%' }} animate={{ y: 0 }}
                 transition={{ delay: 0.15 + i * 0.1, duration: 0.9, ease: E }}
-                style={{
-                  fontFamily: 'var(--font-display)', fontSize: 'var(--step-6)',
-                  fontWeight: 500, lineHeight: 1.05, letterSpacing: '-0.03em',
-                  color: 'var(--text-primary)', paddingBottom: '0.06em',
-                  whiteSpace: 'nowrap',
-                }}
               >
                 {line.map((p, pi) => p.em
                   ? <em key={pi} style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--brand)' }}>{p.t}</em>
                   : <span key={pi}>{p.t}</span>)}
-              </motion.h1>
-            </div>
+              </motion.span>
+            </span>
           ))}
-        </div>
+        </h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.7, ease: E }}
+          initial={{opacity: 0, y: RISE }} animate={{ opacity: 1, y: 0 }}
+          transition={{delay: 0.6, duration: DUR.reveal, ease: E }}
           className="section-sub"
           style={{ marginTop: '2rem', fontSize: '1.125rem', maxWidth: '52ch' }}
         >
@@ -126,8 +124,8 @@ function Story() {
 
         <div className="grid lg:grid-cols-[1.35fr_1fr] gap-12 xl:gap-20 items-start">
           <motion.div
-            initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: E }}
+            initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{duration: DUR.reveal, ease: E }}
             className="dropcap prose-measure"
           >
             {/* The quote is set after the second paragraph, so the prose
@@ -146,15 +144,15 @@ function Story() {
 
             {paragraphs.slice(2).map((p, i) => <p key={`p${i + 2}`}>{p}</p>)}
 
-            <Link to="/contact" className="btn btn-primary micro-click" style={{ marginTop: '2rem' }}>
+            <Link to="/contact" className="btn btn-primary" style={{ marginTop: '2rem' }}>
               Start a project <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
 
           {/* Timeline */}
           <motion.div
-            initial={{ opacity: 0, x: 24 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.2, duration: 0.7, ease: E }}
+            initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{delay: 0.2, duration: DUR.reveal, ease: E }}
           >
             <p className="eyebrow mb-6">Milestones</p>
             <div style={{ position: 'relative' }}>
@@ -165,8 +163,8 @@ function Story() {
               {milestones.map((m, i) => (
                 <motion.div
                   key={m.year}
-                  initial={{ opacity: 0, x: 14 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.3 + i * 0.08, duration: 0.5, ease: E }}
+                  initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{delay: 0.3 + i * 0.08, duration: DUR.reveal, ease: E }}
                   className="flex gap-5"
                   style={{ paddingBottom: i < milestones.length - 1 ? '1.75rem' : 0 }}
                 >
@@ -219,8 +217,8 @@ function Principles() {
           {principles.map((p, i) => (
             <motion.div
               key={p.n}
-              initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.09, duration: 0.6, ease: E }}
+              initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{delay: i * 0.09, duration: DUR.reveal, ease: E }}
               className="grid md:grid-cols-[5rem_1fr] lg:grid-cols-[7rem_22rem_1fr] gap-x-6 gap-y-2"
               style={{ padding: '2rem 0', borderBottom: '1px solid var(--divider)' }}
             >
@@ -277,8 +275,8 @@ function Culture() {
             return (
             <motion.div
               key={label}
-              initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.09, duration: 0.6, ease: E }}
+              initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{delay: i * 0.09, duration: DUR.reveal, ease: E }}
               className="stat-cell"
             >
               <span className="stat-badge">
@@ -300,8 +298,8 @@ function Culture() {
         <div className="grid lg:grid-cols-[1fr_1fr] gap-8">
           {/* Founder's note — signed by the person who actually holds the role */}
           <motion.div
-            initial={{ opacity: 0, x: -24 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.25, duration: 0.7, ease: E }}
+            initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{delay: 0.25, duration: DUR.reveal, ease: E }}
             className="card flex flex-col justify-between"
             style={{ padding: '2rem', borderLeft: '2px solid var(--brand)' }}
           >
@@ -328,16 +326,16 @@ function Culture() {
 
           {/* Beliefs */}
           <motion.div
-            initial={{ opacity: 0, x: 24 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.3, duration: 0.7, ease: E }}
+            initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{delay: 0.3, duration: DUR.reveal, ease: E }}
           >
             <p className="eyebrow mb-5">Things we actually believe</p>
             <div>
               {beliefs.map((b, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: 14 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.35 + i * 0.06, duration: 0.45, ease: E }}
+                  initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{delay: 0.35 + i * 0.06, duration: DUR.reveal, ease: E }}
                   className="flex items-baseline gap-4"
                   style={{ padding: '0.875rem 0', borderBottom: i < beliefs.length - 1 ? '1px solid var(--divider)' : 'none' }}
                 >
@@ -364,8 +362,8 @@ function Close() {
     <section ref={ref} className="section" style={{ background: 'var(--bg)' }}>
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: E }}
+          initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{duration: DUR.reveal, ease: E }}
           className="text-center"
           style={{ maxWidth: '46rem', margin: '0 auto' }}
         >
@@ -381,7 +379,7 @@ function Close() {
             A short discovery call, an honest scope, and a milestone plan before anyone signs anything.
           </p>
           <div className="flex flex-wrap gap-3 justify-center" style={{ marginTop: '2rem' }}>
-            <Link to="/contact" className="btn btn-primary micro-click">
+            <Link to="/contact" className="btn btn-primary">
               Start a project <ArrowRight className="w-4 h-4" />
             </Link>
             <Link to="/team" className="btn btn-secondary">Meet the team</Link>

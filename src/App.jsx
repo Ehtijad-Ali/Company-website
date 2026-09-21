@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { MotionConfig } from 'framer-motion'
 import { ThemeProvider } from './context/ThemeContext'
 import { ContactProvider } from './context/ContactContext'
 import { ContentProvider } from './context/ContentContext'
@@ -148,8 +149,15 @@ function AppContent() {
 
 export default function App() {
   return (
+    /* reducedMotion="user": anyone who has asked their OS for less motion
+       gets every framer transform (rises, parallax, masks) switched off
+       site-wide, keeping only the fades. A few components checked this for
+       themselves; the rest ignored it. */
+    <MotionConfig reducedMotion="user">
     <ThemeProvider>
-      <BrowserRouter>
+      {/* Opting in to the v7 behaviour now: silences the two deprecation
+          warnings on every page and makes the eventual upgrade a no-op. */}
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <AuthProvider>
           <ContentProvider>
             <ContactProvider>
@@ -159,5 +167,6 @@ export default function App() {
         </AuthProvider>
       </BrowserRouter>
     </ThemeProvider>
+    </MotionConfig>
   )
 }

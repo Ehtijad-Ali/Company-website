@@ -7,7 +7,7 @@ import { ClipBackground } from '../ui/EditorialImage'
 import studioClip from '../../logo/video.mp4'
 import { format } from '../../data/metrics'
 import { useAbout } from '../../hooks/useSiteContent'
-import { E } from '../../lib/motion'
+import { E, DUR, RISE } from '../../lib/motion'
 
 /**
  * The manifesto panel used to repeat the hero headline word for word. Saying
@@ -19,9 +19,9 @@ function ManifestoPanel({ inView, manifesto }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -30 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.85, ease: E }}
+      initial={{opacity: 0, y: RISE }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{duration: DUR.reveal, ease: E }}
       style={{
         position: 'relative',
         background: 'var(--bg-card)',
@@ -60,7 +60,7 @@ function ManifestoPanel({ inView, manifesto }) {
         {LINES.map((line, i) => (
           <div key={i} style={{ overflow: 'hidden' }}>
             <motion.div
-              initial={{ y: '110%' }}
+              initial={{ y: '104%' }}
               animate={inView ? { y: 0 } : {}}
               transition={{ delay: 0.35 + i * 0.1, duration: 0.8, ease: E }}
               style={{
@@ -132,9 +132,9 @@ export default function About() {
           <ManifestoPanel inView={inView} manifesto={about.manifesto} />
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.85, delay: 0.15, ease: E }}
+            initial={{opacity: 0, y: RISE }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{duration: DUR.reveal, delay: 0.15, ease: E }}
             className="flex flex-col justify-center"
           >
             <p className="section-sub mb-8">
@@ -145,9 +145,9 @@ export default function About() {
               {(about.pillars ?? []).map((p, i) => (
                 <motion.div
                   key={p.n}
-                  initial={{ opacity: 0, x: 16 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.4 + i * 0.07, duration: 0.5, ease: E }}
+                  initial={{opacity: 0, y: RISE }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{delay: 0.4 + i * 0.07, duration: DUR.reveal, ease: E }}
                   className="flex items-baseline gap-4 py-3"
                   style={{ borderBottom: '1px solid var(--divider)' }}
                 >
@@ -165,12 +165,12 @@ export default function About() {
             </div>
 
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={{opacity: 0, y: RISE }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.9, duration: 0.5 }}
+              transition={{delay: 0.9, duration: DUR.reveal, ease: E }}
               className="mt-8"
             >
-              <Link to="/contact" className="btn btn-primary micro-click">
+              <Link to="/contact" className="btn btn-primary">
                 Start a project <ArrowRight className="w-4 h-4" />
               </Link>
             </motion.div>

@@ -11,7 +11,7 @@ import { useContact } from '../context/ContactContext'
 import { useContent } from '../context/ContentContext'
 import { useCourses, useCourseFields, useTeam } from '../hooks/useSiteContent'
 import { iconFor } from '../lib/icons'
-import { E } from '../lib/motion'
+import { E, DUR, RISE } from '../lib/motion'
 import { avatarFallback } from '../lib/avatar'
 
 /**
@@ -44,8 +44,8 @@ function Opening({ page, count }) {
 
       <div className="container relative" style={{ zIndex: 1 }}>
         <motion.div
-          initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: E }}
+          initial={{opacity: 0, y: RISE }} animate={{ opacity: 1, y: 0 }}
+          transition={{duration: DUR.reveal, ease: E }}
         >
           <p className="eyebrow mb-4">
             <span style={{ color: 'var(--brand)' }}>01</span>
@@ -112,8 +112,8 @@ function Steps({ page }) {
             return (
               <motion.div
                 key={s.n}
-                initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.1, duration: 0.6, ease: E }}
+                initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{delay: i * 0.1, duration: DUR.reveal, ease: E }}
                 className="course-step"
               >
                 <span className="course-step__icon"><Icon aria-hidden="true" /></span>
@@ -205,8 +205,8 @@ function Mentors({ page, courses, team }) {
           {mentors.map(({ member, courses: taught }, i) => (
             <motion.div
               key={member.slug}
-              initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: (i % 4) * 0.07, duration: 0.5, ease: E }}
+              initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{delay: (i % 4) * 0.07, duration: DUR.reveal, ease: E }}
             >
               <Link to={`/team/${member.slug}`} className="mentor-tile">
                 <img src={member.img} alt={member.name}
@@ -238,10 +238,10 @@ function Ask({ page, onTalk }) {
             <p className="course-ask__text">{page.ctaText}</p>
           </div>
           <div className="course-ask__actions">
-            <button onClick={onTalk} className="btn btn-primary micro-click">
+            <button onClick={onTalk} className="btn btn-primary">
               {page.ctaLabel ?? 'Ask us directly'} <ArrowRight className="w-4 h-4" />
             </button>
-            <Link to="/services" className="btn btn-secondary micro-click">
+            <Link to="/services" className="btn btn-secondary">
               Hire the team instead
             </Link>
           </div>

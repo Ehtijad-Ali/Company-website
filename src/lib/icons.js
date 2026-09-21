@@ -27,9 +27,6 @@ export const ICONS = {
   Linkedin, Twitter, Github, Instagram, Dribbble, Globe,
 }
 
-/** Names the admin UI offers in its icon picker. */
-export const ICON_NAMES = Object.keys(ICONS)
-
 /**
  * Resolve a stored name to a component.
  * @param {string} name     value from the content record

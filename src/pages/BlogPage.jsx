@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight, Clock } from 'lucide-react'
 import SectionHeader from '../components/ui/SectionHeader'
 import { usePosts, usePostCats, useTeam } from '../hooks/useSiteContent'
-import { E } from '../lib/motion'
+import { E, DUR, RISE } from '../lib/motion'
 
 
 /** Byline shared by the lead and the grid cards. */
@@ -37,8 +37,8 @@ function Byline({ post, dark = false, showAvatar = true }) {
 function FeaturedPost({ post }) {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.75, ease: E }}
+      initial={{opacity: 0, y: RISE }} animate={{ opacity: 1, y: 0 }}
+      transition={{duration: DUR.reveal, ease: E }}
       className="group relative overflow-hidden"
       style={{ borderRadius: 'var(--r-xl)', border: '1px solid var(--border)', boxShadow: 'var(--e-2)' }}
     >
@@ -192,8 +192,8 @@ export default function BlogPage() {
       <section className="section" style={{ background: 'var(--bg-surface)', borderTop: '1px solid var(--border)' }}>
         <div className="container">
           <motion.div
-            initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: E }}
+            initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{duration: DUR.reveal, ease: E }}
             className="card flex flex-wrap items-center justify-between gap-6"
             style={{ padding: 'clamp(1.75rem, 4vw, 2.5rem)' }}
           >
@@ -210,7 +210,7 @@ export default function BlogPage() {
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link to="/contact" className="btn btn-primary micro-click">
+              <Link to="/contact" className="btn btn-primary">
                 Start a project <ArrowRight className="w-4 h-4" />
               </Link>
               <Link to="/team" className="btn btn-secondary">Meet the authors</Link>

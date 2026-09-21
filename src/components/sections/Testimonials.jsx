@@ -2,8 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { motion, useInView, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Star, ChevronLeft, ChevronRight, TrendingUp } from 'lucide-react'
 import SectionHeader from '../ui/SectionHeader'
-import { METRICS, format } from '../../data/metrics'
-import { E } from '../../lib/motion'
+import { E, DUR, RISE } from '../../lib/motion'
 import { avatarFallback } from '../../lib/avatar'
 
 const TESTIMONIALS = [
@@ -14,7 +13,7 @@ const TESTIMONIALS = [
     rating: 5,
     metric: '+42%',
     metricLabel: 'Conversion rate',
-    img: 'https://images.unsplash.com/photo-1560250097-0dc05ffedb3d?w=100&h=100&fit=crop&crop=face',
+    img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
     text: 'CodeNode transformed our entire platform in 6 weeks. Performance gains were beyond what we expected. Conversion rate jumped 42%.',
   },
   {
@@ -107,9 +106,8 @@ export default function Testimonials() {
 
         {/* Featured spotlight */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: .2, duration: .7, ease: E }}
-          className="mb-10"
+          initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{delay: .2, duration: DUR.reveal, ease: E }}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onFocusCapture={() => setPaused(true)}
@@ -198,6 +196,7 @@ export default function Testimonials() {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={prev}
+                    aria-label="Previous testimonial"
                     className="w-9 h-9 rounded-full flex items-center justify-center transition-colors"
                     style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
                     onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--text-primary)' }}
@@ -231,6 +230,7 @@ export default function Testimonials() {
 
                   <button
                     onClick={next}
+                    aria-label="Next testimonial"
                     className="w-9 h-9 rounded-full flex items-center justify-center transition-colors"
                     style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
                     onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--text-primary)' }}
@@ -278,24 +278,9 @@ export default function Testimonials() {
           </div>
         </motion.div>
 
-        {/* Trust bar */}
-        <motion.div
-          initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: .5, duration: .6 }}
-          /* A 2x2 on phones: left to wrap, the four figures broke one,
-             one, two and read as leftovers. Desktop keeps the single row. */
-          className="grid grid-cols-2 gap-x-4 gap-y-5 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-8 mb-10"
-          style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '1.25rem 0' }}
-        >
-          {['projects', 'satisfaction', 'rating', 'countries'].map(k => ({
-            value: format(k), label: METRICS[k].label,
-          })).map(({ value, label }, i) => (
-            <div key={label} className="flex flex-col items-center text-center gap-1 sm:flex-row sm:gap-2">
-              <span className="tnum text-lg" style={{ fontFamily: 'var(--font-display)', fontWeight: 500, color: 'var(--text-primary)' }}>{value}</span>
-              <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>{label}</span>
-            </div>
-          ))}
-        </motion.div>
+        {/* The trust bar that sat here repeated the stats section two
+            sections up — projects and satisfaction were on this page three
+            times. The quotes now end the section on their own. */}
       </div>
 
     </section>

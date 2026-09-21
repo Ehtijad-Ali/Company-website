@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowUp, ChevronDown, Send, Linkedin, Twitter, Github, Instagram, Dribbble } from 'lucide-react'
 import CodeNodeLogo from '../CodeNodeLogo'
+import { apiClient } from '../../services/apiClient'
 
 const NAV = {
   Company:  [['About',     '/about'],['Team','/team'],['Portfolio','/portfolio'],['Careers','/contact'],['Blog','/blog']],
@@ -63,7 +64,27 @@ function NavGroup({ title, links, open, onToggle }) {
 
 export default function Footer() {
   const [email, setEmail]         = useState('')
-  const [subscribed, setSubscribed] = useState(false)
+  /* 'idle' | 'sending' | 'done' | 'error'. The form used to flip straight
+     to "Subscribed!" without sending the address anywhere. There is no
+     mailing-list endpoint, so it goes through the contact endpoint — which
+     stores it and emails the studio — tagged as a newsletter signup. */
+  const [status, setStatus] = useState('idle')
+  const subscribe = async e => {
+    e.preventDefault()
+    if (!email || status === 'sending') return
+    setStatus('sending')
+    try {
+      await apiClient.contact.submit({
+        name: email.split('@')[0],
+        email,
+        service: 'Newsletter',
+        message: 'Newsletter signup from the site footer.',
+      })
+      setStatus('done'); setEmail('')
+    } catch {
+      setStatus('error')
+    }
+  }
   /* One panel at a time, all shut on arrival — the footer should read as a
      short list of headings before it reads as links. */
   const [openGroup, setOpenGroup] = useState(null)
@@ -74,7 +95,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 mb-14">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link to="/" className="tap flex items-center mb-5 group" style={{ textDecoration: 'none' }}>
+            <Link to="/" className="tap flex items-center mb-5 group" style={{ textDecoration: 'none' }} aria-label="CodeNode home">
               <CodeNodeLogo height={28} />
             </Link>
             <p className="text-sm leading-relaxed mb-6 max-w-xs" style={{ color:'var(--text-secondary)' }}>
@@ -82,18 +103,25 @@ export default function Footer() {
             </p>
             {/* Newsletter */}
             <p className="font-mono text-[10px] uppercase tracking-wider mb-3" style={{ color:'var(--text-secondary)' }}>Newsletter</p>
-            {subscribed
-              ? <p className="text-sm font-medium text-green-400">✓ Subscribed!</p>
+            {status === 'done'
+              ? <p className="text-sm font-medium" style={{ color: 'var(--brand)' }} role="status">You're on the list.</p>
               : (
-                <form onSubmit={e=>{e.preventDefault();if(email){setSubscribed(true);setEmail('')}}} className="flex">
+                <form onSubmit={subscribe} className="flex">
                   <input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="your@email.com"
+                    aria-label="Email address" required
                     className="flex-1 px-4 py-2.5 rounded-l-xl text-sm"
                     style={{ background:'var(--bg-card)', border:'1px solid var(--border)', color:'var(--text-primary)', outline:'none' }} />
-                  <button type="submit" className="px-4 py-2.5 rounded-r-xl" style={{ background:'var(--primary)', color:'var(--primary-contrast)' }}>
+                  <button type="submit" aria-label="Subscribe" disabled={status === 'sending'}
+                    className="px-4 py-2.5 rounded-r-xl disabled:opacity-60" style={{ background:'var(--primary)', color:'var(--primary-contrast)' }}>
                     <Send className="w-3.5 h-3.5" />
                   </button>
                 </form>
               )}
+            {status === 'error' && (
+              <p className="text-xs mt-2" style={{ color: 'var(--text-secondary)' }} role="alert">
+                That didn't go through. Try again, or email us directly.
+              </p>
+            )}
           </div>
 
           {/* Links — accordion rows on small screens, three columns from lg */}

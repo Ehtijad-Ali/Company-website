@@ -11,7 +11,7 @@ import { useMember, useRelatedMembers } from '../hooks/useSiteContent'
 import { useAllContent } from '../context/ContentContext'
 import { AvailabilityBadge, Rating, SkillLevel, SocialLinks } from '../components/team/MemberBits'
 import InterviewModal from '../components/InterviewModal'
-import { E } from '../lib/motion'
+import { E, DUR, RISE } from '../lib/motion'
 import { avatarFallback } from '../lib/avatar'
 
 function SectionHeading({ children, num }) {
@@ -90,8 +90,8 @@ export default function MemberProfilePage() {
           </Link>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: E }}
+            initial={{opacity: 0, y: RISE }} animate={{ opacity: 1, y: 0 }}
+            transition={{duration: DUR.reveal, ease: E }}
             className="grid lg:grid-cols-[200px_1fr] gap-8 items-start"
           >
             <img
@@ -223,8 +223,8 @@ export default function MemberProfilePage() {
 
           {/* ── Hire card — sticky on desktop ── */}
           <motion.aside
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.6, ease: E }}
+            initial={{opacity: 0, y: RISE }} animate={{ opacity: 1, y: 0 }}
+            transition={{delay: 0.15, duration: DUR.reveal, ease: E }}
             className="card"
             style={{ padding: '1.5rem', position: 'sticky', top: '6.5rem' }}
           >
@@ -266,7 +266,7 @@ export default function MemberProfilePage() {
 
             <button
               onClick={() => setHiring(true)}
-              className="btn btn-primary micro-click w-full"
+              className="btn btn-primary w-full"
               style={{ justifyContent: 'center' }}
             >
               <CalendarCheck className="w-4 h-4" />

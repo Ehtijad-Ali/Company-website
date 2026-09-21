@@ -7,6 +7,7 @@ import { formatRate } from '../data/team'
 import { useTeam, useDepts } from '../hooks/useSiteContent'
 import { AvailabilityBadge, Rating } from '../components/team/MemberBits'
 import { avatarFallback } from '../lib/avatar'
+import { E, DUR, RISE } from '../lib/motion'
 
 const SORTS = [
   { id: 'featured',  label: 'Featured' },
@@ -27,10 +28,10 @@ const MemberCard = React.forwardRef(function MemberCard({ m, i }, ref) {
     <motion.div
       ref={ref}
       layout
-      initial={{ opacity: 0, y: 24 }}
+      initial={{opacity: 0, y: RISE }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
-      transition={{ delay: (i % 4) * 0.07, duration: 0.5 }}
+      transition={{delay: (i % 4) * 0.07, duration: DUR.reveal, ease: E }}
     >
       <Link to={`/team/${m.slug}`} className="card flex flex-col h-full" style={{ padding: '1.125rem' }}>
         <div className="relative mb-4">
@@ -184,8 +185,8 @@ function JoinUsSection() {
       <div className="container">
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{duration: DUR.reveal, ease: E }}
           className="mb-14"
         >
           <p className="font-mono text-[10px] tracking-[0.3em] uppercase mb-3" style={{ color: 'var(--text-muted)' }}>/ 02 · Careers</p>
@@ -209,8 +210,8 @@ function JoinUsSection() {
               {OPEN_ROLES.map((role, i) => (
                 <motion.div
                   key={role.title}
-                  initial={{ opacity: 0, x: -24 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.1 + i * 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                  initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{delay: 0.1 + i * 0.08, duration: DUR.reveal, ease: E }}
                   className="group card p-6 flex items-start justify-between gap-4"
                   style={{ borderRadius: 14, cursor: 'default' }}
                   onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--border-hover)'}
@@ -224,7 +225,7 @@ function JoinUsSection() {
                     <p className="font-mono text-[10px] mb-2" style={{ color: 'var(--text-muted)' }}>{role.type}</p>
                     <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{role.desc}</p>
                   </div>
-                  <Link to="/contact"
+                  <Link to="/contact" aria-label={`Apply for ${role.title}`}
                     className="shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-colors group-hover:border-accent"
                     style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)' }}>
                     <ArrowRight className="w-4 h-4 text-accent" />
@@ -236,8 +237,8 @@ function JoinUsSection() {
 
           {/* Perks */}
           <motion.div
-            initial={{ opacity: 0, x: 24 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{delay: 0.2, duration: DUR.reveal, ease: E }}
           >
             <p className="font-mono text-[10px] tracking-[0.2em] uppercase mb-5" style={{ color: 'var(--text-muted)' }}>Why you'll love it here</p>
             <div className="space-y-3">

@@ -40,8 +40,6 @@ export const AVAILABILITY = {
   booked:    { label: 'Fully booked',    tone: 'muted'    },
 }
 
-export const DEPTS = ['All', 'Leadership', 'AI/ML', 'Engineering', 'Design', 'Product', 'Operations']
-
 export const TEAM = [
   {
     slug: 'ehtijad-ali',

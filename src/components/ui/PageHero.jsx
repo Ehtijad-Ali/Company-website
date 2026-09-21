@@ -2,7 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { ImagePlate } from './EditorialImage'
 import { img, TEXTURE } from '../../data/imagery'
-import { E } from '../../lib/motion'
+import { E, DUR, RISE } from '../../lib/motion'
 
 /**
  * The opener every inner page shares, lifted from the Contact page so the
@@ -24,9 +24,9 @@ export default function PageHero({ num = '01', label, title, sub, children }) {
 
       <div className="container relative" style={{ zIndex: 1 }}>
         <motion.div
-          initial={{ opacity: 0, y: 22 }}
+          initial={{opacity: 0, y: RISE }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: E }}
+          transition={{duration: DUR.reveal, ease: E }}
           className="pb-16"
         >
           <p className="eyebrow mb-4">

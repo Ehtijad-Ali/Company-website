@@ -8,6 +8,7 @@ import { img, SERVICE_IMG } from '../../data/imagery'
 import { useServices } from '../../hooks/useSiteContent'
 import { iconFor } from '../../lib/icons'
 import { CountWord } from '../../lib/words'
+import { E, DUR, RISE } from '../../lib/motion'
 
 function ServiceRow({ s, i }) {
   const [open, setOpen] = useState(false)
@@ -20,9 +21,9 @@ function ServiceRow({ s, i }) {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{opacity: 0, y: RISE }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: i * 0.055, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      transition={{delay: i * 0.055, duration: DUR.reveal, ease: E }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
       style={{
@@ -80,7 +81,7 @@ function ServiceRow({ s, i }) {
         {/* Arrow */}
         <motion.div
           animate={{ rotate: open ? 45 : 0 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.35, ease: E }}
           style={{
             width: '2rem', height: '2rem', borderRadius: '8px', flexShrink: 0,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -102,7 +103,7 @@ function ServiceRow({ s, i }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.38, ease: E }}
             style={{ overflow: 'hidden' }}
           >
             <div className="svc-body">
@@ -123,9 +124,9 @@ function ServiceRow({ s, i }) {
                   closed list stays a clean index rather than a gallery. */}
               {SERVICE_IMG[s.title] && (
                 <motion.div
-                  initial={{ opacity: 0, x: 18 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  initial={{opacity: 0, y: RISE }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{delay: 0.1, duration: DUR.reveal, ease: E }}
                   className="svc-shot"
                 >
                   <div className="ed-img-wrap" style={{ aspectRatio: '16 / 10' }}>
@@ -179,8 +180,8 @@ export default function Services() {
 
         {/* ── Bottom CTA ── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.55, duration: 0.6 }}
+          initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{delay: 0.55, duration: DUR.reveal, ease: E }}
           className="mt-14 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-10"
           style={{ borderTop: '1px solid var(--border)' }}
         >
@@ -194,10 +195,10 @@ export default function Services() {
             </p>
           </div>
           <div className="flex gap-3">
-            <button onClick={openContact} className="btn btn-primary btn-hover-micro micro-click hover-lift">
+            <button onClick={openContact} className="btn btn-primary hover-lift">
               Start a Project <ArrowUpRight className="w-4 h-4" />
             </button>
-            <Link to="/services" className="btn btn-secondary btn-hover-micro hover-scale">
+            <Link to="/services" className="btn btn-secondary hover-scale">
               All Services
             </Link>
           </div>

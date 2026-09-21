@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Clock, BarChart2, ArrowUpRight } from 'lucide-react'
 import { useMember } from '../../hooks/useSiteContent'
 import { courseImage } from '../../data/imagery'
-import { E } from '../../lib/motion'
+import { E, DUR, RISE } from '../../lib/motion'
 import { avatarFallback } from '../../lib/avatar'
 
 /**
@@ -23,10 +23,10 @@ export default function CourseCard({ c, i = 0 }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 22 }}
+      initial={{opacity: 0, y: RISE }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
-      transition={{ delay: (i % 3) * 0.06, duration: 0.5, ease: E }}
+      transition={{delay: (i % 3) * 0.06, duration: DUR.reveal, ease: E }}
       className="course-card"
     >
       <Link to={`/courses/${c.slug}`} className="course-card__link">

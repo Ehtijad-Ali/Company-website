@@ -7,7 +7,7 @@ import { formatRate } from '../../data/team'
 import { useTeam } from '../../hooks/useSiteContent'
 import { ImagePlate } from '../ui/EditorialImage'
 import { img, TEXTURE } from '../../data/imagery'
-import { E } from '../../lib/motion'
+import { E, DUR, RISE } from '../../lib/motion'
 
 
 /**
@@ -34,9 +34,9 @@ export default function CTA() {
       <ImagePlate src={img(TEXTURE.stucco, 1600, 900)} />
       <div className="container relative" style={{ zIndex: 1 }}>
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{opacity: 0, y: RISE }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: E }}
+          transition={{duration: DUR.reveal, ease: E }}
           className="relative overflow-hidden"
           style={{
             background: 'var(--bg-card)',
@@ -68,7 +68,7 @@ export default function CTA() {
               </p>
 
               <div className="flex flex-wrap gap-3 mt-8">
-                <Link to="/contact" className="btn btn-primary micro-click">
+                <Link to="/contact" className="btn btn-primary">
                   Start a project <ArrowRight className="w-4 h-4" />
                 </Link>
                 <button onClick={openContact} className="btn btn-secondary">

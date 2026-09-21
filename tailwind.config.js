@@ -36,14 +36,6 @@ export default {
       borderRadius: {
         xs: '3px', sm: '5px', md: '8px', lg: '12px', xl: '18px',
       },
-      animation: {
-        'float':      'float 5s ease-in-out infinite',
-        'spin-slow':  'spin-slow 25s linear infinite',
-        'marquee':    'marquee 45s linear infinite',
-        'marqueeR':   'marqueeR 45s linear infinite',
-        'glow':       'glow 4s ease-in-out infinite',
-        'pulse-ring': 'pulse-ring 3s ease-in-out infinite',
-      },
     },
   },
   plugins: [],

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
-import { E } from '../../lib/motion'
+import { E, DUR, RISE } from '../../lib/motion'
 
 /**
  * The single image treatment for the site.
@@ -39,10 +39,10 @@ export default function EditorialImage({
       className={`ed-fig ${className}`}
       /* No inline margin: it would outrank the class the caller passed. */
       style={style}
-      initial={{ opacity: 0, y: 26 }}
+      initial={{opacity: 0, y: RISE }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.9, ease: E }}
+      transition={{duration: DUR.reveal, ease: E }}
     >
       <div
         className={`ed-img-wrap${flush ? ' ed-flush' : ''}${moves ? ' ed-parallax' : ''}`}
@@ -59,76 +59,6 @@ export default function EditorialImage({
           decoding="async"
           style={moves ? { y: drift, scale: 1.18 } : undefined}
           onError={e => e.currentTarget.parentNode.classList.add('ed-failed')}
-        />
-        <span className="ed-grain" aria-hidden="true" />
-        {(eyebrow || caption) && (
-          <figcaption className="ed-cap">
-            {eyebrow && <span className="eyebrow">{eyebrow}</span>}
-            {caption && <span className="ed-cap-text">{caption}</span>}
-          </figcaption>
-        )}
-      </div>
-    </motion.figure>
-  )
-}
-
-/**
- * A self-hosted clip wearing the same frame as `EditorialImage`.
- *
- * Plays muted, on a loop, with no chrome, so it reads as motion design
- * rather than as a video player — which is the only way a short loop
- * works in an editorial band. It carries the same grade and grain as the
- * stills so the band holds together.
- *
- * Autoplay is dropped for anyone who has asked for reduced motion; they
- * get the same frame with native controls instead.
- */
-export function EditorialClip({
-  src,
-  poster,
-  label = 'Studio footage',
-  ratio = '16 / 10',
-  eyebrow,
-  caption,
-  flush = false,
-  className = '',
-  style,
-}) {
-  const videoRef = useRef(null)
-  const reduce = useReducedMotion()
-
-  /* React has a long-standing habit of dropping the `muted` attribute on
-     the initial render, and an unmuted video is refused autoplay by every
-     browser. Setting it on the element directly is the reliable fix. */
-  useEffect(() => {
-    const el = videoRef.current
-    if (!el) return
-    el.muted = true
-    if (!reduce) el.play().catch(() => {})
-  }, [reduce])
-
-  return (
-    <motion.figure
-      className={`ed-fig ${className}`}
-      style={style}
-      initial={{ opacity: 0, y: 26 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.9, ease: E }}
-    >
-      <div className={`ed-img-wrap${flush ? ' ed-flush' : ''}`} style={{ '--ed-ratio': ratio }}>
-        <video
-          ref={videoRef}
-          className="ed-img"
-          src={src}
-          poster={poster}
-          aria-label={label}
-          autoPlay={!reduce}
-          loop={!reduce}
-          muted
-          playsInline
-          controls={reduce}
-          preload="metadata"
         />
         <span className="ed-grain" aria-hidden="true" />
         {(eyebrow || caption) && (
@@ -199,7 +129,7 @@ export function ImagePlate({ src, opacity, eager = false, parallax = 7 }) {
           ground moves slower than the type sitting on it. Scaled up to
           cover the travel so no edge is ever exposed. */}
       <motion.img src={src} alt="" loading={eager ? 'eager' : 'lazy'} decoding="async"
-        fetchPriority={eager ? 'high' : undefined}
+        fetchpriority={eager ? 'high' : undefined}
         style={moves ? { y: drift, scale: 1.18 } : undefined}
         onError={e => { e.currentTarget.style.display = 'none' }} />
     </div>

@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion'
 import { Rocket, Users, CalendarDays, Star } from 'lucide-react'
 import SectionHeader from '../ui/SectionHeader'
 import { METRICS } from '../../data/metrics'
+import { E, DUR, RISE } from '../../lib/motion'
 
 const KEYS = ['projects', 'satisfaction', 'avgExperience', 'rating']
 const ICONS = { projects: Rocket, satisfaction: Users, avgExperience: CalendarDays, rating: Star }
@@ -61,9 +62,9 @@ export default function StatsCounter() {
           {STATS.map(({ Icon, ...stat }, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 28 }}
+              initial={{opacity: 0, y: RISE }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.15 + i * 0.1, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              transition={{delay: 0.15 + i * 0.1, duration: DUR.reveal, ease: E }}
               className="stat-cell group"
             >
               {/* Flat, so `.stat-cell`'s grid can place the badge beside the
@@ -94,8 +95,8 @@ export default function StatsCounter() {
 
         {/* Closing statement — a rule above it, not a box around it. */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.65, duration: 0.6 }}
+          initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{delay: 0.65, duration: DUR.reveal, ease: E }}
           className="mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4"
           style={{ borderTop: '1px solid var(--border)' }}
         >

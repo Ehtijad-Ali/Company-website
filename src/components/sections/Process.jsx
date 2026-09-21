@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion'
 import SectionHeader from '../ui/SectionHeader'
 import { MessageSquare, Lightbulb, Layers, Rocket, BarChart2 } from 'lucide-react'
 import { img, PHASE_IMG } from '../../data/imagery'
-import { E } from '../../lib/motion'
+import { E, DUR, RISE } from '../../lib/motion'
 
 const STEPS = [
   {
@@ -77,16 +77,16 @@ function PhaseLink() {
         />
         <motion.span
           className="phase-link-spark"
-          initial={{ y: 0, opacity: 0 }}
+          initial={{y: RISE, opacity: 0 }}
           animate={inView ? { y: LINK_H, opacity: [0, 1, 1, 0] } : {}}
-          transition={{ duration: 0.75, ease: [0.4, 0, 0.2, 1], times: [0, 0.12, 0.72, 1] }}
+          transition={{duration: DUR.reveal, ease: E, times: [0, 0.12, 0.72, 1] }}
         />
       </div>
       <motion.span
         className="phase-link-node"
         initial={{ scale: 0, opacity: 0 }}
         animate={inView ? { scale: 1, opacity: 1 } : {}}
-        transition={{ delay: 0.6, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ delay: 0.6, duration: 0.5, ease: E }}
       />
     </div>
   )
@@ -176,10 +176,10 @@ export default function Process({ num = '03' }) {
                   stagger off the section, so it lands just as the spark in
                   the link above it arrives. */}
               <motion.div
-                initial={{ opacity: 0, y: 26 }}
+                initial={{opacity: 0, y: RISE }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-12% 0px -12% 0px' }}
-                transition={{ duration: 0.6, ease: E }}
+                transition={{duration: DUR.reveal, ease: E }}
               >
                 <PhaseCard {...step} src={img(PHASE_IMG[i], 720, 540)} flip={i % 2 === 1} />
               </motion.div>
@@ -191,8 +191,8 @@ export default function Process({ num = '03' }) {
 
         {/* Bottom CTA strip */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 1.2, duration: .6 }}
+          initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{delay: 1.2, duration: DUR.reveal, ease: E }}
           className="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl px-8 py-6"
           style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}
         >

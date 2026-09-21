@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Cloud } from 'lucide-react'
-import { TypingText, ParallaxSection } from '../ui/AnimationKit'
+import TypingText from '../ui/TypingText'
 import { METRICS, format } from '../../data/metrics'
 import { TECH_ICONS } from '../../data/techIcons'
-import { E } from '../../lib/motion'
+import { E, DUR, RISE } from '../../lib/motion'
 
 /* Pulled from the shared source so the hero can't drift from the stats
    section again — it previously claimed 500+ projects against its 60+. */
@@ -97,8 +97,8 @@ function CodeTerminal() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: 0.5, duration: 0.9, ease: E }}
+      initial={{opacity: 0, y: RISE }} animate={{ opacity: 1, y: 0 }}
+      transition={{delay: 0.5, duration: DUR.reveal, ease: E }}
       style={{
         background: 'var(--terminal-bg)',
         border: '1px solid var(--terminal-border)',
@@ -200,8 +200,8 @@ export default function Hero({ layered = false }) {
 
       {/* Top bar */}
       <motion.div
-        initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.05, duration: 0.6, ease: E }}
+        initial={{opacity: 0, y: RISE }} animate={{ opacity: 1, y: 0 }}
+        transition={{delay: 0.05, duration: DUR.reveal, ease: E }}
         className="container relative z-10 flex items-center justify-between"
         style={{ paddingTop: '7rem', paddingBottom: '2.5rem', borderBottom: '1px solid var(--border)' }}
       >
@@ -224,8 +224,8 @@ export default function Hero({ layered = false }) {
         <motion.div className="flex flex-col justify-center"
           style={reduce ? undefined : { y: copyY, opacity: fade }}>
           <motion.p
-            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6, ease: E }}
+            initial={{opacity: 0, y: RISE }} animate={{ opacity: 1, y: 0 }}
+            transition={{delay: 0.2, duration: DUR.reveal, ease: E }}
             className="eyebrow mb-7"
           >
             <span style={{ color: 'var(--brand)' }}>01</span>
@@ -233,34 +233,36 @@ export default function Hero({ layered = false }) {
             Digital product studio
           </motion.p>
 
-          {LINES.map((line, i) => (
-            <div key={i} style={{ overflow: 'hidden' }}>
-              <motion.h1
-                initial={{ y: '104%' }}
-                animate={{ y: 0 }}
-                transition={{ delay: 0.28 + i * 0.11, duration: 0.95, ease: E }}
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 'var(--step-6)',
-                  fontWeight: 500,
-                  lineHeight: 1.04,
-                  letterSpacing: '-0.028em',
-                  color: 'var(--text-primary)',
-                  paddingBottom: '0.06em',
-                }}
-              >
-                {line.map((part, pi) =>
-                  part.italic ? (
-                    <em key={pi} style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--brand)' }}>
-                      {part.t}
-                    </em>
-                  ) : (
-                    <span key={pi}>{part.t}</span>
-                  )
-                )}
-              </motion.h1>
-            </div>
-          ))}
+          {/* One heading, three masked lines. Rendering a motion.h1 per line
+              gave the page three top-level headings. */}
+          <h1 style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'var(--step-6)',
+            fontWeight: 500,
+            lineHeight: 1.04,
+            letterSpacing: '-0.028em',
+            color: 'var(--text-primary)',
+          }}>
+            {LINES.map((line, i) => (
+              <span key={i} className="line-mask">
+                <motion.span
+                  initial={{ y: '104%' }}
+                  animate={{ y: 0 }}
+                  transition={{ delay: 0.28 + i * 0.11, duration: 0.95, ease: E }}
+                >
+                  {line.map((part, pi) =>
+                    part.italic ? (
+                      <em key={pi} style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--brand)' }}>
+                        {part.t}
+                      </em>
+                    ) : (
+                      <span key={pi}>{part.t}</span>
+                    )
+                  )}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
 
           <motion.div
             initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
@@ -269,8 +271,8 @@ export default function Hero({ layered = false }) {
           />
 
           <motion.p
-            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.7, ease: E }}
+            initial={{opacity: 0, y: RISE }} animate={{ opacity: 1, y: 0 }}
+            transition={{delay: 0.8, duration: DUR.reveal, ease: E }}
             className="section-sub mb-8"
             style={{ maxWidth: '46ch' }}
           >
@@ -286,11 +288,11 @@ export default function Hero({ layered = false }) {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.7, ease: E }}
+            initial={{opacity: 0, y: RISE }} animate={{ opacity: 1, y: 0 }}
+            transition={{delay: 0.9, duration: DUR.reveal, ease: E }}
             className="flex gap-3 flex-wrap items-center"
           >
-            <Link to="/contact" className="btn btn-primary micro-click">
+            <Link to="/contact" className="btn btn-primary">
               Start a project <ArrowRight className="w-4 h-4" />
             </Link>
             <Link to="/portfolio" className="btn btn-secondary">

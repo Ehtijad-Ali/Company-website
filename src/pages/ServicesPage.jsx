@@ -14,6 +14,7 @@ import CourseCard from '../components/ui/CourseCard'
 import { useServices, useCourses } from '../hooks/useSiteContent'
 import { iconFor } from '../lib/icons'
 import { CountWord } from '../lib/words'
+import { E, DUR, RISE } from '../lib/motion'
 
 export default function ServicesPage() {
   const { openContact } = useContact()
@@ -35,8 +36,8 @@ export default function ServicesPage() {
               const Icon = iconFor(s.icon)
               return (
                 <motion.div key={s.slug ?? s.title}
-                  initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }}
-                  viewport={{ once:true, margin:'-60px' }} transition={{ delay:(i%2)*.1, duration:.6 }}
+                  initial={{opacity:0, y: RISE }} whileInView={{ opacity:1, y:0 }}
+                  viewport={{ once:true, margin:'-60px' }} transition={{delay:(i%2)*.1, duration: DUR.reveal, ease: E }}
                   className="card p-8 group relative overflow-hidden"
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[18px] pointer-events-none"
@@ -107,8 +108,8 @@ function WhyUsSection() {
             const Icon = item.icon
             return (
               <motion.div key={item.title}
-                initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{delay: i * 0.1, duration: DUR.reveal, ease: E }}
                 className="group relative card p-8 overflow-hidden" style={{ borderRadius: 20 }}
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[20px] pointer-events-none"
@@ -164,8 +165,8 @@ function GuaranteeSection() {
           {GUARANTEES.map((g, i) => {
             const Icon = g.icon
             return (
-              <motion.div key={g.title} initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              <motion.div key={g.title} initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{delay: i * 0.1, duration: DUR.reveal, ease: E }}
                 className="group relative card p-8 overflow-hidden" style={{ borderRadius: 20 }}
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[20px] pointer-events-none"
@@ -246,7 +247,7 @@ function CoursesSection() {
             Not sure which one fits? The course finder asks seven questions and names the
             three worth your time, with the reason for each.
           </p>
-          <Link to="/courses" className="btn btn-primary micro-click">
+          <Link to="/courses" className="btn btn-primary">
             Find my three <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

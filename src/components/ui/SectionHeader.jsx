@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
-import { E } from '../../lib/motion'
+import { E, DUR, RISE } from '../../lib/motion'
 
 
 const emStyle = { fontStyle: 'italic', fontWeight: 400, color: 'var(--brand)' }
@@ -38,7 +38,7 @@ function TitleWords({ parts, inView }) {
         <span key={key} className="sh-word">
           <motion.span
             style={p.em ? emStyle : undefined}
-            initial={{ y: '115%' }}
+            initial={{ y: '104%' }}
             animate={inView ? { y: 0 } : {}}
             transition={{ delay, duration: 0.75, ease: E }}
           >
@@ -80,9 +80,9 @@ export default function SectionHeader({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{opacity: 0, y: RISE }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, ease: E }}
+      transition={{duration: DUR.reveal, ease: E }}
       className={`${centred
         ? 'flex flex-col items-center text-center gap-y-6'
         : 'flex flex-wrap items-end justify-between gap-x-8 gap-y-5'} ${className}`}

@@ -6,6 +6,7 @@ import { formatRate } from '../../data/team'
 import { useTeam, useDepts } from '../../hooks/useSiteContent'
 import { AvailabilityBadge } from '../team/MemberBits'
 import { avatarFallback } from '../../lib/avatar'
+import { E, DUR, RISE } from '../../lib/motion'
 
 
 
@@ -17,9 +18,9 @@ function Card({ m, i }) {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
+      initial={{opacity: 0, y: RISE }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: (i % 4) * 0.09, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      transition={{delay: (i % 4) * 0.09, duration: DUR.reveal, ease: E }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -34,7 +35,7 @@ function Card({ m, i }) {
         <motion.img
           src={m.img} alt={m.name}
           animate={{ scale: hovered ? 1.06 : 1, filter: hovered ? 'grayscale(0%)' : 'grayscale(55%)' }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.65, ease: E }}
           className="member-photo"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
           onError={avatarFallback(m.name, 600)}
@@ -68,7 +69,7 @@ function Card({ m, i }) {
         {/* Slide-up panel */}
         <motion.div
           animate={{ y: hovered ? 0 : 'calc(100% - 78px)' }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.5, ease: E }}
           style={{ position: 'absolute', inset: '0 0 0 0', top: 'auto', padding: '1.125rem' }}
         >
           <motion.div
@@ -135,8 +136,8 @@ export default function Team() {
       <div className="container">
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{opacity: 0, y: RISE }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{duration: DUR.reveal, ease: E }}
           className="mb-10 flex flex-wrap items-end justify-between gap-6"
         >
           <div>
