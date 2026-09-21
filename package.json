@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "prebuild": "node scripts/generate-sitemap.mjs"
+    "prebuild": "node scripts/generate-sitemap.mjs && node scripts/export-content.mjs",
+    "content:seed": "node scripts/export-content.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

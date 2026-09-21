@@ -22,6 +22,7 @@ const PRIORITY = {
   '/': '1.0',
   '/services': '0.9',
   '/portfolio': '0.9',
+  '/courses': '0.8',
   '/contact': '0.8',
   '/team': '0.8',
   '/about': '0.7',

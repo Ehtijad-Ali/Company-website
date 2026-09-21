@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, MessageSquare, CalendarCheck } from 'lucide-react'
 import { useContact } from '../../context/ContactContext'
-import { TEAM, formatRate } from '../../data/team'
+import { formatRate } from '../../data/team'
+import { useTeam } from '../../hooks/useSiteContent'
 import { ImagePlate } from '../ui/EditorialImage'
 import { img, TEXTURE } from '../../data/imagery'
 import { E } from '../../lib/motion'
@@ -22,8 +23,9 @@ export default function CTA() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const { openContact } = useContact()
 
-  const openNow = TEAM.filter(m => m.availability === 'available').length
-  const lowestRate = Math.min(...TEAM.map(m => m.rate))
+  const team = useTeam()
+  const openNow = team.filter(m => m.availability === 'available').length
+  const lowestRate = team.length ? Math.min(...team.map(m => m.rate)) : 0
 
   return (
     <section ref={ref} className="section relative" style={{ background: 'var(--bg-surface)', borderTop: '1px solid var(--border)', overflow: 'hidden' }}>

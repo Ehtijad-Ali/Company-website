@@ -1,0 +1,2730 @@
+{
+  "team": [
+    {
+      "slug": "ehtijad-ali",
+      "name": "Ehtijad Ali",
+      "role": "Founder & Full-Stack AI Engineer",
+      "dept": "Leadership",
+      "img": "/team/ehtijad-ali.png",
+      "location": "Gilgit, PK",
+      "timezone": "PKT",
+      "rate": 50,
+      "minEngagement": "From 15 hours",
+      "availability": "limited",
+      "hoursPerWeek": 15,
+      "tagline": "Founded the studio, and still writes the code on the hard parts of every build.",
+      "bio": "Five years across web platforms and applied AI, the last two of them running this team. Works end to end — the model, the service around it and the interface on top — which is why the architecture decisions get made on the first call rather than discovered halfway through the build.",
+      "years": 5,
+      "skills": [
+        {
+          "name": "Full-Stack Engineering",
+          "level": 5
+        },
+        {
+          "name": "LLM & RAG Systems",
+          "level": 5
+        },
+        {
+          "name": "Technical Architecture",
+          "level": 5
+        },
+        {
+          "name": "Team Leadership",
+          "level": 4
+        }
+      ],
+      "languages": [
+        {
+          "name": "Urdu",
+          "level": "Native"
+        },
+        {
+          "name": "English",
+          "level": "Fluent"
+        }
+      ],
+      "portfolio": [
+        {
+          "title": "RAG assistant for a support desk",
+          "type": "AI Engineering",
+          "blurb": "Retrieval over four years of tickets and docs, with a citation on every answer.",
+          "metric": "First-response time cut by half"
+        },
+        {
+          "title": "Internal tooling consolidation",
+          "type": "Engineering",
+          "blurb": "Replaced four overlapping admin tools with one service and a shared design system.",
+          "metric": "4 tools down to 1"
+        }
+      ],
+      "credentials": [
+        "BS Computer Science",
+        "5 years in software and AI engineering"
+      ],
+      "stats": {
+        "projects": 14,
+        "rating": 4.9,
+        "onTime": 96,
+        "responseTime": "within 3 hours"
+      },
+      "socials": [
+        {
+          "id": "linkedin",
+          "url": "#"
+        },
+        {
+          "id": "github",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "slug": "almeen-zahra",
+      "name": "Almeen Zahra",
+      "role": "AI & ML Engineer",
+      "dept": "AI/ML",
+      "img": "/team/almeen-zahra.jpg",
+      "location": "Gilgit, PK",
+      "timezone": "PKT",
+      "rate": 40,
+      "minEngagement": "From 20 hours",
+      "availability": "available",
+      "hoursPerWeek": 30,
+      "tagline": "Takes models out of the notebook and puts them behind an endpoint that stays up.",
+      "bio": "Three years building and shipping machine learning systems, mostly NLP and recommendation work. Starts from the evaluation set rather than the model, on the theory that a team which cannot measure a result cannot tell whether it improved one.",
+      "years": 3,
+      "skills": [
+        {
+          "name": "PyTorch",
+          "level": 5
+        },
+        {
+          "name": "NLP & Transformers",
+          "level": 4
+        },
+        {
+          "name": "Model Deployment",
+          "level": 4
+        },
+        {
+          "name": "Evaluation & Evals",
+          "level": 4
+        }
+      ],
+      "languages": [
+        {
+          "name": "Urdu",
+          "level": "Native"
+        },
+        {
+          "name": "English",
+          "level": "Fluent"
+        }
+      ],
+      "portfolio": [
+        {
+          "title": "Document classification pipeline",
+          "type": "Machine Learning",
+          "blurb": "Fine-tuned a small transformer to route incoming paperwork by type and urgency.",
+          "metric": "94% routing accuracy"
+        },
+        {
+          "title": "Recommendation service",
+          "type": "ML Engineering",
+          "blurb": "Replaced a hand-written rules engine with a trained ranker behind a cached API.",
+          "metric": "+17% click-through"
+        }
+      ],
+      "credentials": [
+        "BS Computer Science",
+        "3 years in AI and ML engineering"
+      ],
+      "stats": {
+        "projects": 8,
+        "rating": 4.9,
+        "onTime": 97,
+        "responseTime": "within 4 hours"
+      },
+      "socials": [
+        {
+          "id": "linkedin",
+          "url": "#"
+        },
+        {
+          "id": "github",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "slug": "badar-muneem",
+      "name": "Badar Muneem",
+      "role": "Product & UI/UX Designer",
+      "dept": "Design",
+      "img": "/team/badar-muneem.jpg",
+      "location": "Gilgit, PK",
+      "timezone": "PKT",
+      "rate": 35,
+      "minEngagement": "From 15 hours",
+      "availability": "available",
+      "hoursPerWeek": 30,
+      "tagline": "Interface work grounded in what the product actually has to do.",
+      "bio": "Four years designing product surfaces for SaaS and marketplace teams. Starts from the edge cases rather than the happy path, on the theory that the empty state and the error message are where most products quietly lose people.",
+      "years": 4,
+      "skills": [
+        {
+          "name": "Product Design",
+          "level": 5
+        },
+        {
+          "name": "Design Systems",
+          "level": 4
+        },
+        {
+          "name": "Figma",
+          "level": 5
+        },
+        {
+          "name": "Prototyping",
+          "level": 4
+        }
+      ],
+      "languages": [
+        {
+          "name": "Urdu",
+          "level": "Native"
+        },
+        {
+          "name": "English",
+          "level": "Fluent"
+        }
+      ],
+      "portfolio": [
+        {
+          "title": "Dashboard redesign",
+          "type": "Product Design",
+          "blurb": "Cut a nine-item nav to four and rebuilt the default view around one job.",
+          "metric": "Support tickets down 26%"
+        },
+        {
+          "title": "Checkout flow",
+          "type": "UX",
+          "blurb": "Three-step flow with inline validation and a persistent order summary.",
+          "metric": "+19% completion"
+        }
+      ],
+      "credentials": [
+        "BDes Communication Design",
+        "4 years in product and interface design"
+      ],
+      "stats": {
+        "projects": 11,
+        "rating": 4.9,
+        "onTime": 97,
+        "responseTime": "within 4 hours"
+      },
+      "socials": [
+        {
+          "id": "linkedin",
+          "url": "#"
+        },
+        {
+          "id": "dribbble",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "slug": "zeeshan-karim",
+      "name": "Zeeshan Karim",
+      "role": "Product & Growth Manager",
+      "dept": "Product",
+      "img": "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=600&h=800&fit=crop&crop=top",
+      "location": "Gilgit, PK",
+      "timezone": "PKT",
+      "rate": 35,
+      "minEngagement": "From 10 hours",
+      "availability": "available",
+      "hoursPerWeek": 25,
+      "tagline": "Decides what gets built next, and can show you the numbers behind the decision.",
+      "bio": "Four years between product and growth, close enough to both to keep them arguing productively. Runs the discovery calls, writes the scope everyone signs off on, and holds the roadmap to the handful of metrics that actually move the business.",
+      "years": 4,
+      "skills": [
+        {
+          "name": "Product Strategy",
+          "level": 5
+        },
+        {
+          "name": "Growth Experiments",
+          "level": 4
+        },
+        {
+          "name": "Analytics",
+          "level": 4
+        },
+        {
+          "name": "Roadmapping",
+          "level": 5
+        }
+      ],
+      "languages": [
+        {
+          "name": "Urdu",
+          "level": "Native"
+        },
+        {
+          "name": "English",
+          "level": "Fluent"
+        }
+      ],
+      "portfolio": [
+        {
+          "title": "Activation programme",
+          "type": "Growth",
+          "blurb": "Instrumented the funnel end to end, then ran six weeks of onboarding experiments against it.",
+          "metric": "+22% activation"
+        },
+        {
+          "title": "Roadmap reset",
+          "type": "Product",
+          "blurb": "Cut a 40-item backlog to a quarter with three outcomes and a measure for each.",
+          "metric": "Shipped 3 of 3 on time"
+        }
+      ],
+      "credentials": [
+        "BBA",
+        "4 years in product and growth"
+      ],
+      "stats": {
+        "projects": 10,
+        "rating": 4.8,
+        "onTime": 96,
+        "responseTime": "within 4 hours"
+      },
+      "socials": [
+        {
+          "id": "linkedin",
+          "url": "#"
+        },
+        {
+          "id": "twitter",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "slug": "faila-abbas",
+      "name": "Faila Abbas",
+      "role": "Data Scientist",
+      "dept": "AI/ML",
+      "img": "/team/faila-abbas.png",
+      "location": "Gilgit, PK",
+      "timezone": "PKT",
+      "rate": 38,
+      "minEngagement": "From 20 hours",
+      "availability": "available",
+      "hoursPerWeek": 32,
+      "tagline": "Answers the question the business asked, not the one the data was easiest to ask.",
+      "bio": "Four years in analysis and modelling across product and operations data. Spends the first week on where the numbers come from and what they leave out, which is usually the difference between a model that survives contact with production and one that does not.",
+      "years": 4,
+      "skills": [
+        {
+          "name": "Python & pandas",
+          "level": 5
+        },
+        {
+          "name": "Statistical Modelling",
+          "level": 4
+        },
+        {
+          "name": "SQL",
+          "level": 5
+        },
+        {
+          "name": "Experiment Design",
+          "level": 4
+        }
+      ],
+      "languages": [
+        {
+          "name": "Urdu",
+          "level": "Native"
+        },
+        {
+          "name": "English",
+          "level": "Fluent"
+        }
+      ],
+      "portfolio": [
+        {
+          "title": "Churn model",
+          "type": "Data Science",
+          "blurb": "Predicted at-risk accounts a month out and handed sales a ranked weekly list.",
+          "metric": "31% of flagged accounts saved"
+        },
+        {
+          "title": "Pricing analysis",
+          "type": "Analytics",
+          "blurb": "Segmented two years of orders to find where discounting was buying nothing.",
+          "metric": "Margin up 4 points"
+        }
+      ],
+      "credentials": [
+        "BS Data Science",
+        "4 years in analytics and data science"
+      ],
+      "stats": {
+        "projects": 10,
+        "rating": 4.8,
+        "onTime": 96,
+        "responseTime": "within 4 hours"
+      },
+      "socials": [
+        {
+          "id": "linkedin",
+          "url": "#"
+        },
+        {
+          "id": "github",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "slug": "sartaj-ali",
+      "name": "Sartaj Ali",
+      "role": "AI Engineer",
+      "dept": "AI/ML",
+      "img": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?w=600&h=800&fit=crop&crop=top",
+      "location": "Gilgit, PK",
+      "timezone": "PKT",
+      "rate": 38,
+      "minEngagement": "From 15 hours",
+      "availability": "available",
+      "hoursPerWeek": 30,
+      "tagline": "Builds the LLM features that hold up once real users start typing into them.",
+      "bio": "Three years on applied AI work: retrieval, agents and the unglamorous plumbing around them. Strong preference for the setup a two-person team can still operate at 2am, which shapes the monitoring as much as the model layer.",
+      "years": 3,
+      "skills": [
+        {
+          "name": "LLM Applications",
+          "level": 5
+        },
+        {
+          "name": "Vector Search / RAG",
+          "level": 4
+        },
+        {
+          "name": "Python",
+          "level": 5
+        },
+        {
+          "name": "MLOps & Deployment",
+          "level": 4
+        }
+      ],
+      "languages": [
+        {
+          "name": "Urdu",
+          "level": "Native"
+        },
+        {
+          "name": "English",
+          "level": "Fluent"
+        }
+      ],
+      "portfolio": [
+        {
+          "title": "Agentic back-office workflow",
+          "type": "AI Engineering",
+          "blurb": "Tool-using agent that drafts and files routine paperwork with a human approving each batch.",
+          "metric": "Manual handling down 60%"
+        },
+        {
+          "title": "Inference cost cleanup",
+          "type": "MLOps",
+          "blurb": "Routed easy requests to a smaller model and cached the repeat ones.",
+          "metric": "41% lower monthly spend"
+        }
+      ],
+      "credentials": [
+        "BS Information Technology",
+        "3 years in AI engineering"
+      ],
+      "stats": {
+        "projects": 9,
+        "rating": 4.9,
+        "onTime": 97,
+        "responseTime": "within 2 hours"
+      },
+      "socials": [
+        {
+          "id": "linkedin",
+          "url": "#"
+        },
+        {
+          "id": "github",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "slug": "hasnain-khush",
+      "name": "Hasnain Khush",
+      "role": "Full-Stack Developer",
+      "dept": "Engineering",
+      "img": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=600&h=800&fit=crop&crop=top",
+      "location": "Gilgit, PK",
+      "timezone": "PKT",
+      "rate": 35,
+      "minEngagement": "From 20 hours",
+      "availability": "available",
+      "hoursPerWeek": 35,
+      "tagline": "React on the front, Node and Postgres behind it, one person accountable for both.",
+      "bio": "Four years shipping full-stack products with real users on them. Writes the migration and the rollback before the feature, tests on a throttled connection and a real device, and treats keyboard navigation as part of the build rather than a later fix.",
+      "years": 4,
+      "skills": [
+        {
+          "name": "React & TypeScript",
+          "level": 5
+        },
+        {
+          "name": "Node.js",
+          "level": 5
+        },
+        {
+          "name": "PostgreSQL",
+          "level": 4
+        },
+        {
+          "name": "API Design",
+          "level": 4
+        }
+      ],
+      "languages": [
+        {
+          "name": "Urdu",
+          "level": "Native"
+        },
+        {
+          "name": "English",
+          "level": "Fluent"
+        }
+      ],
+      "portfolio": [
+        {
+          "title": "Booking system rebuild",
+          "type": "Engineering",
+          "blurb": "Replaced a fragile cron-driven flow with an event queue and idempotent handlers.",
+          "metric": "Double bookings to zero"
+        },
+        {
+          "title": "Marketing site rebuild",
+          "type": "Frontend",
+          "blurb": "Static-first rebuild with route-level code splitting and real image budgets.",
+          "metric": "Lighthouse 71 to 98"
+        }
+      ],
+      "credentials": [
+        "BS Software Engineering",
+        "4 years in full-stack development"
+      ],
+      "stats": {
+        "projects": 11,
+        "rating": 4.8,
+        "onTime": 95,
+        "responseTime": "within 4 hours"
+      },
+      "socials": [
+        {
+          "id": "linkedin",
+          "url": "#"
+        },
+        {
+          "id": "github",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "slug": "zeeshan-ali",
+      "name": "Zeeshan Ali",
+      "role": "UI/UX Designer",
+      "dept": "Design",
+      "img": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&h=800&fit=crop&crop=top",
+      "location": "Gilgit, PK",
+      "timezone": "PKT",
+      "rate": 28,
+      "minEngagement": "From 15 hours",
+      "availability": "available",
+      "hoursPerWeek": 28,
+      "tagline": "Screens, states and the small details that decide whether an interface feels finished.",
+      "bio": "Three years on interface and visual design across web and mobile products. Hands over files a developer can build from without a meeting: named layers, real content, and every state drawn rather than described.",
+      "years": 3,
+      "skills": [
+        {
+          "name": "UI Design",
+          "level": 5
+        },
+        {
+          "name": "Figma",
+          "level": 5
+        },
+        {
+          "name": "Interaction Design",
+          "level": 4
+        },
+        {
+          "name": "Brand & Visual",
+          "level": 4
+        }
+      ],
+      "languages": [
+        {
+          "name": "Urdu",
+          "level": "Native"
+        },
+        {
+          "name": "English",
+          "level": "Fluent"
+        }
+      ],
+      "portfolio": [
+        {
+          "title": "Mobile app interface",
+          "type": "UI Design",
+          "blurb": "Full screen set for iOS and Android, including the offline and error states.",
+          "metric": "4.6 average store rating"
+        },
+        {
+          "title": "Brand and site design",
+          "type": "Visual Design",
+          "blurb": "Identity, type scale and a marketing site built on one set of tokens.",
+          "metric": "Rolled out across 5 surfaces"
+        }
+      ],
+      "credentials": [
+        "BDes",
+        "3 years in UI/UX design"
+      ],
+      "stats": {
+        "projects": 9,
+        "rating": 4.7,
+        "onTime": 95,
+        "responseTime": "within 5 hours"
+      },
+      "socials": [
+        {
+          "id": "linkedin",
+          "url": "#"
+        },
+        {
+          "id": "dribbble",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "slug": "kiran",
+      "name": "Kiran",
+      "role": "ML Engineer",
+      "dept": "AI/ML",
+      "img": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=800&fit=crop&crop=top",
+      "location": "Gilgit, PK",
+      "timezone": "PKT",
+      "rate": 35,
+      "minEngagement": "From 15 hours",
+      "availability": "available",
+      "hoursPerWeek": 28,
+      "tagline": "Training pipelines, feature work and the retraining nobody remembers to schedule.",
+      "bio": "Three years of machine learning engineering with an emphasis on what happens after the first good result: reproducible training runs, versioned data, and monitoring that notices drift before a client does.",
+      "years": 3,
+      "skills": [
+        {
+          "name": "Python",
+          "level": 5
+        },
+        {
+          "name": "scikit-learn / XGBoost",
+          "level": 4
+        },
+        {
+          "name": "MLOps Pipelines",
+          "level": 4
+        },
+        {
+          "name": "Feature Engineering",
+          "level": 4
+        }
+      ],
+      "languages": [
+        {
+          "name": "Urdu",
+          "level": "Native"
+        },
+        {
+          "name": "English",
+          "level": "Fluent"
+        }
+      ],
+      "portfolio": [
+        {
+          "title": "Forecasting pipeline",
+          "type": "ML Engineering",
+          "blurb": "Weekly demand forecasts with automated retraining and a held-out backtest on every run.",
+          "metric": "Forecast error down 18%"
+        },
+        {
+          "title": "Model monitoring",
+          "type": "MLOps",
+          "blurb": "Drift and data-quality checks wired to alerts on every production model.",
+          "metric": "Silent failures down to zero"
+        }
+      ],
+      "credentials": [
+        "BS Computer Science",
+        "3 years in machine learning engineering"
+      ],
+      "stats": {
+        "projects": 8,
+        "rating": 4.9,
+        "onTime": 97,
+        "responseTime": "within 5 hours"
+      },
+      "socials": [
+        {
+          "id": "linkedin",
+          "url": "#"
+        },
+        {
+          "id": "github",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "slug": "faiza-rehmat",
+      "name": "Faiza Rehmat",
+      "role": "Medical Biller",
+      "dept": "Operations",
+      "img": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&h=800&fit=crop&crop=top",
+      "location": "Gilgit, PK",
+      "timezone": "PKT",
+      "rate": 20,
+      "minEngagement": "From 10 hours",
+      "availability": "available",
+      "hoursPerWeek": 30,
+      "tagline": "Clean claims, worked denials, and a revenue cycle that stops leaking.",
+      "bio": "Three years in medical billing and revenue cycle work for US practices. Codes and submits claims, works the denials rather than writing them off, and keeps the ageing report short enough that nobody dreads opening it.",
+      "years": 3,
+      "skills": [
+        {
+          "name": "Medical Billing",
+          "level": 5
+        },
+        {
+          "name": "CPT / ICD-10 Coding",
+          "level": 4
+        },
+        {
+          "name": "Denial Management",
+          "level": 4
+        },
+        {
+          "name": "Insurance Claims",
+          "level": 5
+        }
+      ],
+      "languages": [
+        {
+          "name": "Urdu",
+          "level": "Native"
+        },
+        {
+          "name": "English",
+          "level": "Fluent"
+        }
+      ],
+      "portfolio": [
+        {
+          "title": "Denial recovery project",
+          "type": "Revenue Cycle",
+          "blurb": "Worked a year of written-off denials back through appeals with corrected coding.",
+          "metric": "Clean-claim rate to 97%"
+        },
+        {
+          "title": "Billing cleanup",
+          "type": "Medical Billing",
+          "blurb": "Rebuilt the charge-entry routine and brought the ageing backlog down to current.",
+          "metric": "Days in A/R from 52 to 29"
+        }
+      ],
+      "credentials": [
+        "Certified medical billing training",
+        "3 years in US medical billing"
+      ],
+      "stats": {
+        "projects": 7,
+        "rating": 4.9,
+        "onTime": 98,
+        "responseTime": "within 6 hours"
+      },
+      "socials": [
+        {
+          "id": "linkedin",
+          "url": "#"
+        }
+      ]
+    }
+  ],
+  "services": [
+    {
+      "slug": "web-development",
+      "num": "01",
+      "icon": "Code2",
+      "cat": "Engineering",
+      "title": "Web Development",
+      "price": "From $8,000",
+      "desc": "We architect blazing-fast, scalable web applications with React, Next.js, Node.js, and modern cloud infrastructure, from MVPs to enterprise platforms handling millions of users.",
+      "chips": [
+        "React",
+        "Next.js",
+        "Node.js",
+        "PostgreSQL"
+      ],
+      "features": [
+        "Custom React / Next.js applications",
+        "RESTful & GraphQL APIs",
+        "Database design & optimisation",
+        "Performance-first architecture",
+        "CI/CD & DevOps setup",
+        "3 months post-launch support"
+      ]
+    },
+    {
+      "slug": "ai-machine-learning",
+      "num": "02",
+      "icon": "Brain",
+      "cat": "Intelligence",
+      "title": "AI & Machine Learning",
+      "price": "From $12,000",
+      "desc": "Intelligent automation, NLP, computer vision, and predictive analytics that turn raw data into decisive competitive advantage, built to scale in production.",
+      "chips": [
+        "TensorFlow",
+        "PyTorch",
+        "LangChain"
+      ],
+      "features": [
+        "Custom model training & fine-tuning",
+        "LLM integration (GPT-4, Claude, Llama)",
+        "Predictive analytics dashboards",
+        "Computer vision pipelines",
+        "NLP & document processing",
+        "MLOps & monitoring"
+      ]
+    },
+    {
+      "slug": "ui-ux-design",
+      "num": "03",
+      "icon": "Palette",
+      "cat": "Design",
+      "title": "UI / UX Design",
+      "price": "From $5,000",
+      "desc": "Intuitive, award-winning interfaces crafted with meticulous attention to user psychology, visual hierarchy, and brand coherence. Design that converts.",
+      "chips": [
+        "Figma",
+        "Prototyping",
+        "Design Systems"
+      ],
+      "features": [
+        "Discovery & user research",
+        "Information architecture",
+        "High-fidelity prototypes",
+        "Design system creation",
+        "Usability testing",
+        "Figma hand-off"
+      ]
+    },
+    {
+      "slug": "mobile-applications",
+      "num": "04",
+      "icon": "Smartphone",
+      "cat": "Mobile",
+      "title": "Mobile Applications",
+      "price": "From $10,000",
+      "desc": "Native iOS, Android, and cross-platform React Native apps. Beautiful, performant experiences users love and return to, shipped on schedule.",
+      "chips": [
+        "React Native",
+        "Swift",
+        "Kotlin"
+      ],
+      "features": [
+        "React Native cross-platform",
+        "Native iOS (Swift)",
+        "Native Android (Kotlin)",
+        "App Store & Play Store submission",
+        "Push notifications & deep linking",
+        "Offline-first architecture"
+      ]
+    },
+    {
+      "slug": "cloud-devops",
+      "num": "05",
+      "icon": "Cloud",
+      "cat": "Infrastructure",
+      "title": "Cloud & DevOps",
+      "price": "From $6,000",
+      "desc": "AWS, Azure, and GCP architecture with automated CI/CD pipelines, containerisation, and cloud-native infrastructure that scales without breaking.",
+      "chips": [
+        "AWS",
+        "Docker",
+        "Kubernetes"
+      ],
+      "features": [
+        "AWS / GCP / Azure architecture",
+        "Kubernetes & container orchestration",
+        "Infrastructure as Code (Terraform)",
+        "Zero-downtime deployment",
+        "Security hardening",
+        "Cost optimisation"
+      ]
+    },
+    {
+      "slug": "digital-marketing",
+      "num": "06",
+      "icon": "BarChart3",
+      "cat": "Growth",
+      "title": "Digital Marketing",
+      "price": "From $3,000/mo",
+      "desc": "Data-driven growth strategies across SEO, paid media, and high-conversion content, compounding returns built on rigorous measurement.",
+      "chips": [
+        "SEO / SEM",
+        "PPC",
+        "Analytics"
+      ],
+      "features": [
+        "SEO strategy & technical audit",
+        "Google / Meta paid campaigns",
+        "Content strategy & creation",
+        "Conversion rate optimisation",
+        "Monthly reporting dashboards",
+        "A/B testing programmes"
+      ]
+    },
+    {
+      "slug": "cybersecurity",
+      "num": "07",
+      "icon": "Shield",
+      "cat": "Security",
+      "title": "Cybersecurity",
+      "price": "From $4,000",
+      "desc": "Penetration testing, security audits, compliance frameworks (SOC 2, ISO 27001), and proactive threat modelling before the breach happens.",
+      "chips": [
+        "OWASP",
+        "SOC 2",
+        "Pen Testing"
+      ],
+      "features": [
+        "Full penetration testing",
+        "OWASP Top 10 audit",
+        "SOC 2 preparation",
+        "Vulnerability assessments",
+        "Employee security training",
+        "Incident response planning"
+      ]
+    },
+    {
+      "slug": "performance-engineering",
+      "num": "08",
+      "icon": "Zap",
+      "cat": "Optimization",
+      "title": "Performance Engineering",
+      "price": "From $2,500",
+      "desc": "Deep-dive audits, critical rendering path surgery, and edge-layer caching delivering sub-second load times and perfect Core Web Vitals scores.",
+      "chips": [
+        "Lighthouse",
+        "WebVitals",
+        "CDN"
+      ],
+      "features": [
+        "Core Web Vitals optimisation",
+        "Lighthouse audit & fixes",
+        "Bundle analysis & code splitting",
+        "CDN configuration",
+        "Image & asset optimisation",
+        "Monthly performance report"
+      ]
+    }
+  ],
+  "portfolio": [
+    {
+      "slug": "neurocommerce",
+      "title": "NeuroCommerce",
+      "cat": "AI/ML",
+      "year": "2026",
+      "client": "RetailMax Corp",
+      "desc": "AI-powered e-commerce platform with real-time personalisation and predictive inventory. Increased revenue by 58%.",
+      "result": "+58% revenue",
+      "img": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&h=600&fit=crop",
+      "tags": [
+        "React",
+        "TensorFlow",
+        "Node.js",
+        "PostgreSQL"
+      ],
+      "featured": true
+    },
+    {
+      "slug": "healthpulse",
+      "title": "HealthPulse",
+      "cat": "Mobile",
+      "year": "2026",
+      "client": "WellPath Inc",
+      "desc": "Cross-platform health monitoring app with ML-driven biometric insights and wearable device sync.",
+      "result": "120k users",
+      "img": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&h=600&fit=crop",
+      "tags": [
+        "React Native",
+        "Python",
+        "FastAPI"
+      ]
+    },
+    {
+      "slug": "aether-crm",
+      "title": "Aether CRM",
+      "cat": "SaaS",
+      "year": "2026",
+      "client": "SalesForce Pro",
+      "desc": "Next-gen CRM featuring an AI sales assistant, automated pipeline management, and predictive close rates.",
+      "result": "40% faster pipeline",
+      "img": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=600&fit=crop",
+      "tags": [
+        "Next.js",
+        "PostgreSQL",
+        "Redis"
+      ]
+    },
+    {
+      "slug": "metaverse-hub",
+      "title": "MetaVerse Hub",
+      "cat": "Web3",
+      "year": "2025",
+      "client": "MetaSpace DAO",
+      "desc": "Immersive 3D virtual workspace with WebXR presence and on-chain identity/ownership layer.",
+      "result": "9k DAU at launch",
+      "img": "https://images.unsplash.com/photo-1614854262318-831574f15f1f?w=900&h=600&fit=crop",
+      "tags": [
+        "Three.js",
+        "Solidity",
+        "WebXR"
+      ],
+      "featured": true
+    },
+    {
+      "slug": "flowdesk",
+      "title": "FlowDesk",
+      "cat": "SaaS",
+      "year": "2025",
+      "client": "Notion Alternative",
+      "desc": "Real-time collaborative design tool built in the browser. Live cursors, conflict resolution, export engine.",
+      "result": "4k beta signups",
+      "img": "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=900&h=600&fit=crop",
+      "tags": [
+        "WebSockets",
+        "Canvas API",
+        "React"
+      ]
+    },
+    {
+      "slug": "skyanalytics",
+      "title": "SkyAnalytics",
+      "cat": "AI/ML",
+      "year": "2025",
+      "client": "AgriTech Global",
+      "desc": "Satellite imagery analysis platform powering crop yield predictions and precision agriculture at scale.",
+      "result": "94% prediction accuracy",
+      "img": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&h=600&fit=crop",
+      "tags": [
+        "PyTorch",
+        "GIS",
+        "FastAPI"
+      ]
+    },
+    {
+      "slug": "payflow",
+      "title": "PayFlow",
+      "cat": "FinTech",
+      "year": "2025",
+      "client": "NeoBank",
+      "desc": "Real-time payment processing platform with sub-100ms transaction times and a full audit trail.",
+      "result": "sub-100ms settlement",
+      "img": "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=900&h=600&fit=crop",
+      "tags": [
+        "Node.js",
+        "Kafka",
+        "PostgreSQL"
+      ]
+    },
+    {
+      "slug": "eduspace",
+      "title": "EduSpace",
+      "cat": "EdTech",
+      "year": "2025",
+      "client": "LearnerLab",
+      "desc": "Adaptive learning platform with AI tutor, live collaboration, and personalised curriculum generation.",
+      "result": "30k learners enrolled",
+      "img": "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=900&h=600&fit=crop",
+      "tags": [
+        "React",
+        "LangChain",
+        "AWS"
+      ]
+    },
+    {
+      "slug": "greentrack",
+      "title": "GreenTrack",
+      "cat": "SaaS",
+      "year": "2025",
+      "client": "EcoMetrics",
+      "desc": "ESG reporting and carbon tracking platform for Fortune 500 sustainability teams.",
+      "result": "ESG reporting for 40 teams",
+      "img": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=900&h=600&fit=crop",
+      "tags": [
+        "Next.js",
+        "D3.js",
+        "Prisma"
+      ]
+    }
+  ],
+  "posts": [
+    {
+      "slug": "saas-architecture",
+      "title": "The architecture behind our busiest build yet",
+      "cat": "Engineering",
+      "date": "Jun 2026",
+      "read": 8,
+      "author": "ehtijad-ali",
+      "featured": true,
+      "excerpt": "The infrastructure decisions behind a platform that went from zero to real traffic in one release cycle, including the two we would make differently now.",
+      "img": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=700&fit=crop"
+    },
+    {
+      "slug": "llm-fine-tuning",
+      "title": "Why LLM fine-tuning is overrated",
+      "cat": "AI/ML",
+      "date": "Jun 2026",
+      "read": 6,
+      "author": "almeen-zahra",
+      "excerpt": "When prompting, RAG and a large context window solve 80% of use cases, fine-tuning is an expensive answer to a question nobody asked.",
+      "img": "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&h=500&fit=crop"
+    },
+    {
+      "slug": "design-systems-cost",
+      "title": "The real cost of design systems",
+      "cat": "Design",
+      "date": "May 2026",
+      "read": 5,
+      "author": "badar-muneem",
+      "excerpt": "A design system is a bet on the future. Here's how to work out whether the bet is worth making before you spend a quarter on it.",
+      "img": "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=500&fit=crop"
+    },
+    {
+      "slug": "core-web-vitals",
+      "title": "Core Web Vitals: from 45 to 98 in three weeks",
+      "cat": "Performance",
+      "date": "May 2026",
+      "read": 7,
+      "author": "hasnain-khush",
+      "excerpt": "A step-by-step account of diagnosing and removing every performance bottleneck in a legacy Next.js application.",
+      "img": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop"
+    },
+    {
+      "slug": "mobile-retention",
+      "title": "Mobile retention: the metrics that actually matter",
+      "cat": "Growth",
+      "date": "Apr 2026",
+      "read": 4,
+      "author": "zeeshan-karim",
+      "excerpt": "D1, D7 and D30 are table stakes. These are the leading indicators that predict churn before it shows up in them.",
+      "img": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=500&fit=crop"
+    },
+    {
+      "slug": "3d-on-the-web",
+      "title": "3D on the web: what's worth using",
+      "cat": "Engineering",
+      "date": "Apr 2026",
+      "read": 9,
+      "author": "zeeshan-ali",
+      "excerpt": "Three.js, WebGPU, React Three Fiber, Babylon: an opinionated guide to which are worth your time and which are hype.",
+      "img": "https://images.unsplash.com/photo-1614854262318-831574f15f1f?w=800&h=500&fit=crop"
+    }
+  ],
+  "courses": [
+    {
+      "slug": "web-development",
+      "mentor": "hasnain-khush",
+      "title": "Web Development",
+      "field": "Engineering",
+      "level": "Beginner",
+      "duration": "3 months",
+      "commitment": "8 to 10 hours a week",
+      "blurb": "Build real websites that work on a phone, load fast, and do not fall over when people actually use them.",
+      "forWho": "You have never built a website, or you have copied a few templates and want to understand what the code is doing.",
+      "tools": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "Git"
+      ],
+      "months": [
+        {
+          "n": 1,
+          "title": "The page itself",
+          "focus": "Learn what a web page is made of and put one on the internet.",
+          "topics": [
+            "How a browser turns your file into a page on screen",
+            "HTML, which is the words and pictures and the order they sit in",
+            "CSS, which is the colour, spacing and layout",
+            "Making a page work on a small phone screen, not just a laptop",
+            "Putting your work online for free so you can send someone a link"
+          ],
+          "project": "A one page site about yourself, live on the internet with a real address.",
+          "youCan": "Build and publish a simple page on your own, without following a video step by step."
+        },
+        {
+          "n": 2,
+          "title": "Making it do things",
+          "focus": "Add behaviour. Buttons that respond, forms that check what people typed.",
+          "topics": [
+            "JavaScript basics: storing values, making decisions, repeating work",
+            "Reacting when someone clicks, types or scrolls",
+            "Forms, and checking the answers before you accept them",
+            "Fetching information from somewhere else and showing it on your page",
+            "Reading error messages instead of guessing"
+          ],
+          "project": "A page that pulls live weather for any city someone types in.",
+          "youCan": "Write the logic behind a page yourself and fix it when it breaks."
+        },
+        {
+          "n": 3,
+          "title": "Building something real",
+          "focus": "Use React, the tool most teams use, and finish a project you can show an employer.",
+          "topics": [
+            "Why React exists and what problem it solves",
+            "Splitting a page into pieces you can reuse",
+            "Keeping track of information as the user moves around",
+            "Git, so you never lose work and can undo a bad day",
+            "Making the site fast, and what to measure"
+          ],
+          "project": "A full multi page site with real data, in your portfolio, ready to show.",
+          "youCan": "Apply for junior front end work and talk about your own code with confidence."
+        }
+      ]
+    },
+    {
+      "slug": "ai-and-data-science",
+      "mentor": "kiran",
+      "title": "AI and Data Science",
+      "field": "AI / Data",
+      "level": "Some experience",
+      "duration": "3 months",
+      "commitment": "10 to 12 hours a week",
+      "blurb": "Teach a computer to spot patterns in data and make useful predictions, then check honestly whether it actually works.",
+      "forWho": "You can already write a little Python. You do not need a maths degree, but you should be comfortable with numbers.",
+      "tools": [
+        "Python",
+        "pandas",
+        "scikit-learn",
+        "PyTorch",
+        "Jupyter"
+      ],
+      "months": [
+        {
+          "n": 1,
+          "title": "Getting the data in order",
+          "focus": "Most of this job is cleaning. Learn to do it properly before you model anything.",
+          "topics": [
+            "Python for working with tables of data",
+            "Loading messy files and finding what is wrong with them",
+            "Missing values, duplicates and the wrong kind of wrong",
+            "Drawing charts so you can see the shape of your data",
+            "Asking a question the data can actually answer"
+          ],
+          "project": "Take a messy public dataset and turn it into a clean one, with a short write up of what you fixed.",
+          "youCan": "Look at a pile of raw data and say what is usable and what is not."
+        },
+        {
+          "n": 2,
+          "title": "Your first models",
+          "focus": "Build models that predict something, and learn how to tell a good one from a lucky one.",
+          "topics": [
+            "Predicting a number, and predicting a category",
+            "Splitting data so you do not fool yourself",
+            "Why a model that scores 99 percent is usually a mistake",
+            "Choosing the right measure of success for the problem",
+            "Making the model explain why it decided what it decided"
+          ],
+          "project": "A model that predicts something real, with an honest account of where it fails.",
+          "youCan": "Train a model, judge it fairly, and say out loud when it is not good enough."
+        },
+        {
+          "n": 3,
+          "title": "Language models and shipping",
+          "focus": "Work with the AI models everyone is talking about, and put one behind a real app.",
+          "topics": [
+            "How large language models work, in plain terms",
+            "Writing prompts that get consistent answers",
+            "Giving a model your own documents to answer from",
+            "Testing an AI feature, which is harder than testing normal code",
+            "Cost and speed, because both matter once real people use it"
+          ],
+          "project": "A question and answer assistant that answers only from documents you give it, and says so when it does not know.",
+          "youCan": "Build an AI feature that is safe to put in front of a customer."
+        }
+      ]
+    },
+    {
+      "slug": "digital-marketing",
+      "mentor": "zeeshan-karim",
+      "title": "Digital Marketing",
+      "field": "Growth",
+      "level": "Beginner",
+      "duration": "3 months",
+      "commitment": "6 to 8 hours a week",
+      "blurb": "Get the right people to a website and prove which effort brought them, instead of guessing.",
+      "forWho": "You run a business, or you want a marketing job and need to show you can read numbers.",
+      "tools": [
+        "Google Analytics",
+        "Search Console",
+        "Meta Ads",
+        "Google Ads",
+        "Looker Studio"
+      ],
+      "months": [
+        {
+          "n": 1,
+          "title": "Measuring first",
+          "focus": "Before spending anything, set up the counting. Otherwise you never know what worked.",
+          "topics": [
+            "Who your customer is, written down in one page",
+            "Setting up analytics so visits are recorded correctly",
+            "Deciding what counts as success: a sale, a call, a signup",
+            "Reading a report without being fooled by big numbers",
+            "Spotting tracking that is quietly broken"
+          ],
+          "project": "A working measurement setup on a real site, with the key actions tracked.",
+          "youCan": "Say exactly where a site visitor came from and what they did."
+        },
+        {
+          "n": 2,
+          "title": "Being found",
+          "focus": "Earn traffic that keeps coming without paying for each visit.",
+          "topics": [
+            "How search engines decide what to show",
+            "Finding the words your customers actually type",
+            "Writing pages that answer a real question",
+            "Fixing the technical things that hold a site back",
+            "Getting other sites to link to yours, honestly"
+          ],
+          "project": "A content plan plus three published pages aimed at real searches.",
+          "youCan": "Grow search traffic without buying it."
+        },
+        {
+          "n": 3,
+          "title": "Paid ads and reporting",
+          "focus": "Spend money on ads in a way you can defend, and report it clearly.",
+          "topics": [
+            "Building a first campaign on search and on social",
+            "Writing ads people click, and landing pages that follow through",
+            "Budgets, bidding and when to stop an ad",
+            "Testing two versions properly instead of guessing",
+            "A one page report a business owner can understand"
+          ],
+          "project": "A small live campaign with a before and after report.",
+          "youCan": "Run a budget and show what each rupee bought."
+        }
+      ]
+    },
+    {
+      "slug": "ui-ux-design",
+      "mentor": "badar-muneem",
+      "title": "UI and UX Design",
+      "field": "Design",
+      "level": "Beginner",
+      "duration": "3 months",
+      "commitment": "8 hours a week",
+      "blurb": "Design screens people can use without being taught, and learn to tell whether your design actually worked.",
+      "forWho": "You like making things look good and want to learn the thinking that goes underneath it.",
+      "tools": [
+        "Figma",
+        "Prototyping",
+        "User testing",
+        "Design systems"
+      ],
+      "months": [
+        {
+          "n": 1,
+          "title": "Understanding the problem",
+          "focus": "Good design starts with finding out what people are trying to do.",
+          "topics": [
+            "Talking to users without leading them to the answer you want",
+            "Writing down the job the person is trying to finish",
+            "Sketching on paper before touching any software",
+            "Figma basics: frames, layers and reusable pieces",
+            "Layout, spacing and why things feel tidy or messy"
+          ],
+          "project": "Research notes plus paper sketches for a real app idea.",
+          "youCan": "Explain who you are designing for and what they need."
+        },
+        {
+          "n": 2,
+          "title": "Designing the screens",
+          "focus": "Turn sketches into screens that look finished and behave sensibly.",
+          "topics": [
+            "Type, colour and contrast that stays readable for everyone",
+            "Building a small set of reusable components",
+            "The screens people forget: empty, loading and error",
+            "Clickable prototypes that feel like a real app",
+            "Writing the words on the buttons, which is part of the design"
+          ],
+          "project": "A clickable prototype of a full flow, start to finish.",
+          "youCan": "Hand a developer a design they can build without asking you twenty questions."
+        },
+        {
+          "n": 3,
+          "title": "Testing and handoff",
+          "focus": "Watch real people use it, fix what confuses them, then hand it over properly.",
+          "topics": [
+            "Running a usability test with five people",
+            "Separating what people say from what they do",
+            "Changing your design based on evidence, not opinion",
+            "Preparing files a developer can actually work from",
+            "Putting a case study together for your portfolio"
+          ],
+          "project": "A tested and improved design with a written case study.",
+          "youCan": "Show a portfolio piece that proves your design decisions."
+        }
+      ]
+    },
+    {
+      "slug": "data-analyst",
+      "mentor": "faila-abbas",
+      "title": "Data Analyst",
+      "field": "AI / Data",
+      "level": "Beginner",
+      "duration": "3 months",
+      "commitment": "8 hours a week",
+      "blurb": "Answer business questions with numbers, and build dashboards people actually open more than once.",
+      "forWho": "You are comfortable in a spreadsheet and want to move up to proper tools.",
+      "tools": [
+        "Excel",
+        "SQL",
+        "Power BI",
+        "Python basics"
+      ],
+      "months": [
+        {
+          "n": 1,
+          "title": "Spreadsheets done properly",
+          "focus": "Most analysis still starts here. Learn to do it without errors.",
+          "topics": [
+            "Cleaning a sheet so the numbers can be trusted",
+            "Pivot tables, which summarise thousands of rows in seconds",
+            "The formulas that do ninety percent of the work",
+            "Charts that show the point instead of decorating it",
+            "Common mistakes that quietly produce the wrong answer"
+          ],
+          "project": "A sales sheet turned into a one page summary for a manager.",
+          "youCan": "Take a raw export and produce a trustworthy summary."
+        },
+        {
+          "n": 2,
+          "title": "SQL, the language of data",
+          "focus": "Get data straight from the database instead of waiting for someone to send it.",
+          "topics": [
+            "What a database is and how tables relate to each other",
+            "Asking for exactly the rows you want",
+            "Joining two tables together, which is where most people get stuck",
+            "Grouping and counting to answer business questions",
+            "Checking your own query before you trust the result"
+          ],
+          "project": "Five business questions answered with your own queries.",
+          "youCan": "Pull your own data without asking an engineer."
+        },
+        {
+          "n": 3,
+          "title": "Dashboards and telling the story",
+          "focus": "Turn answers into something a busy person understands in ten seconds.",
+          "topics": [
+            "Building a dashboard that refreshes on its own",
+            "Choosing what to show and what to leave out",
+            "Writing the sentence that explains what the chart means",
+            "Presenting findings to people who are not analysts",
+            "Automating the boring parts with a little Python"
+          ],
+          "project": "A live dashboard plus a short presentation of what you found.",
+          "youCan": "Apply for analyst roles with real work to show."
+        }
+      ]
+    },
+    {
+      "slug": "cloud-computing",
+      "mentor": "sartaj-ali",
+      "title": "Cloud Computing and DevOps",
+      "field": "Engineering",
+      "level": "Some experience",
+      "duration": "3 months",
+      "commitment": "10 hours a week",
+      "blurb": "Run software on the internet reliably, deploy without fear, and know before your users do when something breaks.",
+      "forWho": "You can already build something small and now need to run it where other people can use it.",
+      "tools": [
+        "Linux",
+        "Docker",
+        "AWS or GCP",
+        "GitHub Actions",
+        "Terraform"
+      ],
+      "months": [
+        {
+          "n": 1,
+          "title": "Servers and containers",
+          "focus": "Understand the machine your code runs on.",
+          "topics": [
+            "Linux commands you will use every day",
+            "What a server actually is, without the mystery",
+            "Docker, which packs your app so it runs the same everywhere",
+            "Networking basics: ports, addresses and why nothing connects",
+            "Keeping secrets out of your code"
+          ],
+          "project": "Your own app packed in a container and running on a real server.",
+          "youCan": "Put an application on a server and keep it running."
+        },
+        {
+          "n": 2,
+          "title": "Deploying automatically",
+          "focus": "Stop deploying by hand at midnight.",
+          "topics": [
+            "Pipelines that test and release your code for you",
+            "Releasing with no downtime for users",
+            "Rolling back quickly when a release goes wrong",
+            "Separate practice and live environments",
+            "Writing your infrastructure as code so it is repeatable"
+          ],
+          "project": "A pipeline that ships to live automatically when you push code.",
+          "youCan": "Release several times a day without it being an event."
+        },
+        {
+          "n": 3,
+          "title": "Watching and scaling",
+          "focus": "Know what is happening in production and handle growth.",
+          "topics": [
+            "Logs, metrics and traces, and what each is for",
+            "Alerts that wake you only when it matters",
+            "Growing capacity when traffic grows",
+            "Controlling cloud costs before the bill surprises you",
+            "Writing a simple plan for when things break"
+          ],
+          "project": "A monitored service with working alerts and a cost report.",
+          "youCan": "Take responsibility for a live system."
+        }
+      ]
+    },
+    {
+      "slug": "wordpress",
+      "mentor": "hasnain-khush",
+      "title": "WordPress",
+      "field": "Engineering",
+      "level": "Beginner",
+      "duration": "3 months",
+      "commitment": "6 hours a week",
+      "blurb": "Build and look after real client websites on the platform that runs a large share of the web.",
+      "forWho": "You want to start taking on paid website work quickly, with or without a coding background.",
+      "tools": [
+        "WordPress",
+        "Elementor",
+        "WooCommerce",
+        "PHP basics",
+        "Hosting"
+      ],
+      "months": [
+        {
+          "n": 1,
+          "title": "Your first sites",
+          "focus": "Get comfortable building complete sites without writing much code.",
+          "topics": [
+            "Hosting, domains and installing WordPress",
+            "Pages, posts, menus and media",
+            "Building layouts with a page builder",
+            "Choosing plugins carefully, because most sites have too many",
+            "Backups, which you will be glad of one day"
+          ],
+          "project": "A finished five page business website.",
+          "youCan": "Build a complete site for a small business."
+        },
+        {
+          "n": 2,
+          "title": "Making it yours",
+          "focus": "Go past the templates so your sites do not all look the same.",
+          "topics": [
+            "How themes work underneath",
+            "Child themes, so an update does not erase your changes",
+            "Enough PHP to change what you need",
+            "Custom fields for content that is not just a blog post",
+            "Speed, because most WordPress sites are slow and that is fixable"
+          ],
+          "project": "A customised theme built to a design, not picked off a shelf.",
+          "youCan": "Match a real design instead of bending it to fit a template."
+        },
+        {
+          "n": 3,
+          "title": "Shops and client work",
+          "focus": "Add selling, keep sites safe, and run this as a service.",
+          "topics": [
+            "Setting up a shop with WooCommerce",
+            "Payments, shipping and tax settings",
+            "Security and the basics of keeping a site out of trouble",
+            "Maintenance work, which is steady monthly income",
+            "Handing a site over and teaching the owner to use it"
+          ],
+          "project": "A working online shop that can take a real order.",
+          "youCan": "Take on paid client sites and look after them afterwards."
+        }
+      ]
+    },
+    {
+      "slug": "ecommerce",
+      "mentor": "zeeshan-karim",
+      "title": "E-commerce",
+      "field": "Growth",
+      "level": "Beginner",
+      "duration": "3 months",
+      "commitment": "8 hours a week",
+      "blurb": "Set up an online shop and learn the unglamorous work that decides whether it makes money.",
+      "forWho": "You want to sell online, for yourself or for clients.",
+      "tools": [
+        "Shopify",
+        "WooCommerce",
+        "Payment gateways",
+        "Analytics",
+        "Email tools"
+      ],
+      "months": [
+        {
+          "n": 1,
+          "title": "Opening the shop",
+          "focus": "Get a real store live and able to take an order.",
+          "topics": [
+            "Choosing a platform and what it will cost you",
+            "Products, variations and stock",
+            "Taking payments, including how it works in Pakistan",
+            "Delivery options and what to charge",
+            "Photographs and descriptions that sell"
+          ],
+          "project": "A live store that can take a real payment.",
+          "youCan": "Open a shop and process an order end to end."
+        },
+        {
+          "n": 2,
+          "title": "Turning visits into orders",
+          "focus": "Most shops get visitors and no sales. Fix the reasons why.",
+          "topics": [
+            "Where people give up, and how to find out",
+            "Making checkout shorter and less frightening",
+            "Trust: reviews, returns and clear contact details",
+            "Baskets people abandon, and bringing them back",
+            "Testing a change properly instead of guessing"
+          ],
+          "project": "A checkout rebuilt, with before and after numbers.",
+          "youCan": "Raise sales without spending more on ads."
+        },
+        {
+          "n": 3,
+          "title": "Getting customers and keeping them",
+          "focus": "Bring people in, then make them come back, which is cheaper.",
+          "topics": [
+            "Product pages that show up in search",
+            "Paid ads for shops, and reading the return honestly",
+            "Email and WhatsApp that customers do not hate",
+            "Working out what a customer is worth over time",
+            "Stock, refunds and support without losing your mind"
+          ],
+          "project": "A growth plan with real numbers behind it.",
+          "youCan": "Run a shop as a business, not a hobby."
+        }
+      ]
+    },
+    {
+      "slug": "mobile-app-development",
+      "mentor": "hasnain-khush",
+      "title": "Mobile App Development",
+      "field": "Engineering",
+      "level": "Some experience",
+      "duration": "3 months",
+      "commitment": "10 hours a week",
+      "blurb": "Build one app that runs on both iPhone and Android, and get it through the app stores.",
+      "forWho": "You know some JavaScript already and want to build for phones.",
+      "tools": [
+        "React Native",
+        "Expo",
+        "JavaScript",
+        "App Store",
+        "Play Store"
+      ],
+      "months": [
+        {
+          "n": 1,
+          "title": "Your first app",
+          "focus": "Get something running on a real phone in week one.",
+          "topics": [
+            "Setting up so you can see changes on your phone instantly",
+            "Screens, lists and moving between them",
+            "Designing for a small screen you hold in one hand",
+            "Using the camera, location and notifications",
+            "Testing on a real device, not just the simulator"
+          ],
+          "project": "A working app on your own phone.",
+          "youCan": "Build and run an app on a real device."
+        },
+        {
+          "n": 2,
+          "title": "Real data and accounts",
+          "focus": "Connect the app to a backend so it stores real information.",
+          "topics": [
+            "Signing users in and keeping them signed in",
+            "Reading and writing data from a server",
+            "Working offline and catching up when the signal returns",
+            "Keeping the app quick on a cheap phone",
+            "Finding out why it crashed for someone else"
+          ],
+          "project": "An app with accounts and data that survives being closed.",
+          "youCan": "Build an app people could genuinely use."
+        },
+        {
+          "n": 3,
+          "title": "Publishing",
+          "focus": "Get it into the stores, which has more rules than people expect.",
+          "topics": [
+            "Icons, screenshots and store listings",
+            "What Apple and Google check, and why they reject apps",
+            "Releasing to testers before everyone",
+            "Shipping updates without breaking existing users",
+            "Reading crash reports and reviews after launch"
+          ],
+          "project": "An app submitted to at least one store.",
+          "youCan": "Take an app from idea to published."
+        }
+      ]
+    },
+    {
+      "slug": "graphic-design",
+      "mentor": "zeeshan-ali",
+      "title": "Graphic Design",
+      "field": "Design",
+      "level": "Beginner",
+      "duration": "3 months",
+      "commitment": "6 hours a week",
+      "blurb": "Learn the craft behind logos, posters and brand identities, and why some designs feel right and others do not.",
+      "forWho": "You are starting from zero, or you use design software already but copy rather than decide.",
+      "tools": [
+        "Illustrator",
+        "Photoshop",
+        "Figma",
+        "Typography",
+        "Colour"
+      ],
+      "months": [
+        {
+          "n": 1,
+          "title": "The basics that decide everything",
+          "focus": "Composition, type and colour. Get these right and the rest follows.",
+          "topics": [
+            "Balance, space and where the eye goes first",
+            "Choosing and pairing typefaces",
+            "Colour that works together, and colour that fights",
+            "Working with shapes that stay sharp at any size",
+            "Copying great work on purpose, to learn how it was made"
+          ],
+          "project": "Five poster studies, each with a written note on what you learned.",
+          "youCan": "Say why a design works instead of only that you like it."
+        },
+        {
+          "n": 2,
+          "title": "Logos and identity",
+          "focus": "Design marks that still read at the size of a phone icon.",
+          "topics": [
+            "Researching before you draw anything",
+            "Sketching many options quickly",
+            "Refining a mark so it works in one colour and very small",
+            "Building the rules that go around a logo",
+            "Presenting to a client so they judge the work, not their taste"
+          ],
+          "project": "A complete identity for a made up business, with a brand sheet.",
+          "youCan": "Deliver a logo with the rules a client needs to use it."
+        },
+        {
+          "n": 3,
+          "title": "Print, screen and portfolio",
+          "focus": "Prepare files that come out right, and put your work together.",
+          "topics": [
+            "Preparing files for print without nasty surprises",
+            "Preparing the same design for screens",
+            "Social media and ad formats",
+            "Building a portfolio that shows thinking, not just pictures",
+            "Pricing freelance work and writing a simple contract"
+          ],
+          "project": "A portfolio of three finished pieces, ready to send.",
+          "youCan": "Take on paid design work."
+        }
+      ]
+    },
+    {
+      "slug": "cybersecurity",
+      "mentor": "sartaj-ali",
+      "title": "Cybersecurity",
+      "field": "Engineering",
+      "level": "Some experience",
+      "duration": "3 months",
+      "commitment": "10 hours a week",
+      "blurb": "Learn how systems get broken into so you can defend them, taught only on systems you are allowed to test.",
+      "forWho": "You understand networks and a little Linux, and you want to work in defence or testing.",
+      "tools": [
+        "Linux",
+        "Networking",
+        "Burp Suite",
+        "Wireshark",
+        "OWASP"
+      ],
+      "months": [
+        {
+          "n": 1,
+          "title": "How things connect",
+          "focus": "You cannot defend what you do not understand.",
+          "topics": [
+            "Networking: how a request actually travels",
+            "Linux and Windows basics from a security point of view",
+            "Accounts, permissions and why least access matters",
+            "Encryption in plain terms, and what it does not protect",
+            "The law and ethics, and why permission comes first, always"
+          ],
+          "project": "A safe practice lab built on your own machine.",
+          "youCan": "Describe how an attack works without needing to perform one."
+        },
+        {
+          "n": 2,
+          "title": "Finding weaknesses",
+          "focus": "Test your own lab systems and learn the common mistakes.",
+          "topics": [
+            "The web flaws that appear again and again",
+            "Testing a login for the obvious holes",
+            "Reading traffic to see what an app is really sending",
+            "Scanning for known problems and sorting real from noise",
+            "Writing a report a developer can act on"
+          ],
+          "project": "A written assessment of a deliberately vulnerable practice app.",
+          "youCan": "Find and clearly explain a real weakness."
+        },
+        {
+          "n": 3,
+          "title": "Defending",
+          "focus": "The other half of the job: stopping it and noticing when it happens.",
+          "topics": [
+            "Hardening a server so the easy attacks fail",
+            "Logging and alerting that catch an intrusion",
+            "Responding calmly when something has happened",
+            "Backups you have actually tested restoring",
+            "Compliance basics, in normal language"
+          ],
+          "project": "A hardened and monitored system with a written incident plan.",
+          "youCan": "Take a junior security role and be useful on day one."
+        }
+      ]
+    },
+    {
+      "slug": "python-programming",
+      "mentor": "ehtijad-ali",
+      "title": "Python Programming",
+      "field": "Engineering",
+      "level": "Beginner",
+      "duration": "3 months",
+      "commitment": "6 to 8 hours a week",
+      "blurb": "Start from nothing and finish able to write programs that do real work, including the boring jobs you do by hand now.",
+      "forWho": "You have never programmed. This is the gentlest starting point we offer.",
+      "tools": [
+        "Python",
+        "VS Code",
+        "Git",
+        "Flask",
+        "SQLite"
+      ],
+      "months": [
+        {
+          "n": 1,
+          "title": "Learning to think in steps",
+          "focus": "Programming is breaking a job into steps a computer can follow.",
+          "topics": [
+            "Storing information and giving it a name",
+            "Making decisions with if and else",
+            "Repeating work without repeating yourself",
+            "Lists and dictionaries for holding many things",
+            "Reading an error message calmly"
+          ],
+          "project": "A small program that plays a guessing game with you.",
+          "youCan": "Write a short program from a plain English description."
+        },
+        {
+          "n": 2,
+          "title": "Working with real files and the internet",
+          "focus": "Make Python do the jobs you currently do by hand.",
+          "topics": [
+            "Reading and writing files, including spreadsheets",
+            "Organising code into functions you can reuse",
+            "Fetching data from the internet",
+            "Saving information in a small database",
+            "Writing tests so you know it still works tomorrow"
+          ],
+          "project": "A script that takes a messy file and produces a tidy report.",
+          "youCan": "Automate a repetitive task at work or at home."
+        },
+        {
+          "n": 3,
+          "title": "Building an application",
+          "focus": "Put it together into something other people can use.",
+          "topics": [
+            "A small web application with Flask",
+            "Pages, forms and saving what people submit",
+            "Keeping passwords and keys safe",
+            "Putting it online so others can reach it",
+            "Where to go next, depending on what you enjoyed"
+          ],
+          "project": "A working web application, online, that you built yourself.",
+          "youCan": "Keep learning on your own and build what you imagine."
+        }
+      ]
+    }
+  ],
+  "about": {
+    "pillars": [
+      {
+        "n": "01",
+        "title": "One team, no handoffs",
+        "text": "The people who design it are the people who build it."
+      },
+      {
+        "n": "02",
+        "title": "Milestones up front",
+        "text": "You know what lands when, before we start."
+      },
+      {
+        "n": "03",
+        "title": "Performance is a budget",
+        "text": "Core Web Vitals are set at kickoff, not measured at the end."
+      },
+      {
+        "n": "04",
+        "title": "You own everything",
+        "text": "IP assignment in every contract. No exceptions."
+      },
+      {
+        "n": "05",
+        "title": "30-day warranty",
+        "text": "Every launch. Retainers after, if you want them."
+      },
+      {
+        "n": "06",
+        "title": "We'll tell you when we disagree",
+        "text": "Including when the simpler, cheaper option is the right one."
+      }
+    ],
+    "manifesto": {
+      "eyebrow": "Manifesto",
+      "lines": [
+        [
+          {
+            "t": "Design and code"
+          }
+        ],
+        [
+          {
+            "t": "are the "
+          },
+          {
+            "t": "same job",
+            "em": true
+          }
+        ],
+        [
+          {
+            "t": "done twice."
+          }
+        ]
+      ]
+    },
+    "opening": {
+      "headline": [
+        [
+          {
+            "t": "We stayed "
+          },
+          {
+            "t": "small",
+            "em": true
+          }
+        ],
+        [
+          {
+            "t": "on purpose."
+          }
+        ]
+      ],
+      "intro": "Most studios grow until the people who won the work are no longer the people doing it. We decided not to, which is why there are still {teamSize} of us, and why you will meet everyone who touches your project."
+    },
+    "story": {
+      "paragraphs": [
+        "CodeNode began in 2025 with a frustration our founders kept running into from the client side: agencies that promised premium work and delivered something average, wrapped in an expensive presentation. The people in the pitch were rarely the people who showed up afterwards.",
+        "They had spent their careers at companies where design and engineering sat in different buildings and shipped through a translation layer, and had watched what that costs in revisions, misunderstandings and quietly abandoned detail. So the studio was built with one team from the start. The person who draws it is the person who builds it.",
+        "That constraint shapes everything downstream. We deliberately take on fewer engagements than we could fill, because every one is reviewed by someone senior end to end. We turn work down when we cannot staff it properly. And we say so early when a plan stops being the right one, which is not always the comfortable conversation.",
+        "We are early, and we would rather say so than pretend otherwise. What has not moved since day one is the thing we are obsessive about: making things that genuinely work, and that hold up two years after launch."
+      ],
+      "quote": "Growth was never the goal. Being the studio we would have hired was.",
+      "caption": "Small enough that everyone knows what everyone else shipped this week."
+    },
+    "milestones": [
+      {
+        "year": "Q1 2025",
+        "title": "Four people, one rule",
+        "event": "Founded on a simple constraint: never take on more work than the founders can personally review."
+      },
+      {
+        "year": "Q2 2025",
+        "title": "First platform build",
+        "event": "A logistics client took a chance on a three-month-old studio. It shipped on time and they came back."
+      },
+      {
+        "year": "Q3 2025",
+        "title": "Design and engineering merge",
+        "event": "Stopped running them as separate practices. Every engagement since has had one team and no handoff."
+      },
+      {
+        "year": "Q4 2025",
+        "title": "The first refusal",
+        "event": "Turned down our largest enquiry to date because we could not staff it without hiring people we had not worked with."
+      },
+      {
+        "year": "Q1 2026",
+        "title": "AI practice opens",
+        "event": "First production ML systems shipped, for clients in fintech and logistics."
+      },
+      {
+        "year": "Q2 2026",
+        "title": "Individually bookable",
+        "event": "Opened the roster so clients can engage a single specialist by the hour, not just a whole project team."
+      }
+    ],
+    "principles": [
+      {
+        "n": "01",
+        "title": "Craft over speed",
+        "desc": "We do not ship things we are not prepared to put our names on. When a deadline and the quality bar collide, we renegotiate the deadline, and we tell you early enough that it is still a choice."
+      },
+      {
+        "n": "02",
+        "title": "Radical transparency",
+        "desc": "You see the same board we do. Blockers surface the day they appear, not in a status call two weeks later. If we are behind, you will hear it from us first."
+      },
+      {
+        "n": "03",
+        "title": "Outcomes, not outputs",
+        "desc": "We measure engagements by what changed in your business, not by tickets closed or hours logged. Occasionally that means arguing you out of the thing you asked for."
+      },
+      {
+        "n": "04",
+        "title": "Always learning",
+        "desc": "A fifth of every quarter is protected for R&D and upskilling. It is the reason we can still recommend the boring, proven option with a straight face."
+      }
+    ],
+    "founderNote": "We didn't set out to build the biggest studio. We set out to build the one we would have hired: obsessive about craft, honest about timelines, allergic to mediocrity.",
+    "culture": [
+      {
+        "icon": "Globe2",
+        "value": "100%",
+        "label": "Remote-first",
+        "desc": "A distributed team across six Pakistani cities, async-first, no mandatory 9-to-5."
+      },
+      {
+        "icon": "FlaskConical",
+        "value": "20%",
+        "label": "R&D every quarter",
+        "desc": "Protected time each quarter for experimentation and learning."
+      },
+      {
+        "icon": "Zap",
+        "value": "<48h",
+        "label": "Decision speed",
+        "desc": "Flat structure, no approval chains. The right person decides, fast."
+      },
+      {
+        "icon": "Heart",
+        "value": "4.9/5",
+        "label": "Team satisfaction",
+        "desc": "Measured twice a year. We publish the result either way."
+      }
+    ],
+    "beliefs": [
+      "Great code is read far more often than it is written.",
+      "Design without engineering constraints is decoration.",
+      "The best feature is the one you choose not to build.",
+      "Slow is smooth. Smooth is fast.",
+      "Every bug is a process failure, not a person failure.",
+      "Ship early, iterate publicly, improve relentlessly."
+    ]
+  },
+  "contact": {
+    "channels": [
+      {
+        "icon": "Mail",
+        "label": "Email",
+        "value": "",
+        "href": "mailto:{email}"
+      },
+      {
+        "icon": "Phone",
+        "label": "Phone",
+        "value": "",
+        "href": "{phoneHref}"
+      },
+      {
+        "icon": "MapPin",
+        "label": "Office",
+        "value": ""
+      },
+      {
+        "icon": "Clock",
+        "label": "We reply",
+        "value": ""
+      }
+    ],
+    "socials": [
+      {
+        "icon": "Linkedin",
+        "href": "#",
+        "label": "LinkedIn"
+      },
+      {
+        "icon": "Twitter",
+        "href": "#",
+        "label": "Twitter"
+      },
+      {
+        "icon": "Github",
+        "href": "#",
+        "label": "GitHub"
+      },
+      {
+        "icon": "Instagram",
+        "href": "#",
+        "label": "Instagram"
+      }
+    ],
+    "whatsapp": {
+      "enabled": true,
+      "href": "https://wa.me/922554680662",
+      "label": "Chat on WhatsApp",
+      "note": "Available 24/7"
+    },
+    "terminal": [
+      {
+        "text": "$ codenode init --project",
+        "color": "var(--text-secondary)",
+        "delay": 0.5
+      },
+      {
+        "text": "> Analysing requirements...",
+        "color": "var(--accent)",
+        "delay": 1.1
+      },
+      {
+        "text": "> Assembling expert team...",
+        "color": "var(--accent)",
+        "delay": 1.7
+      },
+      {
+        "text": "> Building your vision...",
+        "color": "var(--accent)",
+        "delay": 2.3
+      },
+      {
+        "text": "✓ Ready to launch!",
+        "color": "#22C55E",
+        "delay": 2.9
+      }
+    ],
+    "form": {
+      "heading": "Start a Conversation",
+      "services": [],
+      "note": "We respond within 24 hours. No spam, ever.",
+      "successTitle": "Message Sent!",
+      "successBody": "We'll respond within 24 hours."
+    }
+  },
+  "advisor": {
+    "eyebrow": "Course finder",
+    "title": "Seven questions. Three courses. About a minute.",
+    "subtitle": "Nobody should pick a three-month course off a grid of twelve. Answer these and we will name the three worth your time, in order, with the reason for each and the person who teaches it.",
+    "startLabel": "Begin",
+    "resultTitle": "Your three, in order",
+    "resultNote": "A shortlist, not a verdict. If two of them look equally good, say so on a call and we will talk it through — including when the honest answer is none of these.",
+    "restartLabel": "Start again",
+    "contactLabel": "Talk it through with us",
+    "questions": [
+      {
+        "id": "start",
+        "prompt": "Where are you starting from?",
+        "help": "Be honest. The first month is completely different for each of these.",
+        "type": "single",
+        "options": [
+          {
+            "id": "zero",
+            "label": "Complete beginner",
+            "note": "I have never written code or opened a design tool",
+            "signal": {
+              "levels": {
+                "Beginner": 3
+              },
+              "reason": "it starts from zero"
+            }
+          },
+          {
+            "id": "tutorials",
+            "label": "A few tutorials in",
+            "note": "I have followed along, but could not build it alone",
+            "signal": {
+              "levels": {
+                "Beginner": 2
+              },
+              "reason": "it assumes no experience"
+            }
+          },
+          {
+            "id": "built",
+            "label": "Built small things",
+            "note": "A couple of projects of my own, nothing serious",
+            "signal": {
+              "levels": {
+                "Beginner": 1,
+                "Some experience": 2
+              },
+              "reason": "it picks up where you are"
+            }
+          },
+          {
+            "id": "working",
+            "label": "Already in the industry",
+            "note": "I work in tech and want to add a skill",
+            "signal": {
+              "levels": {
+                "Some experience": 3
+              },
+              "reason": "it expects some experience"
+            }
+          }
+        ]
+      },
+      {
+        "id": "pull",
+        "prompt": "What actually interests you?",
+        "help": "Pick up to three. This question counts double.",
+        "type": "multi",
+        "max": 3,
+        "weight": 2,
+        "options": [
+          {
+            "id": "build",
+            "label": "Building things",
+            "note": "Websites and apps people use every day",
+            "signal": {
+              "fields": {
+                "Engineering": 3
+              },
+              "keywords": [
+                "website",
+                "react",
+                "javascript"
+              ],
+              "reason": "you want to build things people use"
+            }
+          },
+          {
+            "id": "look",
+            "label": "How it looks",
+            "note": "Layout, type, colour, the feel of a thing",
+            "signal": {
+              "fields": {
+                "Design": 3
+              },
+              "keywords": [
+                "figma",
+                "typography",
+                "interface"
+              ],
+              "reason": "you care how things look"
+            }
+          },
+          {
+            "id": "data",
+            "label": "Answers in data",
+            "note": "Spreadsheets, dashboards, what the numbers say",
+            "signal": {
+              "fields": {
+                "AI / Data": 3
+              },
+              "keywords": [
+                "sql",
+                "excel",
+                "report"
+              ],
+              "reason": "you want to work with data"
+            }
+          },
+          {
+            "id": "ai",
+            "label": "Teaching machines",
+            "note": "Models that predict, classify and write",
+            "signal": {
+              "fields": {
+                "AI / Data": 3
+              },
+              "keywords": [
+                "python",
+                "model",
+                "machine learning"
+              ],
+              "reason": "you are drawn to AI"
+            }
+          },
+          {
+            "id": "grow",
+            "label": "Getting attention",
+            "note": "Search, ads, and why people click",
+            "signal": {
+              "fields": {
+                "Growth": 3
+              },
+              "keywords": [
+                "ads",
+                "seo",
+                "analytics"
+              ],
+              "reason": "you want to bring in customers"
+            }
+          },
+          {
+            "id": "safe",
+            "label": "Finding the holes",
+            "note": "Breaking into systems before someone else does",
+            "signal": {
+              "keywords": [
+                "security",
+                "networking",
+                "owasp",
+                "linux"
+              ],
+              "reason": "you want to work in security"
+            }
+          },
+          {
+            "id": "shop",
+            "label": "Selling online",
+            "note": "A shop that takes payments while you sleep",
+            "signal": {
+              "fields": {
+                "Growth": 2
+              },
+              "keywords": [
+                "shopify",
+                "store",
+                "payment",
+                "woocommerce"
+              ],
+              "reason": "you want to sell online"
+            }
+          },
+          {
+            "id": "phone",
+            "label": "Apps on a phone",
+            "note": "Things that live on a home screen",
+            "signal": {
+              "keywords": [
+                "app store",
+                "react native",
+                "mobile"
+              ],
+              "reason": "you want to build for phones"
+            }
+          }
+        ]
+      },
+      {
+        "id": "goal",
+        "prompt": "What would make the three months worth it?",
+        "type": "single",
+        "options": [
+          {
+            "id": "job",
+            "label": "A first job",
+            "note": "Hired somewhere, doing this for a living",
+            "signal": {
+              "levels": {
+                "Beginner": 1
+              },
+              "keywords": [
+                "portfolio",
+                "junior",
+                "employer",
+                "apply"
+              ],
+              "reason": "it ends with work you can show an employer"
+            }
+          },
+          {
+            "id": "freelance",
+            "label": "My own clients",
+            "note": "Paid work I find and deliver myself",
+            "signal": {
+              "keywords": [
+                "client",
+                "freelance",
+                "brief"
+              ],
+              "slugs": {
+                "wordpress": 2,
+                "graphic-design": 2,
+                "digital-marketing": 1.5
+              },
+              "reason": "the skill is one clients pay for directly"
+            }
+          },
+          {
+            "id": "own",
+            "label": "Something of my own",
+            "note": "A product or shop I run myself",
+            "signal": {
+              "fields": {
+                "Growth": 1.5
+              },
+              "keywords": [
+                "store",
+                "launch",
+                "product",
+                "online"
+              ],
+              "slugs": {
+                "ecommerce": 2,
+                "web-development": 1.5
+              },
+              "reason": "you can run it yourself afterwards"
+            }
+          },
+          {
+            "id": "raise",
+            "label": "Worth more at work",
+            "note": "A skill that changes my job where I am",
+            "signal": {
+              "levels": {
+                "Some experience": 2
+              },
+              "keywords": [
+                "team",
+                "production",
+                "deploy"
+              ],
+              "reason": "it adds to what you already do"
+            }
+          },
+          {
+            "id": "curious",
+            "label": "Just curiosity",
+            "note": "No plan yet, I want to find out if I like it",
+            "signal": {
+              "levels": {
+                "Beginner": 1.5
+              },
+              "reason": "it is a gentle place to start"
+            }
+          }
+        ]
+      },
+      {
+        "id": "enjoy",
+        "prompt": "Which of these sounds most like you?",
+        "type": "single",
+        "options": [
+          {
+            "id": "puzzle",
+            "label": "I like puzzles",
+            "note": "Working a problem until it gives in",
+            "signal": {
+              "fields": {
+                "Engineering": 2
+              },
+              "keywords": [
+                "logic",
+                "problem"
+              ],
+              "reason": "the work is mostly problem solving"
+            }
+          },
+          {
+            "id": "spacing",
+            "label": "I notice details",
+            "note": "Crooked spacing bothers me more than it should",
+            "signal": {
+              "fields": {
+                "Design": 2.5
+              },
+              "reason": "it rewards an eye for detail"
+            }
+          },
+          {
+            "id": "patterns",
+            "label": "I see patterns",
+            "note": "Numbers tell me things other people miss",
+            "signal": {
+              "fields": {
+                "AI / Data": 2.5
+              },
+              "reason": "it is built on reading patterns"
+            }
+          },
+          {
+            "id": "people",
+            "label": "I read people",
+            "note": "I can tell what will persuade someone",
+            "signal": {
+              "fields": {
+                "Growth": 2.5
+              },
+              "reason": "it is about changing what people do"
+            }
+          },
+          {
+            "id": "apart",
+            "label": "I take things apart",
+            "note": "I want to know how the machinery works",
+            "signal": {
+              "keywords": [
+                "security",
+                "linux",
+                "networking",
+                "docker",
+                "infrastructure"
+              ],
+              "reason": "you get to see how the machinery works"
+            }
+          }
+        ]
+      },
+      {
+        "id": "time",
+        "prompt": "How many hours a week can you really give it?",
+        "help": "The hours we publish are the hours it takes. A course you cannot keep up with is worse than no course.",
+        "type": "single",
+        "options": [
+          {
+            "id": "lt6",
+            "label": "Under 6 hours",
+            "note": "Evenings, when nothing else comes up",
+            "signal": {
+              "maxHours": 6,
+              "reason": "it fits the hours you have"
+            }
+          },
+          {
+            "id": "h68",
+            "label": "6 to 8 hours",
+            "note": "An hour most days, or one long sitting",
+            "signal": {
+              "maxHours": 8,
+              "reason": "it fits the hours you have"
+            }
+          },
+          {
+            "id": "h812",
+            "label": "8 to 12 hours",
+            "note": "This is the main thing outside work",
+            "signal": {
+              "maxHours": 12,
+              "reason": "it fits the hours you have"
+            }
+          },
+          {
+            "id": "any",
+            "label": "As much as it takes",
+            "note": "I have cleared the time for it",
+            "signal": {
+              "maxHours": 99,
+              "reason": "you have the hours it asks for"
+            }
+          }
+        ]
+      },
+      {
+        "id": "maths",
+        "prompt": "How do you feel about maths?",
+        "type": "single",
+        "options": [
+          {
+            "id": "avoid",
+            "label": "I would rather not",
+            "note": "It is the part I have always avoided",
+            "signal": {
+              "fields": {
+                "AI / Data": -2
+              },
+              "keywords": [
+                "design",
+                "content",
+                "store"
+              ],
+              "reason": "there is almost no maths in it"
+            }
+          },
+          {
+            "id": "basics",
+            "label": "Fine with basics",
+            "note": "Percentages and averages do not scare me",
+            "signal": {
+              "slugs": {
+                "data-analyst": 1.5
+              },
+              "reason": "the maths stays at the level you are comfortable with"
+            }
+          },
+          {
+            "id": "enjoy",
+            "label": "I enjoy it",
+            "note": "Statistics and algebra are a draw, not a cost",
+            "signal": {
+              "fields": {
+                "AI / Data": 2.5
+              },
+              "reason": "you will use the maths you enjoy"
+            }
+          }
+        ]
+      },
+      {
+        "id": "earn",
+        "prompt": "How soon does this need to pay for itself?",
+        "type": "single",
+        "options": [
+          {
+            "id": "fast",
+            "label": "As soon as I finish",
+            "note": "I need this earning inside a few months",
+            "signal": {
+              "slugs": {
+                "wordpress": 2,
+                "graphic-design": 1.5,
+                "ecommerce": 1.5,
+                "digital-marketing": 1.5,
+                "data-analyst": 1
+              },
+              "reason": "it is one of the quicker routes to paid work"
+            }
+          },
+          {
+            "id": "year",
+            "label": "Within a year",
+            "note": "I can build towards it steadily",
+            "signal": {
+              "levels": {
+                "Beginner": 1
+              },
+              "reason": "it builds towards steady work rather than a quick win"
+            }
+          },
+          {
+            "id": "invest",
+            "label": "I am playing long",
+            "note": "Depth matters more to me than speed",
+            "signal": {
+              "fields": {
+                "AI / Data": 1.5,
+                "Engineering": 1
+              },
+              "levels": {
+                "Some experience": 1
+              },
+              "reason": "it goes deep rather than fast"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "coursesPage": {
+    "eyebrow": "Courses",
+    "title": [
+      {
+        "t": "We also "
+      },
+      {
+        "t": "teach this work",
+        "em": true
+      }
+    ],
+    "subtitle": "Three-month mentored courses, taught by the people who do this for a living. The full month-by-month plan is published before you pay, so you can see the whole road before you commit to any of it.",
+    "facts": [
+      {
+        "label": "Courses",
+        "value": "{count}"
+      },
+      {
+        "label": "Each runs",
+        "value": "3 months"
+      },
+      {
+        "label": "Taught by",
+        "value": "Working practitioners"
+      },
+      {
+        "label": "Plan published",
+        "value": "Before you pay"
+      }
+    ],
+    "steps": [
+      {
+        "icon": "MessageSquare",
+        "n": "01",
+        "title": "Tell us where you are",
+        "text": "A short call, or the course finder below. We would rather talk you out of the wrong course than enrol you in it."
+      },
+      {
+        "icon": "Layers",
+        "n": "02",
+        "title": "Three months, one plan",
+        "text": "Every month has a focus, a set of topics and a project. It is written down before you start and it does not move."
+      },
+      {
+        "icon": "Rocket",
+        "n": "03",
+        "title": "Finish with something real",
+        "text": "Not a certificate. A project in your portfolio, reviewed by someone who does this work for clients."
+      }
+    ],
+    "mentorsTitle": [
+      {
+        "t": "Taught by the people who "
+      },
+      {
+        "t": "do the work",
+        "em": true
+      }
+    ],
+    "mentorsNote": "Not career instructors. Every mentor here bills for this skill during the week and teaches it in the evening, which is why the plans change as the work does.",
+    "ctaTitle": "Still not sure which one?",
+    "ctaText": "Tell us what you want to be doing in a year and we will tell you which course gets you there, including when the honest answer is none of them.",
+    "ctaLabel": "Ask us directly"
+  }
+}

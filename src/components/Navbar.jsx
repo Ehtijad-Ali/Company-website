@@ -14,7 +14,7 @@ const LINKS = [
   /* The courses live inside the services page rather than on a route of
      their own — a second listing would be the same nine cards competing
      with the first for the same search. The anchor is how they are found. */
-  { to: '/services#courses', label: 'Courses' },
+  { to: '/courses', label: 'Courses' },
   { to: '/team',        label: 'Team'         },
   { to: '/blog',        label: 'Blog'         },
   { to: '/contact',     label: 'Contact'      },

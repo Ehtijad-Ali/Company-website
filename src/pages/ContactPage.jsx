@@ -1,24 +1,22 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Clock } from 'lucide-react'
+
 import Contact from '../components/sections/Contact'
 import FAQ from '../components/sections/FAQ'
 import { ImagePlate } from '../components/ui/EditorialImage'
 import { img, TEXTURE } from '../data/imagery'
 import { SITE } from '../data/site'
+import { mergeContact } from '../data/contact'
+import { useContactContent } from '../hooks/useSiteContent'
+import { iconFor } from '../lib/icons'
 import { E } from '../lib/motion'
 
-/* The same details the contact section lists further down, surfaced at the
-   top of the page. Someone who only wants the email address should not have
-   to scroll past a form to find it. */
-const REACH = [
-  { icon: Mail,   label: 'Email',    value: SITE.email,  href: `mailto:${SITE.email}` },
-  { icon: Phone,  label: 'Phone',    value: SITE.phone,  href: SITE.phoneHref },
-  { icon: MapPin, label: 'Office',   value: SITE.office },
-  { icon: Clock,  label: 'We reply', value: SITE.replyTime },
-]
-
 export default function ContactPage() {
+  /* The same details the contact section lists further down, surfaced at
+     the top of the page. Someone who only wants the email address should
+     not have to scroll past a form to find it. */
+  const { channels } = mergeContact(useContactContent(), SITE)
+
   return (
     <>
       {/* ── Hero ───────────────────────────────────────────────
@@ -55,7 +53,8 @@ export default function ContactPage() {
             </p>
 
             <div className="fact-strip">
-              {REACH.map(({ icon: Icon, label, value, href }) => {
+              {channels.map(({ icon, label, value, href }) => {
+                const Icon = iconFor(icon)
                 const body = (
                   <>
                     <Icon aria-hidden="true" />

@@ -1,59 +1,21 @@
 import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { Code2, Palette, Brain, Smartphone, BarChart3, Cloud, Shield, Zap, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { useContact } from '../../context/ContactContext'
 import SectionHeader from '../ui/SectionHeader'
 import { img, SERVICE_IMG } from '../../data/imagery'
-
-const SERVICES = [
-  {
-    icon: Code2,    num: '01', cat: 'Engineering',    title: 'Web Development',
-    desc: 'We architect blazing-fast, scalable web applications with React, Next.js, Node.js, and modern cloud infrastructure, from MVPs to enterprise platforms handling millions of users.',
-    chips: ['React', 'Next.js', 'Node.js', 'PostgreSQL'],
-  },
-  {
-    icon: Brain,    num: '02', cat: 'Intelligence',   title: 'AI & Machine Learning',
-    desc: 'Intelligent automation, NLP, computer vision, and predictive analytics that turn raw data into decisive competitive advantage, built to scale in production.',
-    chips: ['TensorFlow', 'PyTorch', 'LangChain'],
-  },
-  {
-    icon: Palette,  num: '03', cat: 'Design',         title: 'UI / UX Design',
-    desc: 'Intuitive, award-winning interfaces crafted with meticulous attention to user psychology, visual hierarchy, and brand coherence. Design that converts.',
-    chips: ['Figma', 'Prototyping', 'Design Systems'],
-  },
-  {
-    icon: Smartphone, num: '04', cat: 'Mobile',       title: 'Mobile Applications',
-    desc: 'Native iOS, Android, and cross-platform React Native apps. Beautiful, performant experiences users love and return to, shipped on schedule.',
-    chips: ['React Native', 'Swift', 'Kotlin'],
-  },
-  {
-    icon: Cloud,    num: '05', cat: 'Infrastructure', title: 'Cloud & DevOps',
-    desc: 'AWS, Azure, and GCP architecture with automated CI/CD pipelines, containerisation, and cloud-native infrastructure that scales without breaking.',
-    chips: ['AWS', 'Docker', 'Kubernetes'],
-  },
-  {
-    icon: BarChart3, num: '06', cat: 'Growth',        title: 'Digital Marketing',
-    desc: 'Data-driven growth strategies across SEO, paid media, and high-conversion content, compounding returns built on rigorous measurement.',
-    chips: ['SEO / SEM', 'PPC', 'Analytics'],
-  },
-  {
-    icon: Shield,   num: '07', cat: 'Security',       title: 'Cybersecurity',
-    desc: 'Penetration testing, security audits, compliance frameworks (SOC 2, ISO 27001), and proactive threat modelling before the breach happens.',
-    chips: ['OWASP', 'SOC 2', 'Pen Testing'],
-  },
-  {
-    icon: Zap,      num: '08', cat: 'Optimization',   title: 'Performance Engineering',
-    desc: 'Deep-dive audits, critical rendering path surgery, and edge-layer caching delivering sub-second load times and perfect Core Web Vitals scores.',
-    chips: ['Lighthouse', 'WebVitals', 'CDN'],
-  },
-]
+import { useServices } from '../../hooks/useSiteContent'
+import { iconFor } from '../../lib/icons'
+import { CountWord } from '../../lib/words'
 
 function ServiceRow({ s, i }) {
   const [open, setOpen] = useState(false)
   const ref    = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
-  const { icon: Icon } = s
+  /* Content records carry an icon *name*, since the database cannot hold
+     a component. Unknown names render the generic mark rather than throw. */
+  const Icon = iconFor(s.icon)
 
   return (
     <motion.div
@@ -151,7 +113,7 @@ function ServiceRow({ s, i }) {
                   color: 'var(--text-secondary)', maxWidth: '40rem', marginBottom: '1rem',
                 }}>{s.desc}</p>
                 <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                  {s.chips.map(c => (
+                  {(s.chips ?? []).map(c => (
                     <span key={c} className="chip" style={{ fontSize: '0.65rem' }}>{c}</span>
                   ))}
                 </div>
@@ -189,6 +151,7 @@ function ServiceRow({ s, i }) {
 }
 
 export default function Services() {
+  const services = useServices()
   const ref    = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const { openContact } = useContact()
@@ -200,7 +163,7 @@ export default function Services() {
         <SectionHeader
           num="03"
           label="Services"
-          title={[{ t: 'Eight disciplines, ' }, { t: 'one team', em: true }]}
+          title={[{ t: `${CountWord(services.length)} disciplines, ` }, { t: 'one team', em: true }]}
           subtitle="Most engagements combine two or three: a platform build with the design and infrastructure that go around it."
           action={{ to: '/services', label: 'All services' }}
           inView={inView}
@@ -209,8 +172,8 @@ export default function Services() {
 
         {/* ── Service rows ── */}
         <div>
-          {SERVICES.map((s, i) => (
-            <ServiceRow key={s.title} s={s} i={i} />
+          {services.map((s, i) => (
+            <ServiceRow key={s.slug ?? s.title} s={s} i={i} />
           ))}
         </div>
 

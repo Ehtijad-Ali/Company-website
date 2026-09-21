@@ -64,6 +64,40 @@ export const SERVICE_IMG = {
   'Performance Engineering': 'photo-1473341304170-971dccb5ac1e',
 }
 
+/* ── One image per course ──────────────────────────────────────
+   Keyed by slug, with a per-field fallback for a course added in the
+   admin that has no image of its own. A catalogue of twelve text cards
+   reads as a list of headings; the image is what makes it a course. */
+export const COURSE_IMG = {
+  'web-development':        'photo-1647790292957-c7f3b44b3973',
+  'ai-and-data-science':    'photo-1677442135703-1787eea5ce01',
+  'digital-marketing':      'photo-1460925895917-afdab827c52f',
+  'ui-ux-design':           'photo-1558655146-9f40138edfeb',
+  'data-analyst':           'photo-1473341304170-971dccb5ac1e',
+  'cloud-computing':        'photo-1558494949-ef010cbdcc31',
+  'wordpress':              'photo-1756723902378-7073227e8ece',
+  'ecommerce':              'photo-1556742049-0cfed4f6a45d',
+  'mobile-app-development': 'photo-1512941937669-90a1b58e7e9c',
+  'graphic-design':         'photo-1695712551846-4dc15433fbd4',
+  'cybersecurity':          'photo-1451187580459-43490279c0fa',
+  'python-programming':     'photo-1509062522246-3755977927d7',
+}
+
+const FIELD_IMG = {
+  Engineering:  'photo-1647790292957-c7f3b44b3973',
+  'AI / Data':  'photo-1677442135703-1787eea5ce01',
+  Design:       'photo-1558655146-9f40138edfeb',
+  Growth:       'photo-1460925895917-afdab827c52f',
+}
+
+/**
+ * The image for a course: its own `image` id if the record carries one,
+ * then the catalogue above, then something from the right field, then the
+ * studio desk. A course always has a picture.
+ */
+export const courseImage = (course, w = 800, h = 520) =>
+  img(course?.image || COURSE_IMG[course?.slug] || FIELD_IMG[course?.field] || STUDIO.desk, w, h)
+
 /* ── One image per delivery phase ──────────────────────────────
    Keyed by phase index, in the order Process renders them. */
 export const PHASE_IMG = [

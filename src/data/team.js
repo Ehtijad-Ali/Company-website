@@ -2,31 +2,36 @@
  * Team roster — the single source of truth for the home Team section, the
  * /team index, and each member's /team/:slug profile.
  *
+ * Names, roles and departments are real. Everything commercial around them
+ * is not:
+ *
  * ⚠️  PLACEHOLDER COMMERCIAL DATA
  * `rate`, `stats` (projects / rating / onTime / responseTime), `availability`,
- * and `portfolio` entries are invented for layout purposes. Replace them with
- * real figures before this goes in front of clients — a published hourly rate
- * is a commercial commitment, and invented ratings and client names are the
- * kind of thing that causes real problems.
+ * `credentials` and `portfolio` entries are invented for layout purposes.
+ * Replace them with real figures before this goes in front of clients — a
+ * published hourly rate is a commercial commitment, and invented ratings and
+ * client names are the kind of thing that causes real problems.
  *
  * Sized for a studio founded in 2025: per-member project counts are in the
  * single and low double digits, and `years` is each person's own career
- * length, not their tenure here — two to five years across the roster.
+ * length, not their tenure here — three to five years across the roster.
  * Rates run $20–$50/hr. The whole team is based in Gilgit.
  *
- * `years` feeds METRICS.avgExperience in data/metrics.js; change one and
- * recompute the other.
+ * `years` feeds METRICS.avgExperience in data/metrics.js and the roster
+ * length feeds TEAM_SIZE there; change one and recompute the others.
  *
- * `img` uses Unsplash stock; swap for real headshots when you have them.
+ * Slugs are referenced by `mentor` in data/courses.js and by `author` in
+ * BlogPage, so grep for a slug before renaming it — nothing else will warn.
+ *
+ * This module is the *fallback* copy of the roster. At runtime the site reads
+ * /api/content/team and only falls back to what is bundled here when the API
+ * cannot be reached — see services/content.js. Keep every record plain data:
+ * no imports, no functions, nothing a bundler has to resolve, because
+ * scripts/export-content.mjs serialises this straight into the database seed.
+ *
+ * Headshots are served from /public/team rather than imported, so a record
+ * survives the round trip through the API unchanged.
  */
-
-/* Real headshots, committed to the repo rather than hotlinked, so a
-   third-party image host going away cannot empty the team page. The
-   remaining five members are still on stock and should be replaced. */
-import ehtijadAli  from '../assets/team/ehtijad-ali.png'
-import badarMuneem from '../assets/team/badar-muneem.jpg'
-import almeenZahra from '../assets/team/almeen-zahra.jpg'
-import failaAbbas  from '../assets/team/faila-abbas.png'
 
 /** Availability drives the badge colour and the hire-card copy. */
 export const AVAILABILITY = {
@@ -35,114 +40,84 @@ export const AVAILABILITY = {
   booked:    { label: 'Fully booked',    tone: 'muted'    },
 }
 
-export const DEPTS = ['All', 'Leadership', 'AI/ML', 'Design', 'Engineering', 'Marketing']
+export const DEPTS = ['All', 'Leadership', 'AI/ML', 'Engineering', 'Design', 'Product', 'Operations']
 
 export const TEAM = [
   {
     slug: 'ehtijad-ali',
     name: 'Ehtijad Ali',
-    role: 'Technical Director',
+    role: 'Founder & Full-Stack AI Engineer',
     dept: 'Leadership',
-    img: ehtijadAli,
+    img: '/team/ehtijad-ali.png',
     location: 'Gilgit, PK',
     timezone: 'PKT',
-    rate: 48,
+    rate: 50,
     minEngagement: 'From 15 hours',
     availability: 'limited',
     hoursPerWeek: 15,
-    tagline: 'Sets the technical direction and signs off the architecture on every build.',
-    bio: 'Five years across web platforms and internal tooling, the last two of them leading teams. Sits in on the first call of every engagement so the architecture decisions get made before the code does, and stays close enough afterwards to catch the ones that age badly.',
+    tagline: 'Founded the studio, and still writes the code on the hard parts of every build.',
+    bio: 'Five years across web platforms and applied AI, the last two of them running this team. Works end to end — the model, the service around it and the interface on top — which is why the architecture decisions get made on the first call rather than discovered halfway through the build.',
     years: 5,
     skills: [
+      { name: 'Full-Stack Engineering', level: 5 },
+      { name: 'LLM & RAG Systems',      level: 5 },
       { name: 'Technical Architecture', level: 5 },
-      { name: 'Team Leadership',        level: 5 },
-      { name: 'Web Platforms',          level: 4 },
-      { name: 'Code Review',            level: 5 },
+      { name: 'Team Leadership',        level: 4 },
     ],
     languages: [{ name: 'Urdu', level: 'Native' }, { name: 'English', level: 'Fluent' }],
     portfolio: [
-      { title: 'Platform architecture review',   type: 'Architecture', blurb: 'Audited a three-year-old codebase and mapped a migration the team could ship in stages.', metric: 'Build times cut by half' },
-      { title: 'Internal tooling consolidation', type: 'Engineering',  blurb: 'Replaced four overlapping admin tools with one service and a shared design system.', metric: '4 tools down to 1' },
+      { title: 'RAG assistant for a support desk', type: 'AI Engineering', blurb: 'Retrieval over four years of tickets and docs, with a citation on every answer.', metric: 'First-response time cut by half' },
+      { title: 'Internal tooling consolidation',   type: 'Engineering',    blurb: 'Replaced four overlapping admin tools with one service and a shared design system.', metric: '4 tools down to 1' },
     ],
-    credentials: ['BS Computer Science', '5 years in software engineering'],
-    stats: { projects: 12, rating: 4.9, onTime: 96, responseTime: 'within 3 hours' },
-    socials: [{ id: 'linkedin', url: '#' }, { id: 'github', url: '#' }],
-  },
-  {
-    slug: 'badar-muneem',
-    name: 'Badar Muneem',
-    role: 'Backend Engineer',
-    dept: 'Engineering',
-    img: badarMuneem,
-    location: 'Gilgit, PK',
-    timezone: 'PKT',
-    rate: 35,
-    minEngagement: 'From 20 hours',
-    availability: 'available',
-    hoursPerWeek: 35,
-    tagline: 'APIs and data models built to survive the second year, not just the launch.',
-    bio: 'Four years on server-side work, mostly Node and Postgres behind products with real users. Writes the migration and the rollback before the feature, which has saved more than one launch weekend.',
-    years: 4,
-    skills: [
-      { name: 'Node.js',        level: 5 },
-      { name: 'PostgreSQL',     level: 5 },
-      { name: 'API Design',     level: 4 },
-      { name: 'Redis / Queues', level: 4 },
-    ],
-    languages: [{ name: 'Urdu', level: 'Native' }, { name: 'English', level: 'Fluent' }, { name: 'Punjabi', level: 'Native' }],
-    portfolio: [
-      { title: 'Booking system rebuild', type: 'Engineering', blurb: 'Replaced a fragile cron-driven flow with an event queue and idempotent handlers.', metric: 'Double bookings to zero' },
-      { title: 'Reporting API',          type: 'Backend',     blurb: 'Pre-aggregated reporting layer so dashboards stopped querying production tables.', metric: 'Report loads under 400ms' },
-    ],
-    credentials: ['BS Software Engineering, UET Lahore', '4 years in backend engineering'],
-    stats: { projects: 9, rating: 4.8, onTime: 95, responseTime: 'within 4 hours' },
-    socials: [{ id: 'linkedin', url: '#' }, { id: 'github', url: '#' }],
-  },
-  {
-    slug: 'sartaj-ali',
-    name: 'Sartaj Ali',
-    role: 'DevOps Engineer',
-    dept: 'Engineering',
-    img: 'https://images.unsplash.com/photo-1546961329-78bef0414d7c?w=600&h=800&fit=crop&crop=top',
-    location: 'Gilgit, PK',
-    timezone: 'PKT',
-    rate: 38,
-    minEngagement: 'From 15 hours',
-    availability: 'available',
-    hoursPerWeek: 30,
-    tagline: 'Pipelines, infrastructure and the monitoring that tells you before the client does.',
-    bio: 'Four years keeping other teams\' deploys boring. Containers, CI and infrastructure as code, with a strong preference for the setup a two-person team can still operate at 2am without a runbook they have never read.',
-    years: 4,
-    skills: [
-      { name: 'Docker / Kubernetes', level: 5 },
-      { name: 'CI/CD Pipelines',     level: 5 },
-      { name: 'Terraform',           level: 4 },
-      { name: 'Observability',       level: 4 },
-    ],
-    languages: [{ name: 'Urdu', level: 'Native' }, { name: 'English', level: 'Fluent' }],
-    portfolio: [
-      { title: 'Zero-downtime deploy pipeline', type: 'DevOps',         blurb: 'Blue-green releases with automated rollback on failed health checks.', metric: 'Monthly deploys became daily' },
-      { title: 'Cloud cost cleanup',            type: 'Infrastructure', blurb: 'Right-sized instances and moved cold storage off hot disks.', metric: '41% lower monthly spend' },
-    ],
-    credentials: ['BS Information Technology, COMSATS', 'Certified Kubernetes Administrator'],
-    stats: { projects: 11, rating: 4.9, onTime: 97, responseTime: 'within 2 hours' },
+    credentials: ['BS Computer Science', '5 years in software and AI engineering'],
+    stats: { projects: 14, rating: 4.9, onTime: 96, responseTime: 'within 3 hours' },
     socials: [{ id: 'linkedin', url: '#' }, { id: 'github', url: '#' }],
   },
   {
     slug: 'almeen-zahra',
     name: 'Almeen Zahra',
-    role: 'Product Designer',
-    dept: 'Design',
-    img: almeenZahra,
+    role: 'AI & ML Engineer',
+    dept: 'AI/ML',
+    img: '/team/almeen-zahra.jpg',
     location: 'Gilgit, PK',
     timezone: 'PKT',
-    rate: 30,
+    rate: 40,
+    minEngagement: 'From 20 hours',
+    availability: 'available',
+    hoursPerWeek: 30,
+    tagline: 'Takes models out of the notebook and puts them behind an endpoint that stays up.',
+    bio: 'Three years building and shipping machine learning systems, mostly NLP and recommendation work. Starts from the evaluation set rather than the model, on the theory that a team which cannot measure a result cannot tell whether it improved one.',
+    years: 3,
+    skills: [
+      { name: 'PyTorch',            level: 5 },
+      { name: 'NLP & Transformers', level: 4 },
+      { name: 'Model Deployment',   level: 4 },
+      { name: 'Evaluation & Evals', level: 4 },
+    ],
+    languages: [{ name: 'Urdu', level: 'Native' }, { name: 'English', level: 'Fluent' }],
+    portfolio: [
+      { title: 'Document classification pipeline', type: 'Machine Learning', blurb: 'Fine-tuned a small transformer to route incoming paperwork by type and urgency.', metric: '94% routing accuracy' },
+      { title: 'Recommendation service',           type: 'ML Engineering',   blurb: 'Replaced a hand-written rules engine with a trained ranker behind a cached API.', metric: '+17% click-through' },
+    ],
+    credentials: ['BS Computer Science', '3 years in AI and ML engineering'],
+    stats: { projects: 8, rating: 4.9, onTime: 97, responseTime: 'within 4 hours' },
+    socials: [{ id: 'linkedin', url: '#' }, { id: 'github', url: '#' }],
+  },
+  {
+    slug: 'badar-muneem',
+    name: 'Badar Muneem',
+    role: 'Product & UI/UX Designer',
+    dept: 'Design',
+    img: '/team/badar-muneem.jpg',
+    location: 'Gilgit, PK',
+    timezone: 'PKT',
+    rate: 35,
     minEngagement: 'From 15 hours',
     availability: 'available',
-    hoursPerWeek: 28,
+    hoursPerWeek: 30,
     tagline: 'Interface work grounded in what the product actually has to do.',
-    bio: 'Three years designing product surfaces for SaaS and marketplace teams. Starts from the edge cases rather than the happy path, on the theory that the empty state and the error message are where most products quietly lose people.',
-    years: 3,
+    bio: 'Four years designing product surfaces for SaaS and marketplace teams. Starts from the edge cases rather than the happy path, on the theory that the empty state and the error message are where most products quietly lose people.',
+    years: 4,
     skills: [
       { name: 'Product Design', level: 5 },
       { name: 'Design Systems', level: 4 },
@@ -154,171 +129,224 @@ export const TEAM = [
       { title: 'Dashboard redesign', type: 'Product Design', blurb: 'Cut a nine-item nav to four and rebuilt the default view around one job.', metric: 'Support tickets down 26%' },
       { title: 'Checkout flow',      type: 'UX',             blurb: 'Three-step flow with inline validation and a persistent order summary.', metric: '+19% completion' },
     ],
-    credentials: ['BDes Communication Design, IVS Karachi', '3 years in product design'],
-    stats: { projects: 8, rating: 4.9, onTime: 97, responseTime: 'within 4 hours' },
+    credentials: ['BDes Communication Design', '4 years in product and interface design'],
+    stats: { projects: 11, rating: 4.9, onTime: 97, responseTime: 'within 4 hours' },
     socials: [{ id: 'linkedin', url: '#' }, { id: 'dribbble', url: '#' }],
+  },
+  {
+    slug: 'zeeshan-karim',
+    name: 'Zeeshan Karim',
+    role: 'Product & Growth Manager',
+    dept: 'Product',
+    img: 'https://images.unsplash.com/photo-1521119989659-a83eee488004?w=600&h=800&fit=crop&crop=top',
+    location: 'Gilgit, PK',
+    timezone: 'PKT',
+    rate: 35,
+    minEngagement: 'From 10 hours',
+    availability: 'available',
+    hoursPerWeek: 25,
+    tagline: 'Decides what gets built next, and can show you the numbers behind the decision.',
+    bio: 'Four years between product and growth, close enough to both to keep them arguing productively. Runs the discovery calls, writes the scope everyone signs off on, and holds the roadmap to the handful of metrics that actually move the business.',
+    years: 4,
+    skills: [
+      { name: 'Product Strategy',   level: 5 },
+      { name: 'Growth Experiments', level: 4 },
+      { name: 'Analytics',          level: 4 },
+      { name: 'Roadmapping',        level: 5 },
+    ],
+    languages: [{ name: 'Urdu', level: 'Native' }, { name: 'English', level: 'Fluent' }],
+    portfolio: [
+      { title: 'Activation programme', type: 'Growth',  blurb: 'Instrumented the funnel end to end, then ran six weeks of onboarding experiments against it.', metric: '+22% activation' },
+      { title: 'Roadmap reset',        type: 'Product', blurb: 'Cut a 40-item backlog to a quarter with three outcomes and a measure for each.', metric: 'Shipped 3 of 3 on time' },
+    ],
+    credentials: ['BBA', '4 years in product and growth'],
+    stats: { projects: 10, rating: 4.8, onTime: 96, responseTime: 'within 4 hours' },
+    socials: [{ id: 'linkedin', url: '#' }, { id: 'twitter', url: '#' }],
   },
   {
     slug: 'faila-abbas',
     name: 'Faila Abbas',
-    role: 'Frontend Engineer',
-    dept: 'Engineering',
-    img: failaAbbas,
+    role: 'Data Scientist',
+    dept: 'AI/ML',
+    img: '/team/faila-abbas.png',
     location: 'Gilgit, PK',
     timezone: 'PKT',
-    rate: 32,
+    rate: 38,
     minEngagement: 'From 20 hours',
     availability: 'available',
     hoursPerWeek: 32,
-    tagline: 'React interfaces that stay accessible and fast on a mid-range phone.',
-    bio: 'Four years turning design files into shipped interfaces. Tests on a throttled connection and a real device before calling anything done, and treats keyboard navigation as part of the build rather than a later fix.',
+    tagline: 'Answers the question the business asked, not the one the data was easiest to ask.',
+    bio: 'Four years in analysis and modelling across product and operations data. Spends the first week on where the numbers come from and what they leave out, which is usually the difference between a model that survives contact with production and one that does not.',
     years: 4,
     skills: [
-      { name: 'React',            level: 5 },
-      { name: 'TypeScript',       level: 4 },
-      { name: 'CSS Architecture', level: 5 },
-      { name: 'Accessibility',    level: 4 },
+      { name: 'Python & pandas',       level: 5 },
+      { name: 'Statistical Modelling', level: 4 },
+      { name: 'SQL',                   level: 5 },
+      { name: 'Experiment Design',     level: 4 },
     ],
-    languages: [{ name: 'Urdu', level: 'Native' }, { name: 'English', level: 'Fluent' }, { name: 'Punjabi', level: 'Native' }],
+    languages: [{ name: 'Urdu', level: 'Native' }, { name: 'English', level: 'Fluent' }],
     portfolio: [
-      { title: 'Marketing site rebuild', type: 'Frontend',    blurb: 'Static-first rebuild with route-level code splitting and real image budgets.', metric: 'Lighthouse 71 to 98' },
-      { title: 'Component library',      type: 'Engineering', blurb: 'Thirty accessible components with documented props and visual tests.', metric: 'Adopted by 3 products' },
+      { title: 'Churn model',      type: 'Data Science', blurb: 'Predicted at-risk accounts a month out and handed sales a ranked weekly list.', metric: '31% of flagged accounts saved' },
+      { title: 'Pricing analysis', type: 'Analytics',    blurb: 'Segmented two years of orders to find where discounting was buying nothing.', metric: 'Margin up 4 points' },
     ],
-    credentials: ['BS Computer Science, PUCIT', '4 years in frontend engineering'],
+    credentials: ['BS Data Science', '4 years in analytics and data science'],
     stats: { projects: 10, rating: 4.8, onTime: 96, responseTime: 'within 4 hours' },
     socials: [{ id: 'linkedin', url: '#' }, { id: 'github', url: '#' }],
   },
   {
-    slug: 'zeeshan-karin',
-    name: 'Zeeshan Karin',
-    role: 'QA Engineer',
-    dept: 'Engineering',
-    img: 'https://images.unsplash.com/photo-1521119989659-a83eee488004?w=600&h=800&fit=crop&crop=top',
+    slug: 'sartaj-ali',
+    name: 'Sartaj Ali',
+    role: 'AI Engineer',
+    dept: 'AI/ML',
+    img: 'https://images.unsplash.com/photo-1546961329-78bef0414d7c?w=600&h=800&fit=crop&crop=top',
     location: 'Gilgit, PK',
     timezone: 'PKT',
-    rate: 25,
-    minEngagement: 'From 10 hours',
+    rate: 38,
+    minEngagement: 'From 15 hours',
     availability: 'available',
-    hoursPerWeek: 25,
-    tagline: 'Finds the break before the client does, then writes the test that keeps it fixed.',
-    bio: 'Two years in manual and automated testing across web and mobile releases. Good at asking the awkward questions early in a project, which is cheaper for everyone than finding the same answers during a release freeze.',
-    years: 2,
+    hoursPerWeek: 30,
+    tagline: 'Builds the LLM features that hold up once real users start typing into them.',
+    bio: 'Three years on applied AI work: retrieval, agents and the unglamorous plumbing around them. Strong preference for the setup a two-person team can still operate at 2am, which shapes the monitoring as much as the model layer.',
+    years: 3,
     skills: [
-      { name: 'Test Automation',      level: 4 },
-      { name: 'Playwright / Cypress', level: 4 },
-      { name: 'Regression Testing',   level: 5 },
-      { name: 'Bug Triage',           level: 4 },
+      { name: 'LLM Applications',    level: 5 },
+      { name: 'Vector Search / RAG', level: 4 },
+      { name: 'Python',              level: 5 },
+      { name: 'MLOps & Deployment',  level: 4 },
     ],
     languages: [{ name: 'Urdu', level: 'Native' }, { name: 'English', level: 'Fluent' }],
     portfolio: [
-      { title: 'Release regression suite', type: 'QA',             blurb: 'Automated the 120-case manual checklist down to a nine-minute CI run.', metric: 'Release prep cut by 2 days' },
-      { title: 'Payments test coverage',   type: 'QA Engineering', blurb: 'End-to-end coverage across four payment providers and their failure modes.', metric: 'No payment defects in 6 releases' },
+      { title: 'Agentic back-office workflow', type: 'AI Engineering', blurb: 'Tool-using agent that drafts and files routine paperwork with a human approving each batch.', metric: 'Manual handling down 60%' },
+      { title: 'Inference cost cleanup',       type: 'MLOps',          blurb: 'Routed easy requests to a smaller model and cached the repeat ones.', metric: '41% lower monthly spend' },
     ],
-    credentials: ['BS Computer Science, SZABIST', 'ISTQB Foundation Level'],
-    stats: { projects: 7, rating: 4.8, onTime: 98, responseTime: 'within 5 hours' },
+    credentials: ['BS Information Technology', '3 years in AI engineering'],
+    stats: { projects: 9, rating: 4.9, onTime: 97, responseTime: 'within 2 hours' },
     socials: [{ id: 'linkedin', url: '#' }, { id: 'github', url: '#' }],
   },
   {
-    slug: 'zeeshan-ali',
-    name: 'Zeeshan Ali',
-    role: 'Mobile Developer',
+    slug: 'hasnain-khush',
+    name: 'Hasnain Khush',
+    role: 'Full-Stack Developer',
     dept: 'Engineering',
     img: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=600&h=800&fit=crop&crop=top',
     location: 'Gilgit, PK',
     timezone: 'PKT',
     rate: 35,
     minEngagement: 'From 20 hours',
-    availability: 'limited',
-    hoursPerWeek: 18,
-    tagline: 'Cross-platform apps that feel native on both stores.',
-    bio: 'Three years shipping React Native and Flutter apps, including two that went through the full store review and update cycle. Plans for offline use and flaky networks from the first sprint rather than patching them in later.',
+    availability: 'available',
+    hoursPerWeek: 35,
+    tagline: 'React on the front, Node and Postgres behind it, one person accountable for both.',
+    bio: 'Four years shipping full-stack products with real users on them. Writes the migration and the rollback before the feature, tests on a throttled connection and a real device, and treats keyboard navigation as part of the build rather than a later fix.',
+    years: 4,
+    skills: [
+      { name: 'React & TypeScript', level: 5 },
+      { name: 'Node.js',            level: 5 },
+      { name: 'PostgreSQL',         level: 4 },
+      { name: 'API Design',         level: 4 },
+    ],
+    languages: [{ name: 'Urdu', level: 'Native' }, { name: 'English', level: 'Fluent' }],
+    portfolio: [
+      { title: 'Booking system rebuild', type: 'Engineering', blurb: 'Replaced a fragile cron-driven flow with an event queue and idempotent handlers.', metric: 'Double bookings to zero' },
+      { title: 'Marketing site rebuild', type: 'Frontend',    blurb: 'Static-first rebuild with route-level code splitting and real image budgets.', metric: 'Lighthouse 71 to 98' },
+    ],
+    credentials: ['BS Software Engineering', '4 years in full-stack development'],
+    stats: { projects: 11, rating: 4.8, onTime: 95, responseTime: 'within 4 hours' },
+    socials: [{ id: 'linkedin', url: '#' }, { id: 'github', url: '#' }],
+  },
+  {
+    slug: 'zeeshan-ali',
+    name: 'Zeeshan Ali',
+    role: 'UI/UX Designer',
+    dept: 'Design',
+    img: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&h=800&fit=crop&crop=top',
+    location: 'Gilgit, PK',
+    timezone: 'PKT',
+    rate: 28,
+    minEngagement: 'From 15 hours',
+    availability: 'available',
+    hoursPerWeek: 28,
+    tagline: 'Screens, states and the small details that decide whether an interface feels finished.',
+    bio: 'Three years on interface and visual design across web and mobile products. Hands over files a developer can build from without a meeting: named layers, real content, and every state drawn rather than described.',
     years: 3,
     skills: [
-      { name: 'React Native',      level: 5 },
-      { name: 'Flutter',           level: 4 },
-      { name: 'Offline Sync',      level: 4 },
-      { name: 'App Store Release', level: 4 },
+      { name: 'UI Design',          level: 5 },
+      { name: 'Figma',              level: 5 },
+      { name: 'Interaction Design', level: 4 },
+      { name: 'Brand & Visual',     level: 4 },
     ],
-    languages: [{ name: 'Urdu', level: 'Native' }, { name: 'English', level: 'Fluent' }, { name: 'Pashto', level: 'Conversational' }],
+    languages: [{ name: 'Urdu', level: 'Native' }, { name: 'English', level: 'Fluent' }],
     portfolio: [
-      { title: 'Field survey app',   type: 'Mobile', blurb: 'Offline-first data capture with conflict resolution on reconnect.', metric: 'Used by 200 field staff' },
-      { title: 'Retail loyalty app', type: 'Mobile', blurb: 'Shared codebase across iOS and Android with native payment sheets.', metric: '4.6 average store rating' },
+      { title: 'Mobile app interface',  type: 'UI Design',     blurb: 'Full screen set for iOS and Android, including the offline and error states.', metric: '4.6 average store rating' },
+      { title: 'Brand and site design', type: 'Visual Design', blurb: 'Identity, type scale and a marketing site built on one set of tokens.', metric: 'Rolled out across 5 surfaces' },
     ],
-    credentials: ['BS Software Engineering, Air University', '3 years in mobile development'],
-    stats: { projects: 8, rating: 4.7, onTime: 94, responseTime: 'within 6 hours' },
-    socials: [{ id: 'linkedin', url: '#' }, { id: 'github', url: '#' }],
+    credentials: ['BDes', '3 years in UI/UX design'],
+    stats: { projects: 9, rating: 4.7, onTime: 95, responseTime: 'within 5 hours' },
+    socials: [{ id: 'linkedin', url: '#' }, { id: 'dribbble', url: '#' }],
   },
   {
     slug: 'kiran',
     name: 'Kiran',
-    role: 'Content Strategist',
-    dept: 'Marketing',
+    role: 'ML Engineer',
+    dept: 'AI/ML',
     img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=800&fit=crop&crop=top',
     location: 'Gilgit, PK',
     timezone: 'PKT',
-    rate: 22,
-    minEngagement: 'From 10 hours',
+    rate: 35,
+    minEngagement: 'From 15 hours',
     availability: 'available',
-    hoursPerWeek: 20,
-    tagline: 'Writes the words the product needs, not the words that fill the space.',
-    bio: 'Three years in content strategy for technical products. Works from the interface outwards, which means the microcopy, the onboarding email and the landing page end up saying the same thing in the same voice.',
+    hoursPerWeek: 28,
+    tagline: 'Training pipelines, feature work and the retraining nobody remembers to schedule.',
+    bio: 'Three years of machine learning engineering with an emphasis on what happens after the first good result: reproducible training runs, versioned data, and monitoring that notices drift before a client does.',
     years: 3,
     skills: [
-      { name: 'Content Strategy',   level: 5 },
-      { name: 'UX Writing',         level: 4 },
-      { name: 'Editorial Planning', level: 4 },
-      { name: 'SEO Content',        level: 4 },
+      { name: 'Python',                 level: 5 },
+      { name: 'scikit-learn / XGBoost', level: 4 },
+      { name: 'MLOps Pipelines',        level: 4 },
+      { name: 'Feature Engineering',    level: 4 },
     ],
     languages: [{ name: 'Urdu', level: 'Native' }, { name: 'English', level: 'Fluent' }],
     portfolio: [
-      { title: 'Onboarding rewrite', type: 'UX Writing', blurb: 'Rewrote twelve screens of setup copy around what the user was trying to finish.', metric: '+22% activation' },
-      { title: 'Editorial system',   type: 'Content',    blurb: 'Voice guide, topic calendar and a brief template the whole team could use.', metric: '3 posts a week, sustained' },
+      { title: 'Forecasting pipeline', type: 'ML Engineering', blurb: 'Weekly demand forecasts with automated retraining and a held-out backtest on every run.', metric: 'Forecast error down 18%' },
+      { title: 'Model monitoring',     type: 'MLOps',          blurb: 'Drift and data-quality checks wired to alerts on every production model.', metric: 'Silent failures down to zero' },
     ],
-    credentials: ['BA English Literature, GCU Lahore', '3 years in content strategy'],
-    stats: { projects: 9, rating: 4.9, onTime: 98, responseTime: 'within 6 hours' },
-    socials: [{ id: 'linkedin', url: '#' }, { id: 'twitter', url: '#' }],
+    credentials: ['BS Computer Science', '3 years in machine learning engineering'],
+    stats: { projects: 8, rating: 4.9, onTime: 97, responseTime: 'within 5 hours' },
+    socials: [{ id: 'linkedin', url: '#' }, { id: 'github', url: '#' }],
   },
   {
     slug: 'faiza-rehmat',
     name: 'Faiza Rehmat',
-    role: 'Data Engineer',
-    dept: 'AI/ML',
+    role: 'Medical Biller',
+    dept: 'Operations',
     img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&h=800&fit=crop&crop=top',
     location: 'Gilgit, PK',
     timezone: 'PKT',
-    rate: 38,
-    minEngagement: 'From 20 hours',
+    rate: 20,
+    minEngagement: 'From 10 hours',
     availability: 'available',
     hoursPerWeek: 30,
-    tagline: 'Builds the pipelines the models and the dashboards both depend on.',
-    bio: 'Five years moving data between systems without losing it. Warehouses, ingestion and the tests that catch a broken upstream feed on the morning it breaks rather than at the end of the quarter.',
-    years: 5,
+    tagline: 'Clean claims, worked denials, and a revenue cycle that stops leaking.',
+    bio: 'Three years in medical billing and revenue cycle work for US practices. Codes and submits claims, works the denials rather than writing them off, and keeps the ageing report short enough that nobody dreads opening it.',
+    years: 3,
     skills: [
-      { name: 'Python',           level: 5 },
-      { name: 'Airflow / dbt',    level: 4 },
-      { name: 'Data Warehousing', level: 5 },
-      { name: 'SQL',              level: 5 },
+      { name: 'Medical Billing',     level: 5 },
+      { name: 'CPT / ICD-10 Coding', level: 4 },
+      { name: 'Denial Management',   level: 4 },
+      { name: 'Insurance Claims',    level: 5 },
     ],
     languages: [{ name: 'Urdu', level: 'Native' }, { name: 'English', level: 'Fluent' }],
     portfolio: [
-      { title: 'Analytics warehouse',   type: 'Data Engineering', blurb: 'Consolidated six sources into one modelled warehouse with tested transforms.', metric: 'One source of truth across 6 systems' },
-      { title: 'Ingestion reliability', type: 'Data Platform',    blurb: 'Freshness and volume checks with alerting on every upstream feed.', metric: 'Silent failures down to zero' },
+      { title: 'Denial recovery project', type: 'Revenue Cycle',   blurb: 'Worked a year of written-off denials back through appeals with corrected coding.', metric: 'Clean-claim rate to 97%' },
+      { title: 'Billing cleanup',         type: 'Medical Billing', blurb: 'Rebuilt the charge-entry routine and brought the ageing backlog down to current.', metric: 'Days in A/R from 52 to 29' },
     ],
-    credentials: ['MS Computer Science, NUST', '5 years in data engineering'],
-    stats: { projects: 10, rating: 4.9, onTime: 97, responseTime: 'within 3 hours' },
-    socials: [{ id: 'linkedin', url: '#' }, { id: 'github', url: '#' }],
+    credentials: ['Certified medical billing training', '3 years in US medical billing'],
+    stats: { projects: 7, rating: 4.9, onTime: 98, responseTime: 'within 6 hours' },
+    socials: [{ id: 'linkedin', url: '#' }],
   },
 ]
 
-export const getMember = slug => TEAM.find(m => m.slug === slug)
-
-/** Same department first, then anyone — used for "others you might work with". */
-export const getRelated = (slug, count = 3) => {
-  const me = getMember(slug)
-  if (!me) return []
-  const sameDept = TEAM.filter(m => m.slug !== slug && m.dept === me.dept)
-  const rest = TEAM.filter(m => m.slug !== slug && m.dept !== me.dept)
-  return [...sameDept, ...rest].slice(0, count)
-}
+/* Looking a member up by slug, or finding who else to show beside them,
+   is done through useMember / useRelatedMembers in hooks/useSiteContent.js,
+   which read the live roster rather than this fallback copy. */
 
 export const formatRate = rate => `$${rate}`

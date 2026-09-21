@@ -1,46 +1,22 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import SectionHeader from '../components/ui/SectionHeader'
 import {
-  Code2, Palette, Brain, Smartphone, BarChart3, Cloud, Shield, Zap,
-  ArrowRight, CheckCircle2, Clock, GitBranch, HeartHandshake,
+  Zap, ArrowRight, CheckCircle2, Clock, GitBranch, HeartHandshake,
   Rocket, Lock, Headphones, Trophy,
 } from 'lucide-react'
 import { useContact } from '../context/ContactContext'
 import { ImagePlate } from '../components/ui/EditorialImage'
 import { img, TEXTURE } from '../data/imagery'
-import { COURSES, FIELDS } from '../data/courses'
 import CourseCard from '../components/ui/CourseCard'
-
-const ALL_SERVICES = [
-  { icon:Code2,     title:'Web Development',    price:'From $8,000',
-    features:['Custom React / Next.js applications','RESTful & GraphQL APIs','Database design & optimisation','Performance-first architecture','CI/CD & DevOps setup','3 months post-launch support'],
-    desc:'We architect blazing-fast, scalable web applications that set you apart from the competition.' },
-  { icon:Palette,   title:'UI/UX Design',        price:'From $5,000',
-    features:['Discovery & user research','Information architecture','High-fidelity prototypes','Design system creation','Usability testing','Figma hand-off'],
-    desc:'Award-winning interfaces that balance aesthetic beauty with conversion-focused interaction design.' },
-  { icon:Brain,     title:'AI & Machine Learning',price:'From $12,000',
-    features:['Custom model training & fine-tuning','LLM integration (GPT-4, Claude, Llama)','Predictive analytics dashboards','Computer vision pipelines','NLP & document processing','MLOps & monitoring'],
-    desc:'Intelligent systems that automate the complex and turn your data into a strategic advantage.' },
-  { icon:Smartphone,title:'Mobile Development',  price:'From $10,000',
-    features:['React Native cross-platform','Native iOS (Swift)','Native Android (Kotlin)','App Store & Play Store submission','Push notifications & deep linking','Offline-first architecture'],
-    desc:'Beautiful, performant mobile apps that users actually want to open, every single day.' },
-  { icon:BarChart3, title:'Digital Marketing',   price:'From $3,000/mo',
-    features:['SEO strategy & technical audit','Google / Meta paid campaigns','Content strategy & creation','Conversion rate optimisation','Monthly reporting dashboards','A/B testing programmes'],
-    desc:'Data-driven growth strategies that compound over time and deliver measurable ROI.' },
-  { icon:Cloud,     title:'Cloud & DevOps',       price:'From $6,000',
-    features:['AWS / GCP / Azure architecture','Kubernetes & container orchestration','Infrastructure as Code (Terraform)','Zero-downtime deployment','Security hardening','Cost optimisation'],
-    desc:'Scalable, resilient infrastructure that grows with your business without breaking the bank.' },
-  { icon:Shield,    title:'Cybersecurity',        price:'From $4,000',
-    features:['Full penetration testing','OWASP Top 10 audit','SOC 2 preparation','Vulnerability assessments','Employee security training','Incident response planning'],
-    desc:'Comprehensive security solutions that protect your assets, reputation, and customers.' },
-  { icon:Zap,       title:'Performance Audit',    price:'From $2,500',
-    features:['Core Web Vitals optimisation','Lighthouse audit & fixes','Bundle analysis & code splitting','CDN configuration','Image & asset optimisation','Monthly performance report'],
-    desc:'Sub-second load times, top Core Web Vitals scores, and users who actually stick around.' },
-]
+import { useServices, useCourses } from '../hooks/useSiteContent'
+import { iconFor } from '../lib/icons'
+import { CountWord } from '../lib/words'
 
 export default function ServicesPage() {
   const { openContact } = useContact()
+  const services = useServices()
   return (
     <>
       {/* Services grid */}
@@ -59,7 +35,7 @@ export default function ServicesPage() {
               fontFamily: 'var(--font-display)', fontSize: 'var(--step-5)', fontWeight: 500,
               lineHeight: 1.05, letterSpacing: '-0.028em', color: 'var(--text-primary)',
             }}>
-              Eight disciplines you can <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--brand)' }}>buy separately</em>
+              {CountWord(services.length)} disciplines you can <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--brand)' }}>buy separately</em>
             </h1>
             <p className="section-sub mt-4">
               Each one is a standalone engagement. Most projects combine two or three, and
@@ -68,10 +44,10 @@ export default function ServicesPage() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {ALL_SERVICES.map((s, i) => {
-              const Icon = s.icon
+            {services.map((s, i) => {
+              const Icon = iconFor(s.icon)
               return (
-                <motion.div key={s.title}
+                <motion.div key={s.slug ?? s.title}
                   initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }}
                   viewport={{ once:true, margin:'-60px' }} transition={{ delay:(i%2)*.1, duration:.6 }}
                   className="card p-8 group relative overflow-hidden"
@@ -90,7 +66,7 @@ export default function ServicesPage() {
                                  letterSpacing: '-0.015em', color: 'var(--text-primary)', marginBottom: '0.75rem' }}>{s.title}</h3>
                     <p className="text-sm leading-relaxed mb-6" style={{ color:'var(--text-secondary)' }}>{s.desc}</p>
                     <div className="grid grid-cols-2 gap-2 mb-6">
-                      {s.features.map(f => (
+                      {(s.features ?? []).map(f => (
                         <div key={f} className="flex items-start gap-2">
                           <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 shrink-0 text-accent" />
                           <span className="text-xs" style={{ color:'var(--text-secondary)' }}>{f}</span>
@@ -241,15 +217,25 @@ function GuaranteeSection() {
   )
 }
 
-/* ─── COURSES SECTION ──────────────────────────────────────────────
-   Replaces the old tech-stack grid. A logo wall said nothing a client
-   could act on; this offers something they can actually sign up for. */
+/* ─── COURSES TEASER ───────────────────────────────────────────────
+   The catalogue itself lives on /courses now. This keeps the teaching side
+   in the story of the services page, and keeps the old /services#courses
+   anchor landing on something that makes sense. */
 function CoursesSection() {
   const ref = React.useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const [field, setField] = React.useState('All')
+  const courses = useCourses()
 
-  const shown = field === 'All' ? COURSES : COURSES.filter(c => c.field === field)
+  /* One per field, so the strip shows the range rather than the first four
+     courses in the catalogue's own order. */
+  const sample = React.useMemo(() => {
+    const seen = new Set()
+    return courses.filter(c => {
+      if (seen.has(c.field)) return false
+      seen.add(c.field)
+      return true
+    }).slice(0, 4)
+  }, [courses])
 
   return (
     <section id="courses" ref={ref} className="section" style={{ background: 'var(--bg)' }}>
@@ -258,36 +244,25 @@ function CoursesSection() {
           num="04"
           label="Courses"
           title={[{ t: 'We also ' }, { t: 'teach this work', em: true }]}
-          subtitle={`${COURSES.length} courses, three months each, with the full month by month plan published before you pay. Written so a complete beginner can follow it.`}
+          subtitle={`${courses.length} three-month mentored courses, each with its month-by-month plan published before you pay. Written so a complete beginner can follow it.`}
+          action={{ to: '/courses', label: 'All courses' }}
           inView={inView}
           className="mb-10"
         />
 
-        {/* The whole catalogue lives here rather than on a page of its own,
-            so the filter has to carry the browsing that a separate index
-            page used to. */}
-        <div className="flex flex-wrap gap-x-6 gap-y-2 mb-10 pb-4"
-          style={{ borderBottom: '1px solid var(--divider)' }}>
-          {FIELDS.map(f => (
-            <button key={f} onClick={() => setField(f)} className="eyebrow tap"
-              style={{
-                color: field === f ? 'var(--text-primary)' : 'var(--text-muted)',
-                borderBottom: field === f ? '1px solid var(--brand)' : '1px solid transparent',
-                paddingBottom: '0.3rem',
-              }}>
-              {f}
-            </button>
-          ))}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {sample.map((c, i) => <CourseCard key={c.slug} c={c} i={i} />)}
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {shown.map((c, i) => <CourseCard key={c.slug} c={c} i={i} />)}
+        <div className="course-cta" style={{ marginTop: '2.5rem' }}>
+          <p className="text-sm" style={{ color: 'var(--text-muted)', maxWidth: '58ch' }}>
+            Not sure which one fits? The course finder asks seven questions and names the
+            three worth your time, with the reason for each.
+          </p>
+          <Link to="/courses" className="btn btn-primary micro-click">
+            Find my three <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
-
-        <p className="mt-10 text-sm" style={{ color: 'var(--text-muted)', maxWidth: '58ch' }}>
-          Not sure which one fits? Tell us what you want to be doing in a year and we will
-          say which course gets you there, including when the answer is none of them.
-        </p>
       </div>
     </section>
   )

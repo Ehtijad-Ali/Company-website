@@ -183,7 +183,11 @@ export default function Hero({ layered = false }) {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const copyY = useTransform(scrollYProgress, [0, 1], [0, 90])
   const termY = useTransform(scrollYProgress, [0, 1], [0, -50])
-  const fade  = useTransform(scrollYProgress, [0, 0.85], [1, 0.25])
+  /* Layered, the fade belongs to HeroSequence: this section is sticky, so
+     its own progress freezes the moment it pins and would leave the copy
+     stranded half-dimmed over the frames. Standalone, it still fades here. */
+  const ownFade = useTransform(scrollYProgress, [0, 0.85], [1, 0.25])
+  const fade = layered ? undefined : ownFade
 
   return (
     <section id="home" ref={ref} className="relative min-h-screen flex flex-col overflow-hidden"

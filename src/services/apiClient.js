@@ -63,6 +63,43 @@ export const apiClient = {
     }
   },
 
+  // Editable site content (team, services, portfolio, posts, courses,
+  // about, contact). Reads are public; every write needs an admin token.
+  content: {
+    async all() {
+      return apiClient.request('/content')
+    },
+    async section(key) {
+      return apiClient.request(`/content/${key}`)
+    },
+    async replace(key, data, token) {
+      return apiClient.request(`/content/${key}`, {
+        method: 'PUT',
+        body: JSON.stringify({ data }),
+      }, token)
+    },
+    async addItem(key, item, token) {
+      return apiClient.request(`/content/${key}/items`, {
+        method: 'POST',
+        body: JSON.stringify({ item }),
+      }, token)
+    },
+    async updateItem(key, id, item, token) {
+      return apiClient.request(`/content/${key}/items/${encodeURIComponent(id)}`, {
+        method: 'PUT',
+        body: JSON.stringify({ item }),
+      }, token)
+    },
+    async deleteItem(key, id, token) {
+      return apiClient.request(`/content/${key}/items/${encodeURIComponent(id)}`, {
+        method: 'DELETE',
+      }, token)
+    },
+    async reset(key, token) {
+      return apiClient.request(`/content/${key}/reset`, { method: 'POST' }, token)
+    },
+  },
+
   // Auth endpoints
   auth: {
     async me(token) {

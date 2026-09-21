@@ -12,6 +12,11 @@ from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 
+from content import (
+    ContentError, add_item, delete_item, init_content, read_all,
+    read_section, reset_section, update_item, write_section,
+)
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -82,7 +87,7 @@ paid media, content), cybersecurity (penetration testing, audits, SOC 2 and ISO 
 27001 compliance), and performance engineering (Core Web Vitals, caching).
 
 ## Facts you may state
-- The studio was founded in 2025 and is deliberately small: 12 people, all based in Pakistan, working remotely.
+- The studio was founded in 2025 and is deliberately small: 10 people, all based in Pakistan, working remotely.
 - Budgets start at $2,000 for targeted projects and scale with scope.
 - Pricing is fixed-price for well-scoped work, time & materials for exploratory work.
 - A focused landing page takes 2-3 weeks; a full SaaS platform takes 3-6 months.
@@ -269,6 +274,10 @@ def init_db():
             cursor.execute("ALTER TABLE users ADD COLUMN is_deleted INTEGER DEFAULT 0")
         except Exception:
             pass
+
+    # Editable site content — creates the table and seeds any section that
+    # is not stored yet. Never overwrites an existing section.
+    init_content(cursor)
 
     conn.commit()
     conn.close()
@@ -782,6 +791,157 @@ def chat():
         return jsonify({'message': 'Empty response from model', 'fallback': True}), 503
 
     return jsonify({'reply': reply, 'source': 'claude'}), 200
+
+
+# ── Site content ──────────────────────────────────────────────────────────
+# Reads are public and unauthenticated: this is the copy on the marketing
+# site, not user data. Every write requires an admin token, and every write
+# is recorded in admin_logs.
+
+@app.route('/api/content', methods=['GET'])
+def get_content():
+    """Every editable section in one response.
+
+    One request rather than seven: the home page alone renders four of
+    these sections, and a round trip each would cost more than the payload.
+    """
+    try:
+        conn = get_db()
+        content, updated = read_all(conn)
+        conn.close()
+        return jsonify({'content': content, 'updated': updated}), 200
+    except Exception as e:
+        logging.exception('Failed to read site content')
+        return jsonify({'message': str(e)}), 500
+
+
+@app.route('/api/content/<key>', methods=['GET'])
+def get_content_section(key):
+    """One section, for anything that only needs the roster or the courses."""
+    try:
+        conn = get_db()
+        value = read_section(conn, key)
+        conn.close()
+        if value is None:
+            return jsonify({'message': f'No content stored for "{key}"'}), 404
+        return jsonify({'key': key, 'data': value}), 200
+    except ContentError as e:
+        return jsonify({'message': e.message}), e.status
+    except Exception as e:
+        logging.exception('Failed to read content section %s', key)
+        return jsonify({'message': str(e)}), 500
+
+
+@app.route('/api/content/<key>', methods=['PUT'])
+@token_required
+@admin_required
+def put_content_section(key):
+    """Replace a whole section (admin only)."""
+    data = request.get_json(silent=True) or {}
+    if 'data' not in data:
+        return jsonify({'message': 'Request body needs a "data" field'}), 400
+
+    conn = None
+    try:
+        conn = get_db()
+        value = write_section(conn, key, data['data'], request.user_id)
+        return jsonify({'key': key, 'data': value}), 200
+    except ContentError as e:
+        return jsonify({'message': e.message}), e.status
+    except Exception as e:
+        logging.exception('Failed to write content section %s', key)
+        return jsonify({'message': str(e)}), 500
+    finally:
+        if conn:
+            conn.close()
+
+
+@app.route('/api/content/<key>/items', methods=['POST'])
+@token_required
+@admin_required
+def post_content_item(key):
+    """Add one record to a collection (admin only)."""
+    data = request.get_json(silent=True) or {}
+    if not isinstance(data.get('item'), dict):
+        return jsonify({'message': 'Request body needs an "item" object'}), 400
+
+    conn = None
+    try:
+        conn = get_db()
+        item = add_item(conn, key, data['item'], request.user_id)
+        return jsonify({'key': key, 'item': item}), 201
+    except ContentError as e:
+        return jsonify({'message': e.message}), e.status
+    except Exception as e:
+        logging.exception('Failed to add item to %s', key)
+        return jsonify({'message': str(e)}), 500
+    finally:
+        if conn:
+            conn.close()
+
+
+@app.route('/api/content/<key>/items/<item_id>', methods=['PUT'])
+@token_required
+@admin_required
+def put_content_item(key, item_id):
+    """Replace one record in a collection (admin only)."""
+    data = request.get_json(silent=True) or {}
+    if not isinstance(data.get('item'), dict):
+        return jsonify({'message': 'Request body needs an "item" object'}), 400
+
+    conn = None
+    try:
+        conn = get_db()
+        item = update_item(conn, key, item_id, data['item'], request.user_id)
+        return jsonify({'key': key, 'item': item}), 200
+    except ContentError as e:
+        return jsonify({'message': e.message}), e.status
+    except Exception as e:
+        logging.exception('Failed to update %s/%s', key, item_id)
+        return jsonify({'message': str(e)}), 500
+    finally:
+        if conn:
+            conn.close()
+
+
+@app.route('/api/content/<key>/items/<item_id>', methods=['DELETE'])
+@token_required
+@admin_required
+def delete_content_item(key, item_id):
+    """Remove one record from a collection (admin only)."""
+    conn = None
+    try:
+        conn = get_db()
+        remaining = delete_item(conn, key, item_id, request.user_id)
+        return jsonify({'key': key, 'count': len(remaining)}), 200
+    except ContentError as e:
+        return jsonify({'message': e.message}), e.status
+    except Exception as e:
+        logging.exception('Failed to delete %s/%s', key, item_id)
+        return jsonify({'message': str(e)}), 500
+    finally:
+        if conn:
+            conn.close()
+
+
+@app.route('/api/content/<key>/reset', methods=['POST'])
+@token_required
+@admin_required
+def post_content_reset(key):
+    """Restore a section to the copy that shipped with the build."""
+    conn = None
+    try:
+        conn = get_db()
+        value = reset_section(conn, key, request.user_id)
+        return jsonify({'key': key, 'data': value}), 200
+    except ContentError as e:
+        return jsonify({'message': e.message}), e.status
+    except Exception as e:
+        logging.exception('Failed to reset %s', key)
+        return jsonify({'message': str(e)}), 500
+    finally:
+        if conn:
+            conn.close()
 
 
 # Health check
