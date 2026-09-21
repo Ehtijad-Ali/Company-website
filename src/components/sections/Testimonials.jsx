@@ -118,7 +118,10 @@ export default function Testimonials() {
           {/* No box: the quote sits on the section ground, and the one
               hairline between the two columns does the work the card
               outline used to. */}
-          <div className="grid lg:grid-cols-[1fr_300px]">
+          {/* `grid-cols-1` is minmax(0, 1fr): the bare `grid` track sized to
+              min-content, so the dot row pushed the column 20px past a
+              phone's edge and cut the next arrow off. */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px]">
 
             {/* Left — quote */}
             <div className="flex flex-col justify-between lg:pr-10">
@@ -207,9 +210,12 @@ export default function Testimonials() {
                         key={i} onClick={() => setActive(i)}
                         aria-label={`Go to testimonial ${i + 1}`}
                         aria-current={i === active}
-                        className="flex items-center justify-center"
+                        /* 44px wide each, six dots plus two arrows came to
+                           ~390px — wider than a phone's content box. They
+                           narrow to 28px under sm and keep the 44px height. */
+                        className="flex items-center justify-center min-w-[28px] sm:min-w-[44px]"
                         style={{
-                          minWidth: 44, height: 44, background: 'none',
+                          height: 44, background: 'none',
                           border: 'none', cursor: 'pointer', padding: 0,
                         }}
                       >
@@ -276,13 +282,15 @@ export default function Testimonials() {
         <motion.div
           initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: .5, duration: .6 }}
-          className="flex flex-wrap items-center justify-center gap-8 mb-10"
+          /* A 2x2 on phones: left to wrap, the four figures broke one,
+             one, two and read as leftovers. Desktop keeps the single row. */
+          className="grid grid-cols-2 gap-x-4 gap-y-5 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-8 mb-10"
           style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '1.25rem 0' }}
         >
           {['projects', 'satisfaction', 'rating', 'countries'].map(k => ({
             value: format(k), label: METRICS[k].label,
           })).map(({ value, label }, i) => (
-            <div key={label} className="flex items-center gap-2">
+            <div key={label} className="flex flex-col items-center text-center gap-1 sm:flex-row sm:gap-2">
               <span className="tnum text-lg" style={{ fontFamily: 'var(--font-display)', fontWeight: 500, color: 'var(--text-primary)' }}>{value}</span>
               <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>{label}</span>
             </div>

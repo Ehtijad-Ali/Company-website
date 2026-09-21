@@ -27,8 +27,10 @@ function Opening() {
   ]
 
   return (
-    <section className="section pt-36" style={{ background: 'var(--bg-surface)', paddingBottom: '4rem' }}>
-      <div className="container">
+    <section className="section pt-36 relative" style={{ background: 'var(--bg-surface)', paddingBottom: '4rem', overflow: 'hidden' }}>
+      {/* The Contact hero's ground, so every page opens in the same room. */}
+      <ImagePlate src={img(TEXTURE.stucco, 1600, 900)} />
+      <div className="container relative" style={{ zIndex: 1 }}>
         <motion.p
           initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: E }}

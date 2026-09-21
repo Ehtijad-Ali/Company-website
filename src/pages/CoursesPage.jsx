@@ -39,7 +39,8 @@ function Opening({ page, count }) {
 
   return (
     <section className="section pt-36 pb-0 relative" style={{ background: 'var(--bg)', overflow: 'hidden' }}>
-      <ImagePlate src={img(TEXTURE.sandstone, 1600, 900)} />
+      {/* The Contact hero's ground, so every page opens in the same room. */}
+      <ImagePlate src={img(TEXTURE.stucco, 1600, 900)} />
 
       <div className="container relative" style={{ zIndex: 1 }}>
         <motion.div

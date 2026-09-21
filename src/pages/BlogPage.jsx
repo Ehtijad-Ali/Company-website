@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useRef } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
+import PageHero, { Em } from '../components/ui/PageHero'
 import { Link } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight, Clock } from 'lucide-react'
 import SectionHeader from '../components/ui/SectionHeader'
@@ -128,33 +129,22 @@ export default function BlogPage() {
 
   return (
     <>
-      <section className="section pt-36" style={{ background: 'var(--bg-surface)', paddingBottom: '3.5rem' }}>
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: E }}
-            className="mb-10"
-          >
-            <p className="eyebrow mb-3">
-              <span style={{ color: 'var(--brand)' }}>01</span>
-              <span style={{ margin: '0 0.6rem', opacity: 0.4 }}>/</span>Journal
-            </p>
-            <h1 style={{
-              fontFamily: 'var(--font-display)', fontSize: 'var(--step-5)', fontWeight: 500,
-              lineHeight: 1.05, letterSpacing: '-0.028em', color: 'var(--text-primary)',
-            }}>
-              What we learned <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--brand)' }}>building it</em>
-            </h1>
-            <p className="section-sub mt-4">
-              Field notes from live engagements: the decisions, the trade-offs, and
-              the things we would do differently. Written by the people who did the work.
-            </p>
-          </motion.div>
+      <PageHero
+        label="Journal"
+        title={<>What we learned <Em>building it</Em></>}
+        sub={<>Field notes from live engagements: the decisions, the trade-offs, and
+          the things we would do differently. Written by the people who did the work.</>}
+      />
 
-          {/* An editor can delete every post; the page should thin out
-              rather than throw. */}
-          {featured && <FeaturedPost post={featured} />}
-        </div>
-      </section>
+      {/* An editor can delete every post; the page should thin out rather
+          than throw — and drop the whole band, not leave an empty one. */}
+      {featured && (
+        <section className="section" style={{ background: 'var(--bg-surface)', paddingBottom: '3.5rem' }}>
+          <div className="container">
+            <FeaturedPost post={featured} />
+          </div>
+        </section>
+      )}
 
       <section ref={ref} className="section" style={{ background: 'var(--bg)', paddingTop: '3.5rem' }}>
         <div className="container">

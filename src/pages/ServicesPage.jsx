@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
+import PageHero, { Em } from '../components/ui/PageHero'
 import SectionHeader from '../components/ui/SectionHeader'
 import {
   Zap, ArrowRight, CheckCircle2, Clock, GitBranch, HeartHandshake,
@@ -19,30 +20,16 @@ export default function ServicesPage() {
   const services = useServices()
   return (
     <>
-      {/* Services grid */}
-      <section className="section pt-36 relative" style={{ background:'var(--bg-surface)', overflow:'hidden' }}>
-        {/* Clay behind the page opener, so the eight-discipline list
-            below lands on warmth rather than a flat panel. */}
-        <ImagePlate src={img(TEXTURE.clay, 1600, 900)} />
-        <div className="container relative" style={{ zIndex: 1 }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} className="mb-12">
-            <p className="eyebrow mb-3">
-              <span style={{ color: 'var(--brand)' }}>01</span>
-              <span style={{ margin: '0 0.6rem', opacity: 0.4 }}>/</span>Services
-            </p>
-            <h1 style={{
-              fontFamily: 'var(--font-display)', fontSize: 'var(--step-5)', fontWeight: 500,
-              lineHeight: 1.05, letterSpacing: '-0.028em', color: 'var(--text-primary)',
-            }}>
-              {CountWord(services.length)} disciplines you can <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--brand)' }}>buy separately</em>
-            </h1>
-            <p className="section-sub mt-4">
-              Each one is a standalone engagement. Most projects combine two or three, and
-              we'll tell you which after a discovery call, including when the answer is "fewer".
-            </p>
-          </motion.div>
+      <PageHero
+        label="Services"
+        title={<>{CountWord(services.length)} disciplines you can <Em>buy separately</Em></>}
+        sub={<>Each one is a standalone engagement. Most projects combine two or three, and
+          we'll tell you which after a discovery call, including when the answer is "fewer".</>}
+      />
 
+      {/* Services grid */}
+      <section className="section" style={{ background:'var(--bg-surface)' }}>
+        <div className="container">
           <div className="grid md:grid-cols-2 gap-6">
             {services.map((s, i) => {
               const Icon = iconFor(s.icon)
