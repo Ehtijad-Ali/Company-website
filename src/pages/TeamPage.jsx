@@ -1,5 +1,6 @@
 ﻿import React, { useRef, useState, useMemo } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
+import PageHero, { Em } from '../components/ui/PageHero'
 import { ArrowRight, ArrowUpRight, Globe2, Clock, Zap, Heart, MapPin, SlidersHorizontal } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { formatRate } from '../data/team'
@@ -100,26 +101,15 @@ export default function TeamPage() {
 
   return (
     <>
-      <section className="section pt-36" style={{ background: 'var(--bg-surface)' }}>
+      <PageHero
+        label="Team"
+        title={<>Hire the <Em>individual</Em>, not just the agency</>}
+        sub={<>Every person here can be engaged directly, by the hour, for a sprint, or embedded in your team.
+          {' '}{openNow} available now, from {formatRate(lowestRate)}/hr.</>}
+      />
+
+      <section className="section" style={{ background: 'var(--bg-surface)' }}>
         <div className="container">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
-            className="mb-10">
-            <p className="eyebrow mb-3">
-              <span style={{ color: 'var(--brand)' }}>01</span>
-              <span style={{ margin: '0 0.6rem', opacity: 0.4 }}>/</span>Team
-            </p>
-            <h1 style={{
-              fontFamily: 'var(--font-display)', fontSize: 'var(--step-5)', fontWeight: 500,
-              lineHeight: 1.05, letterSpacing: '-0.028em', color: 'var(--text-primary)', marginBottom: '1rem',
-            }}>
-              Hire the <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--brand)' }}>individual</em>,
-              {' '}not just the agency
-            </h1>
-            <p className="section-sub">
-              Every person here can be engaged directly, by the hour, for a sprint, or embedded in your team.
-              {' '}{openNow} available now, from {formatRate(lowestRate)}/hr.
-            </p>
-          </motion.div>
 
           {/* Filters */}
           <div className="flex flex-wrap items-end justify-between gap-4 mb-8"

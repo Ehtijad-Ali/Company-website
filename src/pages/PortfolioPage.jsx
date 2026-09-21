@@ -1,5 +1,6 @@
 ﻿import React, { useState, useRef, useMemo } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
+import PageHero, { Em } from '../components/ui/PageHero'
 import SectionHeader from '../components/ui/SectionHeader'
 import { format } from '../data/metrics'
 import { useProjects, useProjectCats } from '../hooks/useSiteContent'
@@ -16,17 +17,15 @@ export default function PortfolioPage() {
 
   return (
     <>
+      <PageHero
+        label="Portfolio"
+        title={<>Work we can <Em>point at</Em></>}
+        sub="Selected engagements across fintech, health, e-commerce and SaaS, each with the outcome it was measured on."
+      />
+
       {/* Grid */}
-      <section className="section pt-36" style={{ background:'var(--bg-surface)' }}>
+      <section className="section" style={{ background:'var(--bg-surface)' }}>
         <div className="container">
-          <SectionHeader
-            num="01"
-            label="Portfolio"
-            title={[{ t: 'Work we can ' }, { t: 'point at', em: true }]}
-            subtitle="Selected engagements across fintech, health, e-commerce and SaaS, each with the outcome it was measured on."
-            as="h1"
-            className="mb-12"
-          />
 
           {/* Filter */}
           <div className="flex flex-wrap gap-2 mb-10">

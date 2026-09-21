@@ -3,6 +3,8 @@ import { useParams, Link, Navigate } from 'react-router-dom'
 import Seo from '../components/Seo'
 import { SITE, absUrl } from '../data/site'
 import { motion } from 'framer-motion'
+import { ImagePlate } from '../components/ui/EditorialImage'
+import { img, TEXTURE } from '../data/imagery'
 import { ArrowLeft, MapPin, Clock, Briefcase, CalendarCheck, ArrowUpRight, Award, Languages } from 'lucide-react'
 import { formatRate } from '../data/team'
 import { useMember, useRelatedMembers } from '../hooks/useSiteContent'
@@ -78,8 +80,10 @@ export default function MemberProfilePage() {
           worksFor: { '@type': 'Organization', name: SITE.name, url: SITE.url },
         }}
       />
-      <section className="section pt-36" style={{ background: 'var(--bg-surface)', paddingBottom: '3rem' }}>
-        <div className="container">
+      <section className="section pt-36 relative" style={{ background: 'var(--bg-surface)', paddingBottom: '3rem', overflow: 'hidden' }}>
+        {/* The Contact hero's ground, so every page opens in the same room. */}
+        <ImagePlate src={img(TEXTURE.stucco, 1600, 900)} />
+        <div className="container relative" style={{ zIndex: 1 }}>
           <Link to="/team" className="inline-flex items-center gap-2 mb-8 eyebrow"
             style={{ color: 'var(--text-secondary)' }}>
             <ArrowLeft className="w-3.5 h-3.5" /> All team

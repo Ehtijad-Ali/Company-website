@@ -2019,10 +2019,29 @@ html.dark .hero-seq__veil {
   .hero-seq__aside-row { grid-template-columns: repeat(2, min(240px, 27vw)); }
   .hero-seq__plate-line { font-size: clamp(1.25rem, 2.4vw, 1.9rem); }
 }
-/* Below this the figure fills the frame edge to edge and there are no
-   margins left to write in, so the columns stand down entirely. */
+/* Phones. The figure fills the frame edge to edge, so there are no side
+   margins to write in — the plates move to the bands above and below it
+   instead: I and II under the navbar, III and IV along the bottom, still
+   two a side. The bottom padding keeps IV clear of the chat button. */
 @media (max-width: 767px) {
-  .hero-seq__aside { display: none; }
+  .hero-seq__aside {
+    align-items: stretch;
+    padding: 6.5rem 0 6.25rem;
+  }
+  .hero-seq__aside-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: space-between;
+    column-gap: 1rem;
+    row-gap: 0;
+    height: 100%;
+  }
+  .hero-seq__plate-label {
+    font-size: 0.52rem;
+    letter-spacing: 0.2em;
+    padding-bottom: 0.55rem;
+    margin-bottom: 0.55rem;
+  }
+  .hero-seq__plate-line { font-size: clamp(1.05rem, 4.6vw, 1.3rem); }
 }
 
 /* The hero holds until its bottom edge is on screen (phones), then stays
