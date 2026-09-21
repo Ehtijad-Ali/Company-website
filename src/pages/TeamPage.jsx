@@ -2,7 +2,8 @@
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { ArrowRight, ArrowUpRight, Globe2, Clock, Zap, Heart, MapPin, SlidersHorizontal } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { TEAM, DEPTS, formatRate } from '../data/team'
+import { formatRate } from '../data/team'
+import { useTeam, useDepts } from '../hooks/useSiteContent'
 import { AvailabilityBadge, Rating } from '../components/team/MemberBits'
 import { avatarFallback } from '../lib/avatar'
 
@@ -60,7 +61,7 @@ const MemberCard = React.forwardRef(function MemberCard({ m, i }, ref) {
           <span className="inline-flex items-center gap-1.5">
             <MapPin className="w-3 h-3" /> {m.location}
           </span>
-          <Rating value={m.stats.rating} />
+          <Rating value={m.stats?.rating} />
         </div>
 
         <div className="flex items-center justify-between gap-2"
@@ -77,6 +78,8 @@ const MemberCard = React.forwardRef(function MemberCard({ m, i }, ref) {
 })
 
 export default function TeamPage() {
+  const TEAM = useTeam()
+  const DEPTS = useDepts()
   const [dept, setDept] = useState('All')
   const [sort, setSort] = useState('featured')
 
@@ -85,13 +88,15 @@ export default function TeamPage() {
     switch (sort) {
       case 'rate-asc':  return list.sort((a, b) => a.rate - b.rate)
       case 'rate-desc': return list.sort((a, b) => b.rate - a.rate)
-      case 'rating':    return list.sort((a, b) => b.stats.rating - a.stats.rating)
+      case 'rating':    return list.sort((a, b) => (b.stats?.rating ?? 0) - (a.stats?.rating ?? 0))
       default:          return list
     }
-  }, [dept, sort])
+  }, [TEAM, dept, sort])
 
   const openNow = TEAM.filter(m => m.availability === 'available').length
-  const lowestRate = Math.min(...TEAM.map(m => m.rate))
+  /* Math.min() of nothing is Infinity — guard so an empty roster cannot
+     render "from $Infinity" while the API is unreachable. */
+  const lowestRate = TEAM.length ? Math.min(...TEAM.map(m => m.rate)) : 0
 
   return (
     <>

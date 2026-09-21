@@ -19,7 +19,7 @@ export const METRICS = {
   satisfaction:  { value: 98,  suffix: '%',  label: 'Client satisfaction',
                    desc: "Measured post-delivery across every engagement we've shipped." },
   avgExperience: { value: 3,   suffix: '+',  label: 'Avg. years per specialist',
-                   desc: 'Nine specialists, two to five years each in their own field.' },
+                   desc: 'Ten specialists, three to five years each in their own field.' },
   rating:        { value: 4.9, suffix: '★', decimals: 1, label: 'Average rating',
                    desc: 'Collected directly from clients after each engagement.' },
   countries:     { value: 9,   suffix: '+',  label: 'Countries served' },
@@ -32,7 +32,7 @@ export const METRICS = {
  * timeline, the facts strip, the story copy — derives from these.
  */
 export const FOUNDED = 2025
-export const TEAM_SIZE = 9
+export const TEAM_SIZE = 10
 
 /** "24+", "$50", "4.9★" — one formatter so every surface renders alike. */
 export const format = key => {

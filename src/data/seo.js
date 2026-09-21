@@ -48,9 +48,9 @@ export const ROUTE_META = {
   },
 
   '/services': {
-    title: 'Services and courses',
+    title: 'Services',
     description:
-      'Web and mobile development, AI and machine learning, UI/UX, cloud and DevOps — plus three-month mentored courses for people starting out.',
+      'Web and mobile development, AI and machine learning, UI/UX design, cloud and DevOps, security and performance — eight disciplines you can buy separately.',
   },
 
   '/portfolio': {
@@ -69,6 +69,11 @@ export const ROUTE_META = {
     description: 'Experience, rates and availability for a CodeNode specialist.',
   },
 
+  '/courses': {
+    title: 'Courses',
+    description:
+      'Twelve three-month mentored courses, from web development to AI, taught by people who do the work. Answer seven questions and we will tell you which three are yours.',
+  },
   '/courses/:slug': {
     title: 'Course',
     description:

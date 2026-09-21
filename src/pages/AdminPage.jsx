@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext'
 import { Trash2, Shield, ShieldOff, Loader, AlertCircle, LogOut } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { apiClient } from '../services/apiClient'
+import ContentManager from '../components/admin/ContentManager'
 
 export default function AdminPanel() {
   const [users, setUsers] = useState([])
@@ -127,9 +128,24 @@ export default function AdminPanel() {
           >
             Interview Requests ({interviews.length})
           </button>
+          <button
+            onClick={() => setActiveTab('content')}
+            className="px-4 py-3 font-medium text-sm transition-colors"
+            style={{
+              color: activeTab === 'content' ? 'var(--primary)' : 'var(--text-secondary)',
+              borderBottom: activeTab === 'content' ? `2px solid var(--primary)` : 'none',
+              marginBottom: '-1px'
+            }}
+          >
+            Site Content
+          </button>
         </div>
 
-        {loading ? (
+        {/* Content has its own loading and error handling, and does not
+            depend on the user/log/interview fetches above. */}
+        {activeTab === 'content' && <ContentManager />}
+
+        {activeTab !== 'content' && (loading ? (
           <div className="flex items-center justify-center py-12">
             <Loader className="w-6 h-6 animate-spin" style={{ color: 'var(--primary)' }} />
           </div>
@@ -260,7 +276,7 @@ export default function AdminPanel() {
               </div>
             )}
           </>
-        )}
+        ))}
       </div>
     </div>
   )

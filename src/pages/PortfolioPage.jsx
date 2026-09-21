@@ -1,54 +1,18 @@
-﻿import React, { useState, useRef } from 'react'
+﻿import React, { useState, useRef, useMemo } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import SectionHeader from '../components/ui/SectionHeader'
 import { format } from '../data/metrics'
+import { useProjects, useProjectCats } from '../hooks/useSiteContent'
+import { projectsByYear } from '../data/portfolio'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, Github, ExternalLink, ArrowRight, MessageSquare, Layers, Rocket } from 'lucide-react'
 
-const ALL_PROJECTS = [
-  { title:'NeuroCommerce', cat:'AI/ML',    year:'2026', client:'RetailMax Corp',
-    desc:'AI-powered e-commerce platform with real-time personalisation and predictive inventory. Increased revenue by 58%.',
-    img:'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&h=600&fit=crop',
-    tags:['React','TensorFlow','Node.js','PostgreSQL'], featured:true },
-  { title:'HealthPulse',   cat:'Mobile',   year:'2026', client:'WellPath Inc',
-    desc:'Cross-platform health monitoring app with ML-driven biometric insights and wearable device sync.',
-    img:'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&h=600&fit=crop',
-    tags:['React Native','Python','FastAPI'] },
-  { title:'Aether CRM',    cat:'SaaS',     year:'2026', client:'SalesForce Pro',
-    desc:'Next-gen CRM featuring an AI sales assistant, automated pipeline management, and predictive close rates.',
-    img:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=600&fit=crop',
-    tags:['Next.js','PostgreSQL','Redis'] },
-  { title:'MetaVerse Hub', cat:'Web3',     year:'2025', client:'MetaSpace DAO',
-    desc:'Immersive 3D virtual workspace with WebXR presence and on-chain identity/ownership layer.',
-    img:'https://images.unsplash.com/photo-1614854262318-831574f15f1f?w=900&h=600&fit=crop',
-    tags:['Three.js','Solidity','WebXR'], featured:true },
-  { title:'FlowDesk',      cat:'SaaS',     year:'2025', client:'Notion Alternative',
-    desc:'Real-time collaborative design tool built in the browser. Live cursors, conflict resolution, export engine.',
-    img:'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=900&h=600&fit=crop',
-    tags:['WebSockets','Canvas API','React'] },
-  { title:'SkyAnalytics',  cat:'AI/ML',    year:'2025', client:'AgriTech Global',
-    desc:'Satellite imagery analysis platform powering crop yield predictions and precision agriculture at scale.',
-    img:'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&h=600&fit=crop',
-    tags:['PyTorch','GIS','FastAPI'] },
-  { title:'PayFlow',       cat:'FinTech',  year:'2025', client:'NeoBank',
-    desc:'Real-time payment processing platform with sub-100ms transaction times and a full audit trail.',
-    img:'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=900&h=600&fit=crop',
-    tags:['Node.js','Kafka','PostgreSQL'] },
-  { title:'EduSpace',      cat:'EdTech',   year:'2025', client:'LearnerLab',
-    desc:'Adaptive learning platform with AI tutor, live collaboration, and personalised curriculum generation.',
-    img:'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=900&h=600&fit=crop',
-    tags:['React','LangChain','AWS'] },
-  { title:'GreenTrack',    cat:'SaaS',     year:'2025', client:'EcoMetrics',
-    desc:'ESG reporting and carbon tracking platform for Fortune 500 sustainability teams.',
-    img:'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=900&h=600&fit=crop',
-    tags:['Next.js','D3.js','Prisma'] },
-]
-
-const CATS = ['All','AI/ML','SaaS','Mobile','Web3','FinTech','EdTech']
 
 export default function PortfolioPage() {
+  const projects = useProjects()
+  const cats = useProjectCats()
   const [cat, setCat] = useState('All')
-  const shown = cat === 'All' ? ALL_PROJECTS : ALL_PROJECTS.filter(p => p.cat === cat)
+  const shown = cat === 'All' ? projects : projects.filter(p => p.cat === cat)
 
   return (
     <>
@@ -66,7 +30,7 @@ export default function PortfolioPage() {
 
           {/* Filter */}
           <div className="flex flex-wrap gap-2 mb-10">
-            {CATS.map(c => (
+            {cats.map(c => (
               <button key={c} onClick={() => setCat(c)}
                 className="relative px-4 py-2 rounded-xl text-sm font-medium"
                 style={{ color: cat===c ? 'var(--accent)' : 'var(--text-secondary)' }}>
@@ -97,7 +61,7 @@ export default function PortfolioPage() {
                         <p className="font-syne font-bold text-white text-lg mb-2">{p.title}</p>
                         <p className="text-sm text-white/70 mb-3">{p.desc}</p>
                         <div className="flex flex-wrap gap-2">
-                          {p.tags.map(t => (
+                          {(p.tags ?? []).map(t => (
                             <span key={t} className="px-2 py-1 rounded-full font-mono text-[10px]"
                               style={{ background:'rgba(255,255,255,0.12)', color:'#fff', border:'1px solid rgba(255,255,255,0.2)' }}>{t}</span>
                           ))}
@@ -226,25 +190,6 @@ function ImpactMarqueeSection() {
 
 /* ── Section 2: Glowing Year Timeline ────────────────────────────────── */
 
-const TIMELINE_DATA = [
-  {
-    year: '2026',
-    projects: [
-      { title: 'NeuroCommerce', cat: 'AI/ML',  client: 'RetailMax Corp', result: '+58% revenue', img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&h=420&fit=crop' },
-      { title: 'HealthPulse',   cat: 'Mobile', client: 'WellPath Inc',   result: '120k users',   img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=700&h=420&fit=crop' },
-      { title: 'Aether CRM',    cat: 'SaaS',   client: 'SalesForce Pro', result: '40% faster pipeline', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&h=420&fit=crop' },
-    ],
-  },
-  {
-    year: '2025',
-    projects: [
-      { title: 'MetaVerse Hub', cat: 'Web3',   client: 'MetaSpace DAO',       result: '9k DAU at launch', img: 'https://images.unsplash.com/photo-1614854262318-831574f15f1f?w=700&h=420&fit=crop' },
-      { title: 'FlowDesk',      cat: 'SaaS',   client: 'Notion Alternative',  result: '4k beta signups',  img: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=700&h=420&fit=crop' },
-      { title: 'SkyAnalytics',  cat: 'AI/ML',  client: 'AgriTech Global',     result: '94% prediction accuracy', img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=700&h=420&fit=crop' },
-    ],
-  },
-]
-
 function TimelineCard({ project, i, fromRight }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
@@ -301,7 +246,10 @@ function TimelineCard({ project, i, fromRight }) {
   )
 }
 
-function YearBlock({ group, yi }) {
+/* The group count is passed in rather than read from module scope: the
+   groups are derived from live content now, so a block cannot know how
+   many there are unless it is told. */
+function YearBlock({ group, yi, total }) {
   const dotRef = useRef(null)
   const dotInView = useInView(dotRef, { once: true, margin: '-40px' })
 
@@ -324,7 +272,7 @@ function YearBlock({ group, yi }) {
           }}
         />
         {/* Line */}
-        {yi < TIMELINE_DATA.length - 1 && (
+        {yi < total - 1 && (
           <motion.div
             initial={{ scaleY: 0, originY: 0 }}
             animate={dotInView ? { scaleY: 1 } : {}}
@@ -339,7 +287,7 @@ function YearBlock({ group, yi }) {
       </div>
 
       {/* Right: year label + cards */}
-      <div style={{ flex: 1, paddingBottom: yi < TIMELINE_DATA.length - 1 ? '3.5rem' : 0 }}>
+      <div style={{ flex: 1, paddingBottom: yi < total - 1 ? '3.5rem' : 0 }}>
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={dotInView ? { opacity: 1, x: 0 } : {}}
@@ -367,6 +315,8 @@ function YearBlock({ group, yi }) {
 function ProjectTimeline() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
+  const projects = useProjects()
+  const years = useMemo(() => projectsByYear(projects), [projects])
 
   return (
     <section ref={ref} className="section" style={{ background: 'var(--bg-surface)', borderTop: '1px solid var(--border)' }}>
@@ -384,8 +334,8 @@ function ProjectTimeline() {
 
         {/* Timeline blocks */}
         <div>
-          {TIMELINE_DATA.map((group, yi) => (
-            <YearBlock key={group.year} group={group} yi={yi} />
+          {years.map((group, yi) => (
+            <YearBlock key={group.year} group={group} yi={yi} total={years.length} />
           ))}
         </div>
 

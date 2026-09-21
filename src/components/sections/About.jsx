@@ -6,33 +6,16 @@ import SectionHeader from '../ui/SectionHeader'
 import { ClipBackground } from '../ui/EditorialImage'
 import studioClip from '../../logo/video.mp4'
 import { format } from '../../data/metrics'
+import { useAbout } from '../../hooks/useSiteContent'
 import { E } from '../../lib/motion'
-
-/**
- * Commitments, not adjectives. Each line names something a client could hold
- * us to, which is the point of the list — "innovation-first" and
- * "world-class engineering" were unfalsifiable and said nothing.
- */
-const PILLARS = [
-  { n: '01', title: 'One team, no handoffs',      text: 'The people who design it are the people who build it.' },
-  { n: '02', title: 'Milestones up front',        text: "You know what lands when, before we start." },
-  { n: '03', title: 'Performance is a budget',    text: 'Core Web Vitals are set at kickoff, not measured at the end.' },
-  { n: '04', title: 'You own everything',         text: 'IP assignment in every contract. No exceptions.' },
-  { n: '05', title: '30-day warranty',            text: 'Every launch. Retainers after, if you want them.' },
-  { n: '06', title: "We'll tell you when we disagree", text: 'Including when the simpler, cheaper option is the right one.' },
-]
 
 /**
  * The manifesto panel used to repeat the hero headline word for word. Saying
  * the same sentence twice on one page halves the weight of both, so this now
  * carries the operating principle behind the headline instead.
  */
-function ManifestoPanel({ inView }) {
-  const LINES = [
-    [{ t: 'Design and code' }],
-    [{ t: 'are the ' }, { t: 'same job', em: true }],
-    [{ t: 'done twice.' }],
-  ]
+function ManifestoPanel({ inView, manifesto }) {
+  const LINES = manifesto?.lines ?? []
 
   return (
     <motion.div
@@ -69,7 +52,7 @@ function ManifestoPanel({ inView }) {
       }}>
 
       <div className="flex items-center justify-between" style={{ marginBottom: '2rem', position: 'relative' }}>
-        <span className="eyebrow">Manifesto</span>
+        <span className="eyebrow">{manifesto?.eyebrow ?? 'Manifesto'}</span>
         <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--brand)' }} />
       </div>
 
@@ -126,6 +109,7 @@ function ManifestoPanel({ inView }) {
 }
 
 export default function About() {
+  const about = useAbout()
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
@@ -145,7 +129,7 @@ export default function About() {
 
         <div className="grid lg:grid-cols-[1fr_1fr] gap-8 xl:gap-14">
 
-          <ManifestoPanel inView={inView} />
+          <ManifestoPanel inView={inView} manifesto={about.manifesto} />
 
           <motion.div
             initial={{ opacity: 0, x: 30 }}
@@ -158,7 +142,7 @@ export default function About() {
             </p>
 
             <div style={{ borderTop: '1px solid var(--divider)' }}>
-              {PILLARS.map((p, i) => (
+              {(about.pillars ?? []).map((p, i) => (
                 <motion.div
                   key={p.n}
                   initial={{ opacity: 0, x: 16 }}

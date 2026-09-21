@@ -7,11 +7,11 @@ import {
   ArrowLeft, ArrowRight, Clock, BarChart2, CalendarRange,
   Check, Wrench, Star, MapPin, Users,
 } from 'lucide-react'
-import { getCourse, COURSES } from '../data/courses'
-import { getMember } from '../data/team'
+import { useCourse, useCourses, useMember, useTeam } from '../hooks/useSiteContent'
+import { useAllContent } from '../context/ContentContext'
 import { useContact } from '../context/ContactContext'
-import { ImagePlate } from '../components/ui/EditorialImage'
-import { img, TEXTURE } from '../data/imagery'
+import EditorialImage, { ImagePlate } from '../components/ui/EditorialImage'
+import { img, TEXTURE, courseImage } from '../data/imagery'
 import { E } from '../lib/motion'
 import { avatarFallback } from '../lib/avatar'
 
@@ -55,7 +55,9 @@ function MentorCard({ mentor }) {
 
       <div className="mentor-meta">
         <span><MapPin aria-hidden="true" />{mentor.location}</span>
-        <span><Star aria-hidden="true" />{mentor.stats.rating.toFixed(1)}</span>
+        {typeof mentor.stats?.rating === 'number' && (
+          <span><Star aria-hidden="true" />{mentor.stats.rating.toFixed(1)}</span>
+        )}
         <span><Users aria-hidden="true" />{mentor.years} yrs</span>
       </div>
 
@@ -91,7 +93,7 @@ function MonthBlock({ m, i }) {
       <p className="month-focus">{m.focus}</p>
 
       <ul className="month-topics">
-        {m.topics.map(t => (
+        {(m.topics ?? []).map(t => (
           <li key={t}><Check aria-hidden="true" /><span>{t}</span></li>
         ))}
       </ul>
@@ -106,13 +108,23 @@ function MonthBlock({ m, i }) {
 
 export default function CourseDetailPage() {
   const { slug } = useParams()
-  const course = getCourse(slug)
+  const course = useCourse(slug)
+  const courses = useCourses()
+  /* Every hook runs before the bail-out below, so the order stays stable
+     whether or not the course was found. */
+  const mentor = useMember(course?.mentor)
+  const team = useTeam()
+  const { status } = useAllContent()
   const { openContact } = useContact()
 
-  if (!course) return <Navigate to="/404" replace />
+  /* A course added through the admin is not in the bundled catalogue, so an
+     unknown slug is only unknown once the content request has settled. */
+  if (!course) {
+    if (status === 'loading') return <div style={{ minHeight: '70vh' }} aria-busy="true" />
+    return <Navigate to="/404" replace />
+  }
 
-  const mentor = getMember(course.mentor)
-  const others = COURSES.filter(c => c.slug !== slug && c.field === course.field).slice(0, 3)
+  const others = courses.filter(c => c.slug !== slug && c.field === course.field).slice(0, 3)
 
   return (
     <>
@@ -145,7 +157,7 @@ export default function CourseDetailPage() {
         <ImagePlate src={img(TEXTURE.stucco, 1600, 900)} />
 
         <div className="container relative" style={{ zIndex: 1 }}>
-          <Link to="/services#courses" className="tap inline-flex items-center gap-2 eyebrow mb-8"
+          <Link to="/courses" className="tap inline-flex items-center gap-2 eyebrow mb-8"
             style={{ color: 'var(--text-muted)' }}>
             <ArrowLeft style={{ width: 13, height: 13 }} /> All courses
           </Link>
@@ -185,6 +197,16 @@ export default function CourseDetailPage() {
 
             <MentorCard mentor={mentor} />
           </motion.div>
+
+          <EditorialImage
+            src={courseImage(course, 1600, 700)}
+            alt=""
+            ratio="21 / 9"
+            parallax={7}
+            eyebrow={course.field}
+            caption={`${course.duration}, ${course.commitment.toLowerCase()}, starting from ${course.level.toLowerCase()}.`}
+            className="pb-4"
+          />
         </div>
       </section>
 
@@ -226,7 +248,7 @@ export default function CourseDetailPage() {
           </p>
 
           <div className="month-grid">
-            {course.months.map((m, i) => <MonthBlock key={m.n} m={m} i={i} />)}
+            {(course.months ?? []).map((m, i) => <MonthBlock key={m.n} m={m} i={i} />)}
           </div>
 
           {/* Closing ask */}
@@ -255,7 +277,7 @@ export default function CourseDetailPage() {
             <p className="eyebrow mb-6">Others in {course.field}</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {others.map(c => {
-                const m = getMember(c.mentor)
+                const m = team.find(p => p.slug === c.mentor)
                 return (
                   <Link key={c.slug} to={`/courses/${c.slug}`} className="card"
                     style={{ padding: '1.35rem' }}>

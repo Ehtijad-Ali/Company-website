@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { ThemeProvider } from './context/ThemeContext'
 import { ContactProvider } from './context/ContactContext'
+import { ContentProvider } from './context/ContentContext'
 import { AuthProvider } from './context/AuthContext'
 import CustomCursor    from './components/CustomCursor'
 import ScrollProgress  from './components/ScrollProgress'
@@ -29,6 +30,7 @@ const ServicesPage      = lazy(() => import('./pages/ServicesPage'))
 const PortfolioPage     = lazy(() => import('./pages/PortfolioPage'))
 const TeamPage          = lazy(() => import('./pages/TeamPage'))
 const MemberProfilePage = lazy(() => import('./pages/MemberProfilePage'))
+const CoursesPage       = lazy(() => import('./pages/CoursesPage'))
 const CourseDetailPage  = lazy(() => import('./pages/CourseDetailPage'))
 const ContactPage       = lazy(() => import('./pages/ContactPage'))
 const BlogPage          = lazy(() => import('./pages/BlogPage'))
@@ -122,6 +124,7 @@ function AppContent() {
               <Route path="/portfolio" element={<PortfolioPage />} />
               <Route path="/team"       element={<TeamPage />} />
               <Route path="/team/:slug" element={<MemberProfilePage />} />
+              <Route path="/courses"       element={<CoursesPage />} />
               <Route path="/courses/:slug" element={<CourseDetailPage />} />
               <Route path="/blog"      element={<BlogPage />} />
               <Route path="/privacy"   element={<PrivacyPage />} />
@@ -148,9 +151,11 @@ export default function App() {
     <ThemeProvider>
       <BrowserRouter>
         <AuthProvider>
-          <ContactProvider>
-            <AppContent />
-          </ContactProvider>
+          <ContentProvider>
+            <ContactProvider>
+              <AppContent />
+            </ContactProvider>
+          </ContentProvider>
         </AuthProvider>
       </BrowserRouter>
     </ThemeProvider>

@@ -7,66 +7,21 @@ import SectionHeader from '../components/ui/SectionHeader'
 import EditorialImage, { ImagePlate } from '../components/ui/EditorialImage'
 import { img, STUDIO, TEXTURE } from '../data/imagery'
 import { METRICS, format, FOUNDED, TEAM_SIZE } from '../data/metrics'
-import { TEAM } from '../data/team'
+import { useAbout, useTeam } from '../hooks/useSiteContent'
+import { iconFor } from '../lib/icons'
 import { E } from '../lib/motion'
 
 
-/* The founder's note is signed by whoever actually holds the role in the
-   roster — it previously credited an "Alex Chen" who appears nowhere else. */
-const FOUNDER = TEAM.find(m => m.role.includes('Founder')) ?? TEAM[0]
-
-/**
- * Timeline for a studio founded in 2025 — roughly eighteen months of history,
- * so these are quarters rather than years. Keep it honest: a short list of
- * real decisions reads better than a padded decade.
- */
-const MILESTONES = [
-  { year: 'Q1 2025', title: 'Four people, one rule',
-    event: 'Founded on a simple constraint: never take on more work than the founders can personally review.' },
-  { year: 'Q2 2025', title: 'First platform build',
-    event: 'A logistics client took a chance on a three-month-old studio. It shipped on time and they came back.' },
-  { year: 'Q3 2025', title: 'Design and engineering merge',
-    event: 'Stopped running them as separate practices. Every engagement since has had one team and no handoff.' },
-  { year: 'Q4 2025', title: 'The first refusal',
-    event: 'Turned down our largest enquiry to date because we could not staff it without hiring people we had not worked with.' },
-  { year: 'Q1 2026', title: 'AI practice opens',
-    event: 'First production ML systems shipped, for clients in fintech and logistics.' },
-  { year: 'Q2 2026', title: 'Individually bookable',
-    event: 'Opened the roster so clients can engage a single specialist by the hour, not just a whole project team.' },
-]
-
-const PRINCIPLES = [
-  { n: '01', title: 'Craft over speed',
-    desc: "We do not ship things we are not prepared to put our names on. When a deadline and the quality bar collide, we renegotiate the deadline, and we tell you early enough that it is still a choice." },
-  { n: '02', title: 'Radical transparency',
-    desc: 'You see the same board we do. Blockers surface the day they appear, not in a status call two weeks later. If we are behind, you will hear it from us first.' },
-  { n: '03', title: 'Outcomes, not outputs',
-    desc: 'We measure engagements by what changed in your business, not by tickets closed or hours logged. Occasionally that means arguing you out of the thing you asked for.' },
-  { n: '04', title: 'Always learning',
-    desc: 'A fifth of every quarter is protected for R&D and upskilling. It is the reason we can still recommend the boring, proven option with a straight face.' },
-]
-
-const CULTURE = [
-  { icon: Globe2,       value: '100%',  label: 'Remote-first',      desc: 'A distributed team across six Pakistani cities, async-first, no mandatory 9-to-5.' },
-  { icon: FlaskConical, value: '20%',   label: 'R&D every quarter', desc: 'Protected time each quarter for experimentation and learning.' },
-  { icon: Zap,          value: '<48h',  label: 'Decision speed',    desc: 'Flat structure, no approval chains. The right person decides, fast.' },
-  { icon: Heart,        value: '4.9/5', label: 'Team satisfaction', desc: 'Measured twice a year. We publish the result either way.' },
-]
-
-const BELIEFS = [
-  'Great code is read far more often than it is written.',
-  'Design without engineering constraints is decoration.',
-  'The best feature is the one you choose not to build.',
-  'Slow is smooth. Smooth is fast.',
-  'Every bug is a process failure, not a person failure.',
-  'Ship early, iterate publicly, improve relentlessly.',
-]
-
 /* ── 01 · Opening statement ─────────────────────────────────────────── */
 function Opening() {
+  const about = useAbout()
+  /* Headcount comes from the roster itself rather than metrics.TEAM_SIZE:
+     adding someone in the admin should change this line the same day, not
+     at the next deploy. */
+  const teamSize = useTeam().length || TEAM_SIZE
   const facts = [
     ['Founded', FOUNDED],
-    ['Team', `${TEAM_SIZE} people`],
+    ['Team', `${teamSize} people`],
     ['Clients in', `${format('countries')} countries`],
     ['Projects', format('projects')],
   ]
@@ -87,10 +42,7 @@ function Opening() {
             No width cap here: the reveal wrapper's overflow:hidden clips on
             both axes, so a narrow container silently truncates the glyphs. */}
         <div>
-          {[
-            [{ t: 'We stayed ' }, { t: 'small', em: true }],
-            [{ t: 'on purpose.' }],
-          ].map((line, i) => (
+          {(about.opening?.headline ?? []).map((line, i) => (
             <div key={i} style={{ overflow: 'hidden' }}>
               <motion.h1
                 initial={{ y: '104%' }} animate={{ y: 0 }}
@@ -116,9 +68,7 @@ function Opening() {
           className="section-sub"
           style={{ marginTop: '2rem', fontSize: '1.125rem', maxWidth: '52ch' }}
         >
-          Most studios grow until the people who won the work are no longer the
-          people doing it. We decided not to, which is why there are still
-          {' '}{TEAM_SIZE} of us, and why you will meet everyone who touches your project.
+          {(about.opening?.intro ?? '').replace('{teamSize}', teamSize)}
         </motion.p>
 
         <motion.div
@@ -144,6 +94,8 @@ function Opening() {
 
 /* ── 02 · The story ─────────────────────────────────────────────────── */
 function Story() {
+  const { story = {}, milestones = [] } = useAbout()
+  const paragraphs = story.paragraphs ?? []
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
@@ -166,7 +118,7 @@ function Story() {
           ratio="21 / 9"
           parallax={7}
           eyebrow="Founded 2025"
-          caption="Small enough that everyone knows what everyone else shipped this week."
+          caption={story.caption}
           className="mb-14"
         />
 
@@ -176,19 +128,10 @@ function Story() {
             transition={{ duration: 0.7, ease: E }}
             className="dropcap prose-measure"
           >
-            <p>
-              CodeNode began in 2025 with a frustration our founders kept running
-              into from the client side: agencies that promised premium work and
-              delivered something average, wrapped in an expensive presentation. The
-              people in the pitch were rarely the people who showed up afterwards.
-            </p>
-            <p>
-              They had spent their careers at companies where design and engineering
-              sat in different buildings and shipped through a translation layer,
-              and had watched what that costs in revisions, misunderstandings and
-              quietly abandoned detail. So the studio was built with one team from
-              the start. The person who draws it is the person who builds it.
-            </p>
+            {/* The quote is set after the second paragraph, so the prose
+                is rendered in two runs around it. Both runs are siblings in
+                this div, so the keys have to be unique across both. */}
+            {paragraphs.slice(0, 2).map((p, i) => <p key={`p${i}`}>{p}</p>)}
 
             <motion.blockquote
               initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
@@ -196,21 +139,10 @@ function Story() {
               className="pull-quote"
               style={{ margin: '2.5rem 0' }}
             >
-              Growth was never the goal. Being the studio we would have hired was.
+              {story.quote}
             </motion.blockquote>
 
-            <p>
-              That constraint shapes everything downstream. We deliberately take on
-              fewer engagements than we could fill, because every one is reviewed by
-              someone senior end to end. We turn work down when we cannot staff it
-              properly. And we say so early when a plan stops being the right one,
-              which is not always the comfortable conversation.
-            </p>
-            <p>
-              We are early, and we would rather say so than pretend otherwise. What
-              has not moved since day one is the thing we are obsessive about: making
-              things that genuinely work, and that hold up two years after launch.
-            </p>
+            {paragraphs.slice(2).map((p, i) => <p key={`p${i + 2}`}>{p}</p>)}
 
             <Link to="/contact" className="btn btn-primary micro-click" style={{ marginTop: '2rem' }}>
               Start a project <ArrowRight className="w-4 h-4" />
@@ -228,13 +160,13 @@ function Story() {
                 position: 'absolute', left: '2.65rem', top: '0.6rem', bottom: '0.6rem',
                 width: 1, background: 'var(--divider)',
               }} />
-              {MILESTONES.map((m, i) => (
+              {milestones.map((m, i) => (
                 <motion.div
                   key={m.year}
                   initial={{ opacity: 0, x: 14 }} animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.3 + i * 0.08, duration: 0.5, ease: E }}
                   className="flex gap-5"
-                  style={{ paddingBottom: i < MILESTONES.length - 1 ? '1.75rem' : 0 }}
+                  style={{ paddingBottom: i < milestones.length - 1 ? '1.75rem' : 0 }}
                 >
                   <span className="tnum shrink-0" style={{
                     fontFamily: 'var(--font-display)', fontSize: '1.0625rem', fontWeight: 500,
@@ -266,6 +198,7 @@ function Story() {
 
 /* ── 03 · Principles ────────────────────────────────────────────────── */
 function Principles() {
+  const { principles = [] } = useAbout()
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
@@ -281,7 +214,7 @@ function Principles() {
         />
 
         <div style={{ borderTop: '1px solid var(--divider)' }}>
-          {PRINCIPLES.map((p, i) => (
+          {principles.map((p, i) => (
             <motion.div
               key={p.n}
               initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -312,6 +245,11 @@ function Principles() {
 
 /* ── 05 · Culture ───────────────────────────────────────────────────── */
 function Culture() {
+  const { culture = [], beliefs = [], founderNote } = useAbout()
+  const team = useTeam()
+  /* Signed by whoever actually holds the role in the roster — the note
+     previously credited an "Alex Chen" who appeared nowhere else. */
+  const founder = team.find(m => m.role?.includes('Founder')) ?? team[0]
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
@@ -332,7 +270,9 @@ function Culture() {
             impact stats use on the home page, so the two read as one idea
             rather than two ways of showing four numbers. */}
         <div className="stat-row mb-14">
-          {CULTURE.map(({ icon: Icon, value, label, desc }, i) => (
+          {culture.map(({ icon, value, label, desc }, i) => {
+            const Icon = iconFor(icon)
+            return (
             <motion.div
               key={label}
               initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -351,7 +291,8 @@ function Culture() {
               <p className="stat-label eyebrow">{label}</p>
               <p className="stat-desc" style={{ fontSize: '0.8125rem', lineHeight: 1.7, color: 'var(--text-secondary)' }}>{desc}</p>
             </motion.div>
-          ))}
+            )
+          })}
         </div>
 
         <div className="grid lg:grid-cols-[1fr_1fr] gap-8">
@@ -365,22 +306,20 @@ function Culture() {
             <div>
               <p className="eyebrow mb-6">Founder's note</p>
               <blockquote className="pull-quote" style={{ marginBottom: '2rem' }}>
-                We didn't set out to build the biggest studio. We set out to build the
-                one we would have hired: obsessive about craft, honest about
-                timelines, allergic to mediocrity.
+                {founderNote}
               </blockquote>
             </div>
 
-            <Link to={`/team/${FOUNDER.slug}`} className="flex items-center gap-3.5">
-              <img src={FOUNDER.img} alt="" style={{
+            <Link to={`/team/${founder?.slug ?? ''}`} className="flex items-center gap-3.5">
+              <img src={founder?.img} alt="" style={{
                 width: 42, height: 42, borderRadius: '50%',
                 objectFit: 'cover', objectPosition: 'top',
               }} />
               <div>
                 <p style={{ fontFamily: 'var(--font-display)', fontWeight: 500, fontSize: '0.9375rem', color: 'var(--text-primary)' }}>
-                  {FOUNDER.name}
+                  {founder?.name}
                 </p>
-                <p className="eyebrow" style={{ fontSize: '0.625rem', marginTop: '0.15rem' }}>{FOUNDER.role}</p>
+                <p className="eyebrow" style={{ fontSize: '0.625rem', marginTop: '0.15rem' }}>{founder?.role}</p>
               </div>
             </Link>
           </motion.div>
@@ -392,13 +331,13 @@ function Culture() {
           >
             <p className="eyebrow mb-5">Things we actually believe</p>
             <div>
-              {BELIEFS.map((b, i) => (
+              {beliefs.map((b, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: 14 }} animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.35 + i * 0.06, duration: 0.45, ease: E }}
                   className="flex items-baseline gap-4"
-                  style={{ padding: '0.875rem 0', borderBottom: i < BELIEFS.length - 1 ? '1px solid var(--divider)' : 'none' }}
+                  style={{ padding: '0.875rem 0', borderBottom: i < beliefs.length - 1 ? '1px solid var(--divider)' : 'none' }}
                 >
                   <span className="eyebrow shrink-0" style={{ width: '1.5rem', fontSize: '0.625rem' }}>
                     {String(i + 1).padStart(2, '0')}

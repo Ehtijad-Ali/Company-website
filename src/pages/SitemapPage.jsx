@@ -19,7 +19,7 @@ const SITEMAP = [
     pages: [
       { icon: Briefcase,  label: 'Services',   path: '/services',  desc: 'The full scope of what we offer, from web development to AI/ML to cybersecurity.' },
       { icon: FolderOpen, label: 'Portfolio',  path: '/portfolio', desc: 'Selected case studies, project outcomes, and the impact we have delivered for clients.' },
-      { icon: GraduationCap, label: 'Courses', path: '/services#courses', desc: 'Three-month mentored courses, each with its month-by-month plan published before you pay.' },
+      { icon: GraduationCap, label: 'Courses', path: '/courses', desc: 'Three-month mentored courses, each with its month-by-month plan published before you pay.' },
     ],
   },
   {

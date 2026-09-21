@@ -4,7 +4,9 @@ import Seo from '../components/Seo'
 import { SITE, absUrl } from '../data/site'
 import { motion } from 'framer-motion'
 import { ArrowLeft, MapPin, Clock, Briefcase, CalendarCheck, ArrowUpRight, Award, Languages } from 'lucide-react'
-import { getMember, getRelated, formatRate } from '../data/team'
+import { formatRate } from '../data/team'
+import { useMember, useRelatedMembers } from '../hooks/useSiteContent'
+import { useAllContent } from '../context/ContentContext'
 import { AvailabilityBadge, Rating, SkillLevel, SocialLinks } from '../components/team/MemberBits'
 import InterviewModal from '../components/InterviewModal'
 import { E } from '../lib/motion'
@@ -36,15 +38,24 @@ function Stat({ label, value }) {
 
 export default function MemberProfilePage() {
   const { slug } = useParams()
-  const member = getMember(slug)
+  const member = useMember(slug)
+  /* Both hooks run on every render, including the ones where the member is
+     not found — bailing out before them would change the hook order. */
+  const related = useRelatedMembers(slug)
+  const { status } = useAllContent()
   const [hiring, setHiring] = useState(false)
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }) }, [slug])
 
-  // Unknown slug: send them to the roster rather than a dead end.
-  if (!member) return <Navigate to="/team" replace />
+  /* Someone added through the admin is not in the bundled roster, so an
+     unknown slug is only really unknown once the content request has
+     settled. Redirecting before then would bounce a valid profile. */
+  if (!member) {
+    if (status === 'loading') return <div style={{ minHeight: '70vh' }} aria-busy="true" />
+    // Unknown slug: send them to the roster rather than a dead end.
+    return <Navigate to="/team" replace />
+  }
 
-  const related = getRelated(slug)
   const bookable = member.availability !== 'booked'
 
   return (
@@ -119,7 +130,7 @@ export default function MemberProfilePage() {
                 <span className="inline-flex items-center gap-1.5" style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>
                   <Briefcase className="w-3.5 h-3.5" style={{ color: 'var(--text-muted)' }} /> {member.years} yrs experience
                 </span>
-                <Rating value={member.stats.rating} count={member.stats.projects} />
+                <Rating value={member.stats?.rating} count={member.stats?.projects} />
                 <SocialLinks socials={member.socials} />
               </div>
             </div>
@@ -141,7 +152,7 @@ export default function MemberProfilePage() {
             <div>
               <SectionHeading num="02">Skills</SectionHeading>
               <div className="grid sm:grid-cols-2 gap-x-10 gap-y-4">
-                {member.skills.map(s => (
+                {(member.skills ?? []).map(s => (
                   <div key={s.name} className="flex items-center justify-between gap-4"
                     style={{ paddingBottom: '0.625rem', borderBottom: '1px solid var(--divider)' }}>
                     <span style={{ fontSize: '0.875rem', color: 'var(--text-primary)' }}>{s.name}</span>
@@ -154,7 +165,7 @@ export default function MemberProfilePage() {
             <div>
               <SectionHeading num="03">Selected work</SectionHeading>
               <div className="flex flex-col gap-3">
-                {member.portfolio.map(p => (
+                {(member.portfolio ?? []).map(p => (
                   <div key={p.title} className="card" style={{ padding: '1.25rem 1.375rem' }}>
                     <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
                       <h3 style={{
@@ -179,7 +190,7 @@ export default function MemberProfilePage() {
                   <h3 className="eyebrow" style={{ color: 'var(--text-primary)' }}>Credentials</h3>
                 </div>
                 <ul className="flex flex-col gap-2.5">
-                  {member.credentials.map(c => (
+                  {(member.credentials ?? []).map(c => (
                     <li key={c} className="flex items-start gap-2.5" style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
                       <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--brand)', marginTop: 8, flexShrink: 0 }} />
                       {c}
@@ -194,7 +205,7 @@ export default function MemberProfilePage() {
                   <h3 className="eyebrow" style={{ color: 'var(--text-primary)' }}>Languages</h3>
                 </div>
                 <ul className="flex flex-col gap-2.5">
-                  {member.languages.map(l => (
+                  {(member.languages ?? []).map(l => (
                     <li key={l.name} className="flex items-center justify-between gap-4"
                       style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
                       <span>{l.name}</span>
@@ -237,16 +248,16 @@ export default function MemberProfilePage() {
               </div>
               <div className="flex items-center justify-between gap-3">
                 <span style={{ color: 'var(--text-muted)' }}>Replies</span>
-                <span style={{ color: 'var(--text-primary)' }}>{member.stats.responseTime}</span>
+                <span style={{ color: 'var(--text-primary)' }}>{member.stats?.responseTime}</span>
               </div>
             </div>
 
             <hr className="rule" style={{ margin: '1.25rem 0' }} />
 
             <div className="grid grid-cols-3 gap-3 mb-5">
-              <Stat label="Projects" value={member.stats.projects} />
-              <Stat label="Rating"   value={member.stats.rating.toFixed(1)} />
-              <Stat label="On time"  value={`${member.stats.onTime}%`} />
+              <Stat label="Projects" value={member.stats?.projects ?? '—'} />
+              <Stat label="Rating"   value={typeof member.stats?.rating === 'number' ? member.stats.rating.toFixed(1) : '—'} />
+              <Stat label="On time"  value={member.stats?.onTime != null ? `${member.stats.onTime}%` : '—'} />
             </div>
 
             <button

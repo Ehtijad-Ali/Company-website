@@ -3,47 +3,16 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight, Clock } from 'lucide-react'
 import SectionHeader from '../components/ui/SectionHeader'
-import { TEAM } from '../data/team'
+import { usePosts, usePostCats, useTeam } from '../hooks/useSiteContent'
 import { E } from '../lib/motion'
 
-/**
- * Posts carry an author *slug*, not a loose name string, so every byline
- * resolves to a real roster profile and can't drift out of sync with it.
- */
-const POSTS = [
-  { slug: 'saas-architecture', title: 'The architecture behind our busiest build yet',
-    cat: 'Engineering', date: 'Jun 2026', read: 8, author: 'ehtijad-ali', featured: true,
-    excerpt: 'The infrastructure decisions behind a platform that went from zero to real traffic in one release cycle, including the two we would make differently now.',
-    img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=700&fit=crop' },
-  { slug: 'llm-fine-tuning', title: 'Why LLM fine-tuning is overrated',
-    cat: 'AI/ML', date: 'Jun 2026', read: 6, author: 'faiza-rehmat',
-    excerpt: "When prompting, RAG and a large context window solve 80% of use cases, fine-tuning is an expensive answer to a question nobody asked.",
-    img: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&h=500&fit=crop' },
-  { slug: 'design-systems-cost', title: 'The real cost of design systems',
-    cat: 'Design', date: 'May 2026', read: 5, author: 'almeen-zahra',
-    excerpt: "A design system is a bet on the future. Here's how to work out whether the bet is worth making before you spend a quarter on it.",
-    img: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=500&fit=crop' },
-  { slug: 'core-web-vitals', title: 'Core Web Vitals: from 45 to 98 in three weeks',
-    cat: 'Performance', date: 'May 2026', read: 7, author: 'faila-abbas',
-    excerpt: 'A step-by-step account of diagnosing and removing every performance bottleneck in a legacy Next.js application.',
-    img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop' },
-  { slug: 'mobile-retention', title: 'Mobile retention: the metrics that actually matter',
-    cat: 'Growth', date: 'Apr 2026', read: 4, author: 'kiran',
-    excerpt: "D1, D7 and D30 are table stakes. These are the leading indicators that predict churn before it shows up in them.",
-    img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=500&fit=crop' },
-  { slug: '3d-on-the-web', title: "3D on the web: what's worth using",
-    cat: 'Engineering', date: 'Apr 2026', read: 9, author: 'faila-abbas',
-    excerpt: 'Three.js, WebGPU, React Three Fiber, Babylon: an opinionated guide to which are worth your time and which are hype.',
-    img: 'https://images.unsplash.com/photo-1614854262318-831574f15f1f?w=800&h=500&fit=crop' },
-]
-
-const CATS = ['All', ...new Set(POSTS.map(p => p.cat))]
-
-const authorOf = slug => TEAM.find(m => m.slug === slug)
 
 /** Byline shared by the lead and the grid cards. */
 function Byline({ post, dark = false, showAvatar = true }) {
-  const a = authorOf(post.author)
+  /* Resolved against the live roster: a post written by someone who has
+     since left the team falls back to the studio name rather than breaking
+     the card. */
+  const a = useTeam().find(m => m.slug === post.author)
   const muted = dark ? 'rgba(255,255,255,0.6)' : 'var(--text-muted)'
   const strong = dark ? '#FFFCF8' : 'var(--text-primary)'
 
@@ -145,14 +114,16 @@ const PostCard = React.forwardRef(function PostCard({ post, i }, ref) {
 })
 
 export default function BlogPage() {
+  const posts = usePosts()
+  const cats = usePostCats()
   const [cat, setCat] = useState('All')
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
-  const featured = POSTS.find(p => p.featured) ?? POSTS[0]
+  const featured = posts.find(p => p.featured) ?? posts[0]
   const rest = useMemo(
-    () => POSTS.filter(p => p !== featured && (cat === 'All' || p.cat === cat)),
-    [cat, featured]
+    () => posts.filter(p => p !== featured && (cat === 'All' || p.cat === cat)),
+    [posts, cat, featured]
   )
 
   return (
@@ -179,7 +150,9 @@ export default function BlogPage() {
             </p>
           </motion.div>
 
-          <FeaturedPost post={featured} />
+          {/* An editor can delete every post; the page should thin out
+              rather than throw. */}
+          {featured && <FeaturedPost post={featured} />}
         </div>
       </section>
 
@@ -188,7 +161,7 @@ export default function BlogPage() {
           <div className="flex flex-wrap items-end justify-between gap-4 mb-8"
             style={{ borderBottom: '1px solid var(--border)' }}>
             <div className="flex flex-wrap">
-              {CATS.map(c => (
+              {cats.map(c => (
                 <button key={c} onClick={() => setCat(c)}
                   className="relative pb-3 mr-6 eyebrow"
                   style={{

@@ -6,7 +6,7 @@ import CodeNodeLogo from '../CodeNodeLogo'
 
 const NAV = {
   Company:  [['About',     '/about'],['Team','/team'],['Portfolio','/portfolio'],['Careers','/contact'],['Blog','/blog']],
-  Services: [['Web Dev',   '/services'],['Mobile Apps','/services'],['UI/UX','/services'],['AI & ML','/services'],['Marketing','/services'],['Courses','/services#courses']],
+  Services: [['Web Dev',   '/services'],['Mobile Apps','/services'],['UI/UX','/services'],['AI & ML','/services'],['Marketing','/services'],['Courses','/courses']],
   Legal:    [['Privacy',   '/privacy'],['Terms','/terms'],['Cookies','/cookies'],['Sitemap','/sitemap']],
 }
 const SOCIALS = [[Linkedin,'LinkedIn'],[Twitter,'Twitter'],[Github,'GitHub'],[Instagram,'Instagram'],[Dribbble,'Dribbble']]

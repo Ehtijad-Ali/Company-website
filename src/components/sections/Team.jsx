@@ -2,12 +2,12 @@ import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
-import { TEAM, DEPTS, formatRate } from '../../data/team'
+import { formatRate } from '../../data/team'
+import { useTeam, useDepts } from '../../hooks/useSiteContent'
 import { AvailabilityBadge } from '../team/MemberBits'
 import { avatarFallback } from '../../lib/avatar'
 
-/* The home section shows a curated subset; /team has the full roster. */
-const FEATURED = TEAM.slice(0, 8)
+
 
 function Card({ m, i }) {
   const [hovered, setHovered] = useState(false)
@@ -76,7 +76,7 @@ function Card({ m, i }) {
             transition={{ duration: 0.3, delay: hovered ? 0.16 : 0 }}
             style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem', marginBottom: '0.75rem' }}
           >
-            {m.skills.slice(0, 3).map(s => (
+            {(m.skills ?? []).slice(0, 3).map(s => (
               <span key={s.name} style={{
                 fontFamily: 'var(--font-mono)', fontSize: '0.625rem',
                 padding: '0.2rem 0.5rem', borderRadius: 'var(--r-full)',
@@ -117,8 +117,16 @@ function Card({ m, i }) {
 }
 
 export default function Team() {
+  const team = useTeam()
+  const allDepts = useDepts()
   const [dept, setDept] = useState('All')
-  const filtered = dept === 'All' ? FEATURED : FEATURED.filter(m => m.dept === dept)
+
+  /* The home section shows a curated subset; /team has the full roster.
+     The chips are built from the people actually shown, so filtering the
+     home section can never land on an empty result. */
+  const featured = team.slice(0, 8)
+  const depts = allDepts.filter(d => d === 'All' || featured.some(m => m.dept === d))
+  const filtered = dept === 'All' ? featured : featured.filter(m => m.dept === dept)
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
@@ -147,7 +155,7 @@ export default function Team() {
           <Link to="/team"
             className="tap shrink-0 mb-2 flex items-center gap-2 text-sm"
             style={{ color: 'var(--text-secondary)' }}>
-            View all {TEAM.length}
+            View all {team.length}
             <span style={{
               width: 30, height: 30, borderRadius: 'var(--r-sm)', display: 'flex',
               alignItems: 'center', justifyContent: 'center',
@@ -164,7 +172,7 @@ export default function Team() {
           className="flex flex-wrap mb-8"
           style={{ borderBottom: '1px solid var(--border)' }}
         >
-          {DEPTS.map(d => (
+          {depts.map(d => (
             <button
               key={d}
               onClick={() => setDept(d)}

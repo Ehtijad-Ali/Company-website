@@ -19,7 +19,7 @@ export const LEVELS = ['All levels', 'Beginner', 'Some experience', 'Advanced']
 export const COURSES = [
   {
     slug: 'web-development',
-    mentor: 'faila-abbas',
+    mentor: 'hasnain-khush',
     title: 'Web Development',
     field: 'Engineering',
     level: 'Beginner',
@@ -75,7 +75,7 @@ export const COURSES = [
   },
   {
     slug: 'ai-and-data-science',
-    mentor: 'faiza-rehmat',
+    mentor: 'kiran',
     title: 'AI and Data Science',
     field: 'AI / Data',
     level: 'Some experience',
@@ -131,7 +131,7 @@ export const COURSES = [
   },
   {
     slug: 'digital-marketing',
-    mentor: 'kiran',
+    mentor: 'zeeshan-karim',
     title: 'Digital Marketing',
     field: 'Growth',
     level: 'Beginner',
@@ -187,7 +187,7 @@ export const COURSES = [
   },
   {
     slug: 'ui-ux-design',
-    mentor: 'almeen-zahra',
+    mentor: 'badar-muneem',
     title: 'UI and UX Design',
     field: 'Design',
     level: 'Beginner',
@@ -243,7 +243,7 @@ export const COURSES = [
   },
   {
     slug: 'data-analyst',
-    mentor: 'faiza-rehmat',
+    mentor: 'faila-abbas',
     title: 'Data Analyst',
     field: 'AI / Data',
     level: 'Beginner',
@@ -355,7 +355,7 @@ export const COURSES = [
   },
   {
     slug: 'wordpress',
-    mentor: 'badar-muneem',
+    mentor: 'hasnain-khush',
     title: 'WordPress',
     field: 'Engineering',
     level: 'Beginner',
@@ -411,7 +411,7 @@ export const COURSES = [
   },
   {
     slug: 'ecommerce',
-    mentor: 'kiran',
+    mentor: 'zeeshan-karim',
     title: 'E-commerce',
     field: 'Growth',
     level: 'Beginner',
@@ -467,7 +467,7 @@ export const COURSES = [
   },
   {
     slug: 'mobile-app-development',
-    mentor: 'zeeshan-ali',
+    mentor: 'hasnain-khush',
     title: 'Mobile App Development',
     field: 'Engineering',
     level: 'Some experience',
@@ -523,7 +523,7 @@ export const COURSES = [
   },
   {
     slug: 'graphic-design',
-    mentor: 'almeen-zahra',
+    mentor: 'zeeshan-ali',
     title: 'Graphic Design',
     field: 'Design',
     level: 'Beginner',
@@ -579,7 +579,7 @@ export const COURSES = [
   },
   {
     slug: 'cybersecurity',
-    mentor: 'zeeshan-karin',
+    mentor: 'sartaj-ali',
     title: 'Cybersecurity',
     field: 'Engineering',
     level: 'Some experience',
@@ -691,7 +691,6 @@ export const COURSES = [
   },
 ]
 
-export const getCourse = slug => COURSES.find(c => c.slug === slug)
-
-/** Fields, in the order the filter shows them. */
-export const FIELDS = ['All', ...Array.from(new Set(COURSES.map(c => c.field)))]
+/* useCourse and useCourseFields in hooks/useSiteContent.js are the live
+   equivalents of the lookups that used to live here — they read whatever
+   the content API is serving, not just this bundled catalogue. */

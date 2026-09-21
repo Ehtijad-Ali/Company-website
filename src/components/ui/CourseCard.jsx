@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Clock, BarChart2, ArrowUpRight } from 'lucide-react'
-import { getMember } from '../../data/team'
+import { useMember } from '../../hooks/useSiteContent'
+import { courseImage } from '../../data/imagery'
 import { E } from '../../lib/motion'
 import { avatarFallback } from '../../lib/avatar'
 
@@ -12,9 +13,13 @@ import { avatarFallback } from '../../lib/avatar'
  * Every card says the same things in the same order, because someone
  * choosing a course is comparing, and comparing is impossible when each
  * card is laid out differently.
+ *
+ * The image is not decoration: twelve text cards in a grid read as a list
+ * of headings, and a catalogue that looks like a table of contents does
+ * not look like something you pay for.
  */
 export default function CourseCard({ c, i = 0 }) {
-  const mentor = getMember(c.mentor)
+  const mentor = useMember(c.mentor)
 
   return (
     <motion.div
@@ -22,44 +27,41 @@ export default function CourseCard({ c, i = 0 }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ delay: (i % 3) * 0.06, duration: 0.5, ease: E }}
+      className="course-card"
     >
-      <Link to={`/courses/${c.slug}`} className="card flex flex-col h-full"
-        style={{ padding: '1.5rem' }}>
+      <Link to={`/courses/${c.slug}`} className="course-card__link">
 
-        <div className="flex items-center justify-between gap-3 mb-4">
-          <span className="chip" style={{ fontSize: '0.65rem' }}>{c.field}</span>
-          <ArrowUpRight style={{ width: 15, height: 15, color: 'var(--text-muted)' }} />
+        <div className="course-card__media">
+          <img
+            src={courseImage(c, 720, 460)}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            onError={e => { e.currentTarget.style.display = 'none' }}
+          />
+          <span className="chip course-card__field">{c.field}</span>
+          <span className="course-card__go"><ArrowUpRight aria-hidden="true" /></span>
         </div>
 
-        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 500,
-                     lineHeight: 1.25, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
-          {c.title}
-        </h3>
+        <div className="course-card__body">
+          <h3 className="course-card__title">{c.title}</h3>
+          <p className="course-card__blurb">{c.blurb}</p>
 
-        <p style={{ fontSize: '0.875rem', lineHeight: 1.6, color: 'var(--text-secondary)',
-                    marginBottom: '1.25rem' }}>
-          {c.blurb}
-        </p>
-
-        <div className="mt-auto pt-4 flex items-center gap-5"
-          style={{ borderTop: '1px solid var(--divider)' }}>
-          <span className="flex items-center gap-1.5 eyebrow" style={{ fontSize: '0.625rem' }}>
-            <Clock style={{ width: 12, height: 12 }} /> {c.duration}
-          </span>
-          <span className="flex items-center gap-1.5 eyebrow" style={{ fontSize: '0.625rem' }}>
-            <BarChart2 style={{ width: 12, height: 12 }} /> {c.level}
-          </span>
-        </div>
-
-        {/* Not a link of its own: this card is already one, and nesting
-            anchors is invalid. The mentor is clickable on the course page. */}
-        {mentor && (
-          <div className="course-mentor">
-            <img src={mentor.img} alt=""
-              onError={avatarFallback(mentor.name, 120)} />
-            <span>Taught by {mentor.name}</span>
+          <div className="course-card__meta">
+            <span><Clock aria-hidden="true" /> {c.duration}</span>
+            <span><BarChart2 aria-hidden="true" /> {c.level}</span>
           </div>
-        )}
+
+          {/* Not a link of its own: this card is already one, and nesting
+              anchors is invalid. The mentor is clickable on the course page. */}
+          {mentor && (
+            <div className="course-mentor">
+              <img src={mentor.img} alt=""
+                onError={avatarFallback(mentor.name, 120)} />
+              <span>Taught by {mentor.name}</span>
+            </div>
+          )}
+        </div>
       </Link>
     </motion.div>
   )

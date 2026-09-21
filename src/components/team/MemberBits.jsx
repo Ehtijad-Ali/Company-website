@@ -34,6 +34,8 @@ export function AvailabilityBadge({ status, size = 'sm' }) {
 }
 
 export function Rating({ value, count }) {
+  /* A record saved without stats should lose the rating, not the page. */
+  if (typeof value !== 'number') return null
   return (
     <span className="inline-flex items-center gap-1.5" title={`${value} out of 5 from ${count} projects`}>
       <Star className="w-3.5 h-3.5" style={{ color: 'var(--brand)', fill: 'var(--brand)' }} />
